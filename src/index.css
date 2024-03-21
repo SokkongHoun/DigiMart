@@ -10,9 +10,9 @@
 }
 :root {
   --text-color-primary: #fafafa;
-  --bg-secondary: #0a0a0a;
-  --bg-third: #5d5d5d;
+  --bg-primary: #13151a;
 }
 body {
-  background-color: #262626;
+  background-color: var(--bg-primary);
+  color: var(--text-color-primary);
 }
