@@ -1,106 +1,92 @@
 import React from "react";
-import { Card } from "flowbite-react";
-
-const HomepageContents = () => {
-  return (
-    <>
-      <a href="#">
-        <p className="text-sm sm:text-lg font-light tracking-tight text-custom dark:text-white">
-          Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-        </p>
-      </a>
-      <div className="mb-5 mt-2.5 flex items-center">
-        <svg
-          className="h-5 w-5 text-yellow-300"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-        <svg
-          className="h-5 w-5 text-yellow-300"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-        <svg
-          className="h-5 w-5 text-yellow-300"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-        <svg
-          className="h-5 w-5 text-yellow-300"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-        <svg
-          className="h-5 w-5 text-yellow-300"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-        <span className="ml-3 mr-2 rounded bg-cyan-100 px-2.5 py-0.5 text-xs font-semibold text-cyan-800 dark:bg-cyan-200 dark:text-cyan-800">
-          5.0
-        </span>
-      </div>
-      <div className="flex items-center justify-between">
-        <span className="text-xs sm:text-lg font-bold text-custom dark:text-white">
-          $599
-        </span>
-        <a
-          href="#"
-          className="rounded-lg bg-cyan-700 px-5 py-1 sm:py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800"
-        >
-          cart
-        </a>
-      </div>
-    </>
-  );
-};
+import "../styles/Navbar.css";
 
 const Homepage = () => {
+  function imageSliders() {
+    const slidePhotos = [
+      "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/Rectangle_936.jpg?v=1699443407&width=720",
+      "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/Rectangle_937.jpg?v=1699451166&width=720",
+      "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/Rectangle_7.jpg?v=1699443407&width=720",
+      "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/Rectangle_933.jpg?v=1699443409&width=720",
+    ];
+    const mapSlidePhoto = slidePhotos.map((img, index) => {
+      return <img key={index} className=" w-full rounded-md" src={img} />;
+    });
+    return mapSlidePhoto;
+  }
   return (
-    <div className="flex flex-wrap -mx-4 gap-3 justify-center">
-      <Card
-        className="w-48 sm:w-1/3 md:w-1/3 lg:w-1/5 xl:w-1/5 mb-5 bg-custom"
-        imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-        imgSrc="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/ca79d356-421f-4a96-a823-b695f15c7a34/in-season-tr-13-workout-shoes-BDTlPf.png"
-      >
-        <HomepageContents />
-      </Card>
-      <Card
-        className="w-48 sm:w-1/3 md:w-1/3 lg:w-1/5 xl:w-1/5 mb-5 bg-custom"
-        imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-        imgSrc="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/ca79d356-421f-4a96-a823-b695f15c7a34/in-season-tr-13-workout-shoes-BDTlPf.png"
-      >
-        <HomepageContents />
-      </Card>
-      <Card
-        className="w-48 sm:w-1/3 md:w-1/3 lg:w-1/5 xl:w-1/5 mb-5 bg-custom"
-        imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-        imgSrc="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/ca79d356-421f-4a96-a823-b695f15c7a34/in-season-tr-13-workout-shoes-BDTlPf.png"
-      >
-        <HomepageContents />
-      </Card>
-      <Card
-        className="w-48 sm:w-1/3 md:w-1/3 lg:w-1/5 xl:w-1/5 mb-5 bg-custom"
-        imgAlt="Apple Watch Series 7 in colors pink, silver, and black"
-        imgSrc="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/ca79d356-421f-4a96-a823-b695f15c7a34/in-season-tr-13-workout-shoes-BDTlPf.png"
-      >
-        <HomepageContents />
-      </Card>
-    </div>
+    <main>
+      <div className="mt-20 sm:mt-30 ">
+        <div className="flex flex-col text-center items-center">
+          <p className="flex gap-1 items-center bg-black px-2 rounded-xl text-xs font-semibold mb-4 py-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              className="w-4 h-4"
+            >
+              <path
+                fillRule="evenodd"
+                d="M8 1.75a.75.75 0 0 1 .692.462l1.41 3.393 3.664.293a.75.75 0 0 1 .428 1.317l-2.791 2.39.853 3.575a.75.75 0 0 1-1.12.814L7.998 12.08l-3.135 1.915a.75.75 0 0 1-1.12-.814l.852-3.574-2.79-2.39a.75.75 0 0 1 .427-1.318l3.663-.293 1.41-3.393A.75.75 0 0 1 8 1.75Z"
+                clipRule="evenodd"
+              />
+            </svg>
+            5.00 from 144+ reviews
+          </p>
+          <h1 className="high-tech-title text-3xl font-semibold sm:text-4xl">
+            High-Tech Accessories for Innovative Realities
+          </h1>
+          <p className="elevate-title text-sm text-custom mt-4">
+            Elevate your technology experience to a whole new level with our
+            meticulously designed accessories.
+          </p>
+          <div className=" flex items-center gap-5 mt-8">
+            <button className="bg-black px-6 py-4 rounded-md text-sm cursor-pointer">
+              Shop All
+            </button>
+            <a href="#" className="text-sm cursor-pointer hover:underline">
+              See More
+            </a>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 object-contain items-end mt-8">
+          {imageSliders()}
+        </div>
+        <div className="body-content mt-20 bg-black pt-14 flex justify-center">
+          <div className="grid grid-cols-1 gap-3 lg:grid-cols-[400px,1fr] lg[min-width: 1100px]:gap-56 px-6">
+            <div className="text-section text-left mb-4">
+              <h1>Logo</h1>
+              <h1 className="text-3xl font-semibold">Watch Straps</h1>
+              <p className="product-info-paragraph py-3 text-first font-bold">
+                Classic leather to modern silicone, our range blends style and
+                durability, showcasing personal flair.
+              </p>
+              <p className="font-semibold flex gap-2">
+                <span className="cursor-pointer hover:underline">
+                  Shop Watch Straps
+                </span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  class="w-4 h-4"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </p>
+            </div>
+            <img
+              className="rounded-2xl w-auto"
+              src="https://digital-theme-minimalist.myshopify.com/cdn/shop/files/Watch_Straps.jpg?v=1699443410&width=940"
+            />
+          </div>
+        </div>
+      </div>
+    </main>
   );
 };
 

@@ -10,7 +10,7 @@
 }
 :root {
   --text-color-primary: #fafafa;
-  --bg-primary: #13151a;
+  --bg-primary: #1f1f1f;
 }
 body {
   background-color: var(--bg-primary);

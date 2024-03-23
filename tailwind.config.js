@@ -8,22 +8,18 @@ export default {
   theme: {
     extend: {
       backgroundColor: {
-        custom: "#13151a",
+        custom: "#343435",
+        secondary: "#4a4a4c",
       },
       boxShadow: {
         custom: "inset 0 0 0 1px rgba(186, 188, 243, 0.06)",
       },
       colors: {
         custom: "#fafafa",
+        first: "#8e8e8f",
+        secondary: "#4a4a4c",
       },
     },
   },
   plugins: [require("flowbite/plugin")],
 };
-
-// .glassmorphism {
-//   background: rgba(186, 188, 243, 0.06);
-//   box-shadow: inset 0 0 0 1px rgba(186, 188, 243, 0.06);
-//   border: none;
-//   color: var(--text-color-primary);
-// }
