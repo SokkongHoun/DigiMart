@@ -1,4 +1,4 @@
-import NavbarSection from "./components/Navbar";
+import NavbarSection from "./components/Navbar.jsx";
 import Homepage from "./pages/Homepage.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 

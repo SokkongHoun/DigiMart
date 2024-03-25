@@ -7,9 +7,13 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        "3xl": "1920px",
+      },
       backgroundColor: {
-        custom: "#343435",
-        secondary: "#4a4a4c",
+        custom: "#18181b",
+        secondary: "#27272a",
+        third: "#4a4a4c",
       },
       boxShadow: {
         custom: "inset 0 0 0 1px rgba(186, 188, 243, 0.06)",
