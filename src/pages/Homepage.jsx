@@ -413,7 +413,7 @@ const HomepageStorySection = () => {
     <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:max-w-screen-2xl pt-20">
       <div className="grid sm:grid-cols-1 lg:grid-cols-[500px,1fr] gap-5">
         <div>
-          <span class="material-symbols-outlined bg-black py-4 px-5 rounded-md text-first mb-5">
+          <span className="material-symbols-outlined bg-black py-4 px-5 rounded-md text-first mb-5">
             bolt
           </span>
           <h1 className="text-2xl md:text-3xl">
