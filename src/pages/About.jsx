@@ -44,8 +44,6 @@ const About = () => {
       },
     ];
 
-    let mapAboutUsDetails = "";
-
     return (
       <>
         <p className="text-xs text-first font-bold">OUR STORY</p>
@@ -54,35 +52,33 @@ const About = () => {
           Join us on this journey as we embrace the future of technology.
         </p>
         <Timeline>
-          {
-            (mapAboutUsDetails = aboutUsDetails.map((value, index) => {
-              return (
-                <Timeline.Item key={index}>
-                  <Timeline.Point />
-                  <Timeline.Content>
-                    <div className="grid sm:grid-cols-1 lg:grid-cols-[300px,1fr] gap-5">
-                      <div>
-                        <Timeline.Time>
-                          <h1 className="text-custom text-6xl font-bold">
-                            {value.year}
-                          </h1>
-                        </Timeline.Time>
-                        <Timeline.Title>
-                          <div className="text-custom mt-5">{value.title}</div>
-                        </Timeline.Title>
-                        <Timeline.Body>
-                          <p className="text-first mt-3">{value.subtitle}</p>
-                        </Timeline.Body>
-                      </div>
-                      <div>
-                        <img className="rounded-xl" src={value.imageSrc} />
-                      </div>
+          {aboutUsDetails.map((value, index) => {
+            return (
+              <Timeline.Item key={index}>
+                <Timeline.Point />
+                <Timeline.Content>
+                  <div className="grid sm:grid-cols-1 lg:grid-cols-[300px,1fr] gap-5">
+                    <div>
+                      <Timeline.Time>
+                        <h1 className="text-custom text-6xl font-bold">
+                          {value.year}
+                        </h1>
+                      </Timeline.Time>
+                      <Timeline.Title>
+                        <div className="text-custom mt-5">{value.title}</div>
+                      </Timeline.Title>
+                      <Timeline.Body>
+                        <p className="text-first mt-3">{value.subtitle}</p>
+                      </Timeline.Body>
                     </div>
-                  </Timeline.Content>
-                </Timeline.Item>
-              );
-            }))
-          }
+                    <div>
+                      <img className="rounded-xl" src={value.imageSrc} />
+                    </div>
+                  </div>
+                </Timeline.Content>
+              </Timeline.Item>
+            );
+          })}
         </Timeline>
       </>
     );
