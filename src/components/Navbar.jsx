@@ -9,77 +9,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
-const DropdownSearch = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const SearchIcon = () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      onClick={() => setIsOpen(!isOpen)}
-      className="w-6 h-6 cursor-pointer"
-    >
-      <path
-        fillRule="evenodd"
-        d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
-
-  return (
-    <>
-      <SearchIcon />
-      {isOpen && (
-        <div
-          id="dropdownSearch"
-          className="z-10 bg-custom rounded-lg shadow w-60 dark:bg-gray-700 absolute"
-          style={{ top: "110%", right: "10%" }}
-        >
-          <div className="p-3">
-            <label htmlFor="input-group-search" className="sr-only">
-              Search
-            </label>
-            <div className="relative">
-              <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                  />
-                </svg>
-              </div>
-              <input
-                type="text"
-                id="input-group-search"
-                className="block w-full bg-secondary p-2 ps-10 text-sm text-custom border  rounded-lg focus:ring-0 focus:border-gray-500   dark:text-white dark:focus:ring-0 "
-                placeholder="Search products"
-              />
-            </div>
-
-            <div>
-              <h1>Item</h1>
-              <h1>Item</h1>
-              <h1>Item</h1>
-              <h1>Item</h1>
-              <h1>Item</h1>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
-};
-
 function NavbarSection() {
   const [open, setOpen] = useState(false);
 
@@ -88,8 +17,8 @@ function NavbarSection() {
     categories: [
       // get this
       {
-        id: "Shop",
-        name: "Shop",
+        id: "Collections",
+        name: "Collections",
         featured: [
           {
             name: "New Arrivals",
@@ -150,15 +79,82 @@ function NavbarSection() {
         ],
       },
     ],
-    pages: [
-      { name: "Company", href: "/company" },
-      { name: "Stores", href: "/NotFoundPage" },
-    ],
   };
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
+
+  const DropdownSearch = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const SearchIcon = () => (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-6 h-6 cursor-pointer"
+      >
+        <path
+          fillRule="evenodd"
+          d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
+          clipRule="evenodd"
+        />
+      </svg>
+    );
+
+    return (
+      <>
+        <SearchIcon />
+        {isOpen && (
+          <div
+            id="dropdownSearch"
+            className="z-10 bg-custom rounded-lg shadow w-60 dark:bg-gray-700 absolute"
+            style={{ top: "110%", right: "10%" }}
+          >
+            <div className="p-3">
+              <label htmlFor="input-group-search" className="sr-only">
+                Search
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                  <svg
+                    className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                    />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  id="input-group-search"
+                  className="block w-full bg-secondary p-2 ps-10 text-sm text-custom border  rounded-lg focus:ring-0 focus:border-gray-500   dark:text-white dark:focus:ring-0 "
+                  placeholder="Search products"
+                />
+              </div>
+
+              <div>
+                <h1>Item</h1>
+                <h1>Item</h1>
+                <h1>Item</h1>
+                <h1>Item</h1>
+                <h1>Item</h1>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  };
 
   const MobileMenu = () => {
     return (
@@ -291,16 +287,8 @@ function NavbarSection() {
                     </Tab.Panels>
                   </Tab.Group>
                   <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                    {navigation.pages.map((page) => (
-                      <div key={page.name} className="flow-root">
-                        <Link
-                          to={page.href}
-                          className="-m-2 block p-2 font-medium text-gray-300"
-                        >
-                          {page.name}
-                        </Link>
-                      </div>
-                    ))}
+                    <div className="cursor-pointer">Shop</div>
+                    <div className="cursor-pointer">About</div>
                   </div>
 
                   <div className="space-y-6 border-t border-gray-200 px-4 py-6">
@@ -485,15 +473,14 @@ function NavbarSection() {
               </Popover>
             ))}
 
-            {navigation.pages.map((page) => (
-              <Link
-                key={page.name}
-                to={page.href}
-                className="flex items-center text-sm font-medium text-custom hover:text-gray-300"
-              >
-                {page.name}
+            <div className="flex items-center gap-8">
+              <Link to="/shop" className="cursor-pointer">
+                Shop
               </Link>
-            ))}
+              <Link to="/about" className="cursor-pointer">
+                About
+              </Link>
+            </div>
           </div>
         </Popover.Group>
       </>
@@ -564,7 +551,6 @@ function NavbarSection() {
         <p className="flex h-10 items-center justify-center bg-black px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
           Get free delivery on orders over $100
         </p>
-
         <nav
           aria-label="Top"
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-custom"

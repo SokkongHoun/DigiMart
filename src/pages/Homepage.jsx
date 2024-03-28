@@ -419,7 +419,7 @@ const HomepageStorySection = () => {
           <h1 className="text-2xl md:text-3xl">
             Discover Behind Our Tech Accessories Store
           </h1>
-          <p className="text-sm lg:text-md text-first font-semibold tracking-wide py-4">
+          <p className="text-sm md:text-base lg:text-md text-first font-semibold tracking-wide py-4">
             By harnessing digital tools and strategies, we ensure that every
             effort converges on growth, driving tangible financial outcomes and
             maximizing returns on investment.
