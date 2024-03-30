@@ -286,9 +286,13 @@ function NavbarSection() {
                       ))}
                     </Tab.Panels>
                   </Tab.Group>
-                  <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                    <div className="cursor-pointer">Shop</div>
-                    <div className="cursor-pointer">About</div>
+                  <div className="flex flex-col space-y-6 border-t border-gray-200 px-4 py-6">
+                    <Link to="/shop" className="cursor-pointer">
+                      Shop
+                    </Link>
+                    <Link to="/about" className="cursor-pointer">
+                      About
+                    </Link>
                   </div>
 
                   <div className="space-y-6 border-t border-gray-200 px-4 py-6">

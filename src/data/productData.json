@@ -1,0 +1,303 @@
+[
+  {
+    "id": 1,
+    "imgSrc": "https://cdn.shopify.com/s/files/1/0845/0257/7474/files/06-pad.jpg?v=1699505807&width=940",
+    "name": "A High-End Mouse Pad",
+    "price": 45.99,
+    "colors": ""
+  },
+  {
+    "id": 2,
+    "imgSrc": "https://cdn.shopify.com/s/files/1/0845/0257/7474/files/04-stands-color-01.jpg?v=1699433745&width=940",
+    "name": "Adjustable Stand",
+    "price": 24.99,
+    "color": ["white", "black"]
+  },
+  {
+    "id": 3,
+    "imgSrc": "https://cdn.shopify.com/s/files/1/0845/0257/7474/files/03-card-color-02.jpg?v=1699361273&width=940",
+    "name": "Cardholder Snap Case",
+    "price": 50.0,
+    "color": ["blue", "red", "orange", "black"]
+  },
+  {
+    "id": 4,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/01-card-color-03.jpg?v=1699355939&width=535",
+    "name": "CardSafe Snap-On Case",
+    "price": 45.0,
+    "colors": ["black", "blue", "red", "gray"]
+  },
+  {
+    "id": 5,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/02-bags-color-01.jpg?v=1699507659&width=535",
+    "name": "Adjustable Stand",
+    "price": 65.99,
+    "color": ["gray", "blue", "black"]
+  },
+  {
+    "id": 6,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/08-cases.jpg?v=1699438589&width=535",
+    "name": "Clasp Box Laptop Case",
+    "price": 45.99,
+    "color": []
+  },
+  {
+    "id": 7,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/01-cases-color-01.jpg?v=1700652387&width=535",
+    "name": "Classic Leather Phone Case",
+    "price": 45.0,
+    "colors": ["yellow", "green", "gray"]
+  },
+  {
+    "id": 8,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/05-straps.jpg?v=1699354373&width=535",
+    "name": "Adjustable Stand",
+    "price": 49.0,
+    "color": []
+  },
+  {
+    "id": 9,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/02-pad-color-01.jpg?v=1699447616&width=535",
+    "name": "Comfort Mouse Pad",
+    "price": 19.99,
+    "color": ["brown", "black", "blue"]
+  },
+  {
+    "id": 10,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/07-straps.jpg?v=1699354960&width=535",
+    "name": "Denim Comfort Fit Band",
+    "price": 55.0,
+    "colors": []
+  },
+  {
+    "id": 11,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/02-stands-color-01.jpg?v=1699432995&width=535",
+    "name": "Ergonomic Stand with a Secure Grip",
+    "price": 29.95,
+    "color": ["white", "black"]
+  },
+  {
+    "id": 12,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/05-pad.jpg?v=1699448082&width=535",
+    "name": "Extra Comfort Mat",
+    "price": 24.0,
+    "color": []
+  },
+  {
+    "id": 13,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/08-bags.jpg?v=1699510170&width=535",
+    "name": "Functional Laptop Bag",
+    "price": 65.0,
+    "colors": []
+  },
+  {
+    "id": 14,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/10-cases.jpg?v=1699438902&width=535",
+    "name": "Gadget Elite Case",
+    "price": 45.99,
+    "color": []
+  },
+  {
+    "id": 15,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/07-stands.jpg?v=1699435253&width=940",
+    "name": "Gadget Stand",
+    "price": 29.99,
+    "color": []
+  },
+  {
+    "id": 16,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/06-cases.jpg?v=1699437916&width=535",
+    "name": "Glide Laptop Envelope",
+    "price": 49.99,
+    "colors": []
+  },
+  {
+    "id": 17,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/02-cases-color-03.jpg?v=1699447288&width=535",
+    "name": "Hold Fast Phone Card Grip",
+    "price": 19.0,
+    "color": []
+  },
+  {
+    "id": 18,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/07-stands.jpg?v=1699435253&width=940",
+    "name": "Laptop Slim Case",
+    "price": 42.0,
+    "color": []
+  },
+  {
+    "id": 19,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/04-card-color-02.jpg?v=1699444561&width=535",
+    "name": "Leather Card Sleeve",
+    "price": 25.0,
+    "colors": ["green", "orange", "black"]
+  },
+  {
+    "id": 20,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/01-bags-color-01.jpg?v=1699507418&width=535",
+    "name": "Leather Laptop Bag",
+    "price": 19.0,
+    "color": ["black", "gray", "brown"]
+  },
+  {
+    "id": 21,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/03-cases-color-01.jpg?v=1699437527&width=535",
+    "name": "Leather Pod Case",
+    "price": 29.99,
+    "color": ["blue", "white", "brown"]
+  },
+  {
+    "id": 22,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/04-straps-color-01.jpg?v=1699354036&width=535",
+    "name": "MagnaLoop Mesh Strap",
+    "price": 59.0,
+    "colors": ["green", "orange", "black"]
+  },
+  {
+    "id": 23,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/04-cases-color-01.jpg?v=1699437696&width=535",
+    "name": "Matte Safe Clutch",
+    "price": 24.95,
+    "color": ["black", "gray", "green"]
+  },
+  {
+    "id": 24,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/03-bags-color-01.jpg?v=1699507943&width=535",
+    "name": "Minimalist Design Laptop Bag",
+    "price": 82.95,
+    "color": ["blue", "black", "gray"]
+  },
+  {
+    "id": 25,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/06-bags.jpg?v=1699508447&width=535",
+    "name": "Modern Minimalist Bag",
+    "price": 45.0,
+    "colors": []
+  },
+  {
+    "id": 26,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/09-straps.jpg?v=1699355245&width=535",
+    "name": "Pilot Edition Rally Band",
+    "price": 45.0,
+    "color": []
+  },
+  {
+    "id": 27,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/07-bags.jpg?v=1699509267&width=535",
+    "name": "Silver Sleek Case",
+    "price": 54.0,
+    "color": []
+  },
+  {
+    "id": 28,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/05-card.jpg?v=1699423293&width=535",
+    "name": "Slate Grey Card Slip",
+    "price": 35.0,
+    "colors": []
+  },
+  {
+    "id": 29,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/03-stands-color-01.jpg?v=1699433599&width=535",
+    "name": "Slate Secure Stand",
+    "price": 25.99,
+    "color": ["gray", "white", "black"]
+  },
+  {
+    "id": 30,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/05-bags.jpg?v=1699508220&width=535",
+    "name": "Sleek Commute Carrier",
+    "price": 55.0,
+    "color": []
+  },
+  {
+    "id": 31,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/07-card.jpg?v=1699439720&width=535",
+    "name": "Slide Card Caddy",
+    "price": 23.0,
+    "colors": []
+  },
+  {
+    "id": 32,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/07-pad.jpg?v=1699505985&width=535",
+    "name": "Slim and Portable Mouse Pad",
+    "price": 29.99,
+    "color": []
+  },
+  {
+    "id": 33,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/3.jpg?v=1699447793&width=535",
+    "name": "Smooth Large Pad",
+    "price": 15.99,
+    "color": ["blue", "brown", "black"]
+  },
+  {
+    "id": 37,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/01-pad-color-01.jpg?v=1699447481&width=535",
+    "name": "Tech Mat",
+    "price": 14.99,
+    "colors": ["blue", "green", "pink"]
+  },
+  {
+    "id": 38,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/01-stands-color-01.jpg?v=1699432833&width=535",
+    "name": "Tech Nest Hub",
+    "price": 24.99,
+    "color": ["gray", "black"]
+  },
+  {
+    "id": 39,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/08-stands.jpg?v=1699435514&width=535",
+    "name": "Trio Tech Display Stand",
+    "price": 39.99,
+    "color": []
+  },
+  {
+    "id": 40,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/04-pad-color-01.jpg?v=1699447927&width=535",
+    "name": "Ultra Thin Pad",
+    "price": 29.99,
+    "colors": ["gray", "brown", "black"]
+  },
+  {
+    "id": 41,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/01-straps-color-01.jpg?v=1699351024&width=535",
+    "name": "Ultrawear Sport Band",
+    "price": 39.99,
+    "color": ["blue", "gray"]
+  },
+  {
+    "id": 42,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/04-bags-color-01.jpg?v=1699508089&width=535",
+    "name": "Urban Pro Briefcase",
+    "price": 85.99,
+    "color": ["black", "blue", "gray"]
+  },
+  {
+    "id": 43,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/02-straps-color-01.jpg?v=1699352985&width=535",
+    "name": "Vintage Elegance Strap",
+    "price": 49.0,
+    "colors": ["blue", "brown"]
+  },
+  {
+    "id": 44,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/08-straps.jpg?v=1699355095&width=535",
+    "name": "Vintage Saddle Strap",
+    "price": 59.0,
+    "color": []
+  },
+  {
+    "id": 45,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/02-card-color-01.jpg?v=1699360757&width=535",
+    "name": "Wallet Phone Case",
+    "price": 45.0,
+    "color": ["blue", "gray"]
+  },
+  {
+    "id": 46,
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/03-straps-color-01.jpg?v=1699353783&width=535",
+    "name": "Woven Flex Comfort Strap",
+    "price": 40.0,
+    "colors": ["blue", "green"]
+  }
+]

@@ -1,8 +1,15 @@
 import React from "react";
 import "../styles/Homepage.css";
 import Marquee from "react-fast-marquee";
+import { useNavigate } from "react-router-dom";
 
 const BannerSection = () => {
+  const navigate = useNavigate();
+
+  function handleNavigate() {
+    navigate("/shop");
+  }
+
   return (
     <div className="flex flex-col text-center items-center bg-custom pt-20 sm:pt-32">
       <p className="flex gap-1 items-center bg-black px-2 rounded-xl text-xs font-semibold mb-4 py-1">
@@ -28,7 +35,10 @@ const BannerSection = () => {
         meticulously designed accessories.
       </p>
       <div className=" flex items-center gap-5 mt-8">
-        <button className="bg-black px-6 py-4 rounded-md text-sm cursor-pointer">
+        <button
+          className="bg-black px-6 py-4 rounded-md text-sm cursor-pointer"
+          onClick={handleNavigate}
+        >
           Shop All
         </button>
         <a href="#" className="text-sm cursor-pointer hover:underline">
@@ -228,6 +238,8 @@ const ProductSection = () => {
 };
 
 const HomepageProductSection = () => {
+  const navigate = useNavigate();
+
   const products = [
     {
       id: 1,
@@ -290,6 +302,11 @@ const HomepageProductSection = () => {
       color: "Dark Blue",
     },
   ];
+
+  function handleNavigate() {
+    navigate("/shop");
+  }
+
   const ProductLists = () => {
     return (
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:max-w-screen-2xl">
@@ -304,7 +321,10 @@ const HomepageProductSection = () => {
             </h3>
           </div>
           <div>
-            <button className="bg-black hidden min-[750px]:inline-block px-6 py-4 rounded-md text-sm cursor-pointer">
+            <button
+              className="bg-black hidden min-[750px]:inline-block px-6 py-4 rounded-md text-sm cursor-pointer"
+              onClick={handleNavigate}
+            >
               Shop All
             </button>
           </div>
