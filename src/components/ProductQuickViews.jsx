@@ -15,6 +15,7 @@ export default function ProductQuickViews({ open, setOpen, productData }) {
       : "");
 
   const [selectedColor, setSelectedColor] = useState(initialColor);
+  const [cart, setCart] = useState([]);
 
   const colorOptions = useMemo(() => {
     const colors = productData.color || productData.colors || [];
@@ -25,6 +26,12 @@ export default function ProductQuickViews({ open, setOpen, productData }) {
       selectedClass: color.selectedClass,
     }));
   }, [productData]);
+
+  const handleAddToCart = () => {
+    console.log(selectedColor.name);
+    console.log(productData.price);
+    console.log(productData.name);
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -125,7 +132,7 @@ export default function ProductQuickViews({ open, setOpen, productData }) {
                           Product options
                         </h3>
 
-                        <form>
+                        <div>
                           {/* Colors */}
                           <div>
                             <h4 className="text-sm font-medium text-gray-900">
@@ -175,12 +182,12 @@ export default function ProductQuickViews({ open, setOpen, productData }) {
                           </div>
 
                           <button
-                            type="submit"
+                            onClick={handleAddToCart}
                             className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-black px-8 py-3 text-base font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
                           >
-                            Add to bag
+                            Add to cart
                           </button>
-                        </form>
+                        </div>
                       </section>
                     </div>
                   </div>

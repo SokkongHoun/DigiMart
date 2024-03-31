@@ -8,10 +8,11 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import Cart from "./Cart";
 
 function NavbarSection() {
   const [open, setOpen] = useState(false);
-
+  const [openModal, setOpenModal] = useState(false);
   // copy the "get this" object to have another category
   const navigation = {
     categories: [
@@ -154,6 +155,10 @@ function NavbarSection() {
         )}
       </>
     );
+  };
+
+  const handleViewCarts = () => {
+    setOpenModal(true);
   };
 
   const MobileMenu = () => {
@@ -372,6 +377,7 @@ function NavbarSection() {
   const FlyOutMenu = () => {
     return (
       <>
+        <Cart openModal={openModal} setOpenModal={setOpenModal} />;
         <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
           <div className="flex h-full space-x-8 ">
             {navigation.categories.map((category) => (
@@ -537,6 +543,7 @@ function NavbarSection() {
               <ShoppingBagIcon
                 className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                 aria-hidden="true"
+                onClick={handleViewCarts}
               />
               <span className="ml-2 text-sm font-medium text-custom">0</span>
               <span className="sr-only">items in cart, view bag</span>
