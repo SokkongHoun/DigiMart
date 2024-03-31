@@ -4,14 +4,22 @@ import ProductQuickViews from "./ProductQuickViews";
 
 const Products = () => {
   const [open, setOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  function handleToggleProductViews() {
+  function handleToggleProductViews(product) {
+    setSelectedProduct(product);
     setOpen(true);
   }
   return (
     <div>
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <ProductQuickViews open={open} setOpen={setOpen} />
+        {selectedProduct && (
+          <ProductQuickViews
+            open={open}
+            setOpen={setOpen}
+            productData={selectedProduct}
+          />
+        )}
         <h2 className="text-2xl font-bold tracking-tight text-custom">
           Our Products
         </h2>
@@ -21,7 +29,7 @@ const Products = () => {
             <div
               key={product.id}
               className="group relative"
-              onClick={handleToggleProductViews}
+              onClick={() => handleToggleProductViews(product)}
             >
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-300 lg:aspect-none group-hover:opacity-75 lg:h-80">
                 <img

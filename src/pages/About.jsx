@@ -179,9 +179,12 @@ const About = () => {
       },
     ];
 
-    return questionAndanswers.map((val) => {
+    return questionAndanswers.map((val, index) => {
       return (
-        <div className="collapse collapse-arrow bg-secondary mb-2 py-3 pl-3">
+        <div
+          key={index}
+          className="collapse collapse-arrow bg-secondary mb-2 py-3 pl-3"
+        >
           <input type="radio" name="my-accordion-2" defaultChecked />
           <div className="collapse-title text-xl font-medium">{val.q}</div>
           <div className="collapse-content">
