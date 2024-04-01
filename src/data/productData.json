@@ -4,7 +4,13 @@
     "imgSrc": "https://cdn.shopify.com/s/files/1/0845/0257/7474/files/06-pad.jpg?v=1699505807&width=940",
     "name": "A High-End Mouse Pad",
     "price": 45.99,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Black",
+        "class": "bg-gray-900",
+        "selectedClass": "ring-gray-900"
+      }
+    ],
     "rating": 4.2,
     "reviewCount": 87
   },
@@ -118,7 +124,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/08-cases.jpg?v=1699438589&width=535",
     "name": "Clasp Box Laptop Case",
     "price": 45.99,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Gray",
+        "class": "bg-gray-200",
+        "selectedClass": "ring-gray-400"
+      }
+    ],
     "rating": 4.1,
     "reviewCount": 93
   },
@@ -152,7 +164,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/05-straps.jpg?v=1699354373&width=535",
     "name": "Adjustable Stand",
     "price": 49.0,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Brown",
+        "class": "bg-amber-900",
+        "selectedClass": "ring-gray-900"
+      }
+    ],
     "rating": 4.2,
     "reviewCount": 95
   },
@@ -186,7 +204,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/07-straps.jpg?v=1699354960&width=535",
     "name": "Denim Comfort Fit Band",
     "price": 55.0,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Blue",
+        "class": "bg-blue-600",
+        "selectedClass": "ring-gray-900"
+      }
+    ],
     "rating": 4.0,
     "reviewCount": 90
   },
@@ -215,7 +239,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/05-pad.jpg?v=1699448082&width=535",
     "name": "Extra Comfort Mat",
     "price": 24.0,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Gray",
+        "class": "bg-gray-200",
+        "selectedClass": "ring-gray-400"
+      }
+    ],
     "rating": 4.0,
     "reviewCount": 88
   },
@@ -224,7 +254,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/08-bags.jpg?v=1699510170&width=535",
     "name": "Functional Laptop Bag",
     "price": 65.0,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Gray",
+        "class": "bg-gray-200",
+        "selectedClass": "ring-gray-400"
+      }
+    ],
     "rating": 4.5,
     "reviewCount": 115
   },
@@ -233,7 +269,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/10-cases.jpg?v=1699438902&width=535",
     "name": "Gadget Elite Case",
     "price": 45.99,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Gray",
+        "class": "bg-gray-200",
+        "selectedClass": "ring-gray-400"
+      }
+    ],
     "rating": 4.2,
     "reviewCount": 97
   },
@@ -242,7 +284,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/07-stands.jpg?v=1699435253&width=940",
     "name": "Gadget Stand",
     "price": 29.99,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Gray",
+        "class": "bg-gray-200",
+        "selectedClass": "ring-gray-400"
+      }
+    ],
     "rating": 4.0,
     "reviewCount": 85
   },
@@ -251,7 +299,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/06-cases.jpg?v=1699437916&width=535",
     "name": "Glide Laptop Envelope",
     "price": 49.99,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Gray",
+        "class": "bg-gray-200",
+        "selectedClass": "ring-gray-400"
+      }
+    ],
     "rating": 4.4,
     "reviewCount": 110
   },
@@ -260,7 +314,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/02-cases-color-03.jpg?v=1699447288&width=535",
     "name": "Hold Fast Phone Card Grip",
     "price": 19.0,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Gray",
+        "class": "bg-gray-200",
+        "selectedClass": "ring-gray-400"
+      }
+    ],
     "rating": 4.1,
     "reviewCount": 94
   },
@@ -269,7 +329,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/07-stands.jpg?v=1699435253&width=940",
     "name": "Laptop Slim Case",
     "price": 42.0,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Gray",
+        "class": "bg-gray-200",
+        "selectedClass": "ring-gray-400"
+      }
+    ],
     "rating": 4.3,
     "reviewCount": 102
   },
@@ -428,7 +494,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/06-bags.jpg?v=1699508447&width=535",
     "name": "Modern Minimalist Bag",
     "price": 45.0,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Blue",
+        "class": "bg-blue-600",
+        "selectedClass": "ring-gray-900"
+      }
+    ],
     "rating": 4.3,
     "reviewCount": 100
   },
@@ -437,7 +509,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/09-straps.jpg?v=1699355245&width=535",
     "name": "Pilot Edition Rally Band",
     "price": 45.0,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Orange",
+        "class": "bg-orange-600",
+        "selectedClass": "ring-gray-900"
+      }
+    ],
     "rating": 4.0,
     "reviewCount": 88
   },
@@ -446,7 +524,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/07-bags.jpg?v=1699509267&width=535",
     "name": "Silver Sleek Case",
     "price": 54.0,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Gray",
+        "class": "bg-gray-200",
+        "selectedClass": "ring-gray-400"
+      }
+    ],
     "rating": 4.5,
     "reviewCount": 115
   },
@@ -455,7 +539,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/05-card.jpg?v=1699423293&width=535",
     "name": "Slate Grey Card Slip",
     "price": 35.0,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Gray",
+        "class": "bg-gray-200",
+        "selectedClass": "ring-gray-400"
+      }
+    ],
     "rating": 4.2,
     "reviewCount": 97
   },
@@ -489,7 +579,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/05-bags.jpg?v=1699508220&width=535",
     "name": "Sleek Commute Carrier",
     "price": 55.0,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Gray",
+        "class": "bg-gray-200",
+        "selectedClass": "ring-gray-400"
+      }
+    ],
     "rating": 4.3,
     "reviewCount": 105
   },
@@ -498,7 +594,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/07-card.jpg?v=1699439720&width=535",
     "name": "Slide Card Caddy",
     "price": 23.0,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Blue",
+        "class": "bg-blue-600",
+        "selectedClass": "ring-gray-900"
+      }
+    ],
     "rating": 4.1,
     "reviewCount": 93
   },
@@ -507,7 +609,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/07-pad.jpg?v=1699505985&width=535",
     "name": "Slim and Portable Mouse Pad",
     "price": 29.99,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Gray",
+        "class": "bg-gray-200",
+        "selectedClass": "ring-gray-400"
+      }
+    ],
     "rating": 4.2,
     "reviewCount": 98
   },
@@ -701,7 +809,13 @@
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/08-straps.jpg?v=1699355095&width=535",
     "name": "Vintage Saddle Strap",
     "price": 59.0,
-    "colors": [],
+    "colors": [
+      {
+        "name": "Gray",
+        "class": "bg-gray-200",
+        "selectedClass": "ring-gray-400"
+      }
+    ],
     "rating": 4.1,
     "reviewCount": 91
   },

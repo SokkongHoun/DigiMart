@@ -1,4 +1,4 @@
-import { Fragment, useState, useMemo } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Dialog, RadioGroup, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/20/solid";
@@ -7,30 +7,30 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ProductQuickViews({ open, setOpen, productData }) {
-  const initialColor =
-    productData.color ||
-    (productData.colors && productData.colors[0]
-      ? productData.colors[0].name
-      : "");
-
-  const [selectedColor, setSelectedColor] = useState(initialColor);
-  const [cart, setCart] = useState([]);
-
-  const colorOptions = useMemo(() => {
-    const colors = productData.color || productData.colors || [];
-    return colors.map((color) => ({
-      name: color.name,
-      value: color,
-      class: color.class,
-      selectedClass: color.selectedClass,
-    }));
+export default function ProductQuickViews({
+  open,
+  setOpen,
+  productData,
+  setCart,
+  cart,
+}) {
+  useEffect(() => {
+    setSelectedColor(productData.colors[0]);
   }, [productData]);
+  const [selectedColor, setSelectedColor] = useState(productData.colors[0]);
 
   const handleAddToCart = () => {
-    console.log(selectedColor.name);
-    console.log(productData.price);
-    console.log(productData.name);
+    const newCart = [
+      ...cart,
+      {
+        imgSrc: productData.imgSrc,
+        name: productData.name,
+        price: productData.price,
+        color: selectedColor.name,
+      },
+    ];
+
+    setCart(newCart);
   };
 
   return (
@@ -135,9 +135,10 @@ export default function ProductQuickViews({ open, setOpen, productData }) {
                         <div>
                           {/* Colors */}
                           <div>
-                            <h4 className="text-sm font-medium text-gray-900">
+                            <h3 className="text-sm font-medium text-gray-900">
                               Color
-                            </h4>
+                            </h3>
+
                             <RadioGroup
                               value={selectedColor}
                               onChange={setSelectedColor}
@@ -146,8 +147,8 @@ export default function ProductQuickViews({ open, setOpen, productData }) {
                               <RadioGroup.Label className="sr-only">
                                 Choose a color
                               </RadioGroup.Label>
-                              <span className="flex items-center space-x-3">
-                                {colorOptions.map((color) => (
+                              <div className="flex items-center space-x-3">
+                                {productData.colors.map((color) => (
                                   <RadioGroup.Option
                                     key={color.name}
                                     value={color}
@@ -177,7 +178,7 @@ export default function ProductQuickViews({ open, setOpen, productData }) {
                                     />
                                   </RadioGroup.Option>
                                 ))}
-                              </span>
+                              </div>
                             </RadioGroup>
                           </div>
 

@@ -1,5 +1,4 @@
 import { Button, Modal } from "flowbite-react";
-import { useState } from "react";
 
 function productInCartCard() {
   const selectDropdown = () => {
@@ -53,17 +52,14 @@ function productInCartCard() {
   );
 }
 
-function Cart({ openModal, setOpenModal }) {
+function ShoppingCart({ openModal, setOpenModal, cart }) {
+  console.log(cart);
   return (
     <>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header className="bg-custom">Shopping Carts</Modal.Header>
         <Modal.Body className="bg-custom">
-          <div className="space-y-6">
-            {productInCartCard()}
-            {productInCartCard()}
-            {productInCartCard()}
-          </div>
+          <div className="space-y-6">{productInCartCard()}</div>
         </Modal.Body>
         <Modal.Footer className="bg-custom">
           <Button color="gray" onClick={() => setOpenModal(false)}>
@@ -74,4 +70,4 @@ function Cart({ openModal, setOpenModal }) {
     </>
   );
 }
-export default Cart;
+export default ShoppingCart;

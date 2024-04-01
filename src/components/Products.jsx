@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import productData from "../data/productData.json";
 import ProductQuickViews from "./ProductQuickViews";
 
-const Products = () => {
+const Products = ({ setCart, cart }) => {
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -10,6 +10,7 @@ const Products = () => {
     setSelectedProduct(product);
     setOpen(true);
   }
+
   return (
     <div>
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -18,6 +19,8 @@ const Products = () => {
             open={open}
             setOpen={setOpen}
             productData={selectedProduct}
+            setCart={setCart}
+            cart={cart}
           />
         )}
         <h2 className="text-2xl font-bold tracking-tight text-custom">

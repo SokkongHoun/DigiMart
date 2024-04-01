@@ -8,11 +8,12 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import Cart from "./Cart";
+import ShoppingCart from "./ShoppingCart";
 
-function NavbarSection() {
+function NavbarSection({ cart }) {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+
   // copy the "get this" object to have another category
   const navigation = {
     categories: [
@@ -359,25 +360,27 @@ function NavbarSection() {
 
   const BrandLogo = () => {
     return (
-      <>
-        <div className="ml-4 flex lg:ml-0">
-          <Link to="/">
-            <span className="sr-only">Your Company</span>
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt=""
-            />
-          </Link>
-        </div>
-      </>
+      <div className="ml-4 flex lg:ml-0">
+        <Link to="/">
+          <span className="sr-only">Your Company</span>
+          <img
+            className="h-8 w-auto"
+            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            alt="brand logo"
+          />
+        </Link>
+      </div>
     );
   };
 
   const FlyOutMenu = () => {
     return (
       <>
-        <Cart openModal={openModal} setOpenModal={setOpenModal} />;
+        <ShoppingCart
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          cart={cart}
+        />
         <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
           <div className="flex h-full space-x-8 ">
             {navigation.categories.map((category) => (
@@ -545,7 +548,9 @@ function NavbarSection() {
                 aria-hidden="true"
                 onClick={handleViewCarts}
               />
-              <span className="ml-2 text-sm font-medium text-custom">0</span>
+              <span className="ml-2 text-sm font-medium text-custom">
+                {cart.length}
+              </span>
               <span className="sr-only">items in cart, view bag</span>
             </Link>
           </div>
