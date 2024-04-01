@@ -26,7 +26,7 @@ export default function ProductQuickViews({
         imgSrc: productData.imgSrc,
         name: productData.name,
         price: productData.price,
-        color: selectedColor.name,
+        color: selectedColor,
       },
     ];
 

@@ -16,6 +16,8 @@ function ShoppingCart({ openModal, setOpenModal, cart }) {
       );
     };
 
+    // console.log(cart[0].color.class);
+
     let newCartQty = [];
     cart.forEach((item) => {
       let foundItem = newCartQty.find(
@@ -36,6 +38,8 @@ function ShoppingCart({ openModal, setOpenModal, cart }) {
       }
     });
 
+    console.log(newCartQty);
+
     return (
       <>
         {newCartQty.length === 0 ? (
@@ -52,9 +56,9 @@ function ShoppingCart({ openModal, setOpenModal, cart }) {
                   <div className="flex flex-col gap-2 sm:gap-3 justify-between">
                     <div>
                       <p className="text-sm">{val.name}</p>
-                      <p className="text-sm text-first mt-0 sm:mt-3">
-                        {val.color}
-                      </p>
+                      <p
+                        className={`w-5 h-5 object-contain ${val.color.class} rounded-full mt-3`}
+                      ></p>
                     </div>
                     <div className="flex gap-5 items-center sm:hidden">
                       {selectDropdown()}
@@ -63,7 +67,7 @@ function ShoppingCart({ openModal, setOpenModal, cart }) {
                       </p>
                     </div>
                     <div>
-                      <p className="text-first text-sm mb-2">Qty: {val.qty}</p>
+                      <p className="text-custom text-sm mb-2">Qty: {val.qty}</p>
                       <p className="text-first text-sm">Ships in 3-4 weeks</p>
                     </div>
                   </div>
@@ -75,7 +79,7 @@ function ShoppingCart({ openModal, setOpenModal, cart }) {
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm">{val.price}$</p>
+                  <p className="text-sm">{val.price}$/pc</p>
                 </div>
               </div>
             );
@@ -87,11 +91,11 @@ function ShoppingCart({ openModal, setOpenModal, cart }) {
   return (
     <>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
-        <Modal.Header className="bg-custom">Shopping Carts</Modal.Header>
-        <Modal.Body className="bg-custom">
+        <Modal.Header className="bg-secondary">Shopping Carts</Modal.Header>
+        <Modal.Body className="bg-secondary">
           <div className="space-y-6">{productInCartCard()}</div>
         </Modal.Body>
-        <Modal.Footer className="bg-custom">
+        <Modal.Footer className="bg-secondary">
           {cart.length === 0 ? (
             <Button color="gray" onClick={() => setOpenModal(false)}>
               Continue Shopping
