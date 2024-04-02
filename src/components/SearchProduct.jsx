@@ -38,7 +38,7 @@ export function SearchProduct() {
             >
               <figure className="w-full h-full sm:h-56">
                 <img
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-72 sm:h-full object-cover object-center"
                   src={val.imgSrc}
                 />
               </figure>
@@ -54,7 +54,7 @@ export function SearchProduct() {
                   ))}
                 </div>
                 <div className="card-actions">
-                  <div className="badge badge-outline">view</div>
+                  <div className="badge badge-outline cursor-pointer">view</div>
                 </div>
               </div>
             </div>
@@ -84,7 +84,7 @@ export function SearchProduct() {
           <SearchField />
         </Modal.Header>
         <Modal.Body className="bg-black rounded-b-md">
-          <div className="mt-5 grid sm:grid-cols-[1fr,1fr] gap- items-center justify-center">
+          <div className="mt-5 grid-cols-1 sm:grid-cols-[1fr,1fr] gap- items-center justify-center">
             <ProductCard />
           </div>
         </Modal.Body>
