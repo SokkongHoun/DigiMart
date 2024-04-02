@@ -84,7 +84,7 @@ export function SearchProduct() {
           <SearchField />
         </Modal.Header>
         <Modal.Body className="bg-black rounded-b-md">
-          <div className="mt-5 grid-cols-1 sm:grid-cols-[1fr,1fr] gap- items-center justify-center">
+          <div className="mt-5 grid grid-cols-1 sm:grid-cols-[1fr,1fr] gap- items-center justify-center">
             <ProductCard />
           </div>
         </Modal.Body>
