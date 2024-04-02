@@ -105,7 +105,7 @@ function ShoppingCart({ openModal, setOpenModal, cart, setCart }) {
 
   return (
     <>
-      <Modal show={openModal} onClose={() => setOpenModal(false)}>
+      <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header className="bg-white">
           <span className="text-black font-semibold text-2xl">
             Shopping Carts
