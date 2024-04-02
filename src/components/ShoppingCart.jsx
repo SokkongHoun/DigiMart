@@ -1,13 +1,22 @@
 import { Modal } from "flowbite-react";
 
 /*
-ShoppingCart is receiving its props from Navbar.jsx ctrl + F (FlyOutMenu) to find where its located
+<ShoppingCart cart={cart} setCart={setCart} />  is receiving its props from Navbar.jsx ctrl + F (ShoppingCart) to find where its located
 */
 function ShoppingCart({ openModal, setOpenModal, cart, setCart }) {
   const productInCartCard = () => {
     const handleSelectQty = (event, index) => {
       const newCart = [...cart];
       newCart[index].qty = Number(event.target.value);
+      setCart(newCart);
+    };
+    const handleRemoveQty = (index) => {
+      const newCart = [...cart];
+      if (newCart[index].qty > 1) {
+        newCart[index].qty--;
+      } else {
+        newCart.splice(index, 1);
+      }
       setCart(newCart);
     };
 
@@ -52,7 +61,10 @@ function ShoppingCart({ openModal, setOpenModal, cart, setCart }) {
                           <option value={10}>10</option>
                         </select>
                       </div>
-                      <p className="text-black text-xs sm:text-sm hover:underline cursor-pointer">
+                      <p
+                        onClick={() => handleRemoveQty(index)}
+                        className="text-black text-xs sm:text-sm hover:underline cursor-pointer"
+                      >
                         remove
                       </p>
                     </div>
