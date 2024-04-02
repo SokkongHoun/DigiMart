@@ -10,7 +10,7 @@ import {
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import ShoppingCart from "./ShoppingCart";
 
-function NavbarSection({ cart }) {
+function NavbarSection({ cart, setCart }) {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -373,6 +373,14 @@ function NavbarSection({ cart }) {
     );
   };
 
+  const calculateCartQuantities = () => {
+    let cartQuantities = 0;
+    cart.forEach((item) => {
+      cartQuantities += item.qty;
+    });
+    return cartQuantities;
+  };
+
   const FlyOutMenu = () => {
     return (
       <>
@@ -380,6 +388,7 @@ function NavbarSection({ cart }) {
           openModal={openModal}
           setOpenModal={setOpenModal}
           cart={cart}
+          setCart={setCart}
         />
         <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
           <div className="flex h-full space-x-8 ">
@@ -549,7 +558,7 @@ function NavbarSection({ cart }) {
                 onClick={handleViewCarts}
               />
               <span className="ml-2 text-sm font-medium text-custom">
-                {cart.length}
+                {calculateCartQuantities()}
               </span>
               <span className="sr-only">items in cart, view bag</span>
             </Link>

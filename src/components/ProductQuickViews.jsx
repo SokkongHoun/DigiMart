@@ -20,15 +20,23 @@ export default function ProductQuickViews({
   const [selectedColor, setSelectedColor] = useState(productData.colors[0]);
 
   const handleAddToCart = () => {
-    const newCart = [
-      ...cart,
-      {
+    let foundItem = cart.find(
+      (cartItem) =>
+        cartItem.name === productData.name && cartItem.color === selectedColor
+    );
+
+    if (foundItem) {
+      foundItem.qty += 1;
+    } else {
+      cart.push({
         imgSrc: productData.imgSrc,
         name: productData.name,
         price: productData.price,
         color: selectedColor,
-      },
-    ];
+        qty: 1,
+      });
+    }
+    const newCart = [...cart];
 
     setCart(newCart);
   };
@@ -147,7 +155,7 @@ export default function ProductQuickViews({
                               <RadioGroup.Label className="sr-only">
                                 Choose a color
                               </RadioGroup.Label>
-                              <div className="flex items-center space-x-3">
+                              <div className="flex items-center space-x-4">
                                 {productData.colors.map((color) => (
                                   <RadioGroup.Option
                                     key={color.name}
