@@ -54,7 +54,9 @@ export function SearchProduct() {
                   ))}
                 </div>
                 <div className="card-actions">
-                  <div className="badge badge-outline cursor-pointer">view</div>
+                  <div className="badge badge-outline cursor-pointer hover:bg-first">
+                    view
+                  </div>
                 </div>
               </div>
             </div>
