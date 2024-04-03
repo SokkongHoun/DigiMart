@@ -19,6 +19,8 @@ export default function ProductQuickViews({
   }, [productData]);
   const [selectedColor, setSelectedColor] = useState(productData.colors[0]);
 
+  console.log(isOpen);
+
   const handleAddToCart = () => {
     const foundIndex = cart.findIndex(
       (cartItem) =>
@@ -194,6 +196,14 @@ export default function ProductQuickViews({
                             </RadioGroup>
                           </div>
 
+                          {/* Descriptions */}
+                          <p className="text-black mt-5">
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Ut corporis aliquam veritatis eos cupiditate
+                            expedita, est itaque quasi repudiandae, architecto
+                            explicabo voluptates consequuntur natus fugit,
+                            molestias rem aut in earum!
+                          </p>
                           <button
                             onClick={handleAddToCart}
                             className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-black px-8 py-3 text-base font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"

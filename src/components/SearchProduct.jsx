@@ -2,6 +2,7 @@ import { Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import productData from "../data/productData.json";
 import ProductQuickViews from "./ProductQuickViews";
+import { ProductCard } from "./SearchProductCard.jsx";
 
 export function SearchProduct({ cart, setCart }) {
   const [searchProductData, setSearchProductData] = useState([]);
@@ -29,50 +30,17 @@ export function SearchProduct({ cart, setCart }) {
     console.log(value);
   };
 
-  const ProductCard = () => {
-    return (
-      <>
-        {filteredProducts.map((value, index) => {
-          return (
-            <div
-              key={index}
-              className="card w-full sm:w-64 bg-base-100 shadow-xl mx-auto mb-5"
-            >
-              <figure className="w-full h-full sm:h-56">
-                <img
-                  className="w-full h-72 sm:h-full object-cover object-center"
-                  src={value.imgSrc}
-                />
-              </figure>
-              <div className="card-body bg-custom rounded-b-2xl">
-                <h1 className="card-title text-sm">{value.name}</h1>
-                <p>{value.price.toFixed(2)} $</p>
-                <div>
-                  {value.colors.map((color, colorIndex) => (
-                    <p
-                      key={colorIndex}
-                      className={`w-5 h-5 object-contain ${color.class} rounded-full border-blue-100 my-4 border-2 inline-block mr-2`}
-                    ></p>
-                  ))}
-                </div>
-                <div className="card-actions">
-                  <div
-                    className="badge badge-outline cursor-pointer hover:bg-first"
-                    onClick={() => handleProductQuickView(value)}
-                  >
-                    view
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </>
-    );
-  };
-
   return (
     <>
+      {searchProductData.length > 0 && (
+        <ProductQuickViews
+          isOpen={isProductQuickViewOpen}
+          setIsOpen={setIsProductQuickViewOpen}
+          productData={searchProductData[0]} // Pass the first product from the array
+          setCart={setCart}
+          cart={cart}
+        />
+      )}
       <button className="border-r-2 border-gray-400 cursor-pointer">
         <span
           onClick={() => setOpenModal(true)}
@@ -114,19 +82,13 @@ export function SearchProduct({ cart, setCart }) {
         </Modal.Header>
         <Modal.Body className="bg-black rounded-b-md">
           <div className="mt-5 grid grid-cols-1 sm:grid-cols-[1fr,1fr] gap- items-center justify-center">
-            <ProductCard />
+            <ProductCard
+              filteredProducts={filteredProducts}
+              handleProductQuickView={handleProductQuickView}
+            />
           </div>
         </Modal.Body>
       </Modal>
-      {searchProductData.length > 0 && (
-        <ProductQuickViews
-          isOpen={isProductQuickViewOpen}
-          setIsOpen={setIsProductQuickViewOpen}
-          productData={searchProductData[0]} // Pass the first product from the array
-          setCart={setCart}
-          cart={cart}
-        />
-      )}
     </>
   );
 }
