@@ -5,6 +5,10 @@ import productData from "../data/productData.json";
 export function SearchProduct() {
   const [openModal, setOpenModal] = useState(false);
 
+  const handleProductQuickView = (index) => {
+    console.log(productData[index]);
+  };
+
   const SearchField = () => {
     return (
       <label className="bg-custom input input-bordered flex items-center gap-2">
@@ -24,8 +28,6 @@ export function SearchProduct() {
       </label>
     );
   };
-
-  console.log(productData[0].colors[0].class);
 
   const ProductCard = () => {
     return (
@@ -54,7 +56,10 @@ export function SearchProduct() {
                   ))}
                 </div>
                 <div className="card-actions">
-                  <div className="badge badge-outline cursor-pointer hover:bg-first">
+                  <div
+                    className="badge badge-outline cursor-pointer hover:bg-first"
+                    onClick={(index) => handleProductQuickView(index)}
+                  >
                     view
                   </div>
                 </div>

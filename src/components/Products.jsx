@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import productData from "../data/productData.json";
 import ProductQuickViews from "./ProductQuickViews";
 
-const Products = ({ setCart, cart }) => {
-  const [open, setOpen] = useState(false);
+const Products = ({ setCart, cart, open, setOpen }) => {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   function handleToggleProductViews(product) {

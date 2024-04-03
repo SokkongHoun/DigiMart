@@ -16,7 +16,7 @@
   },
   {
     "id": 2,
-    "imgSrc": "https://cdn.shopify.com/s/files/1/0845/0257/7474/files/04-stands-color-01.jpg?v=1699433745&width=940",
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/04-stands-color-01.jpg?v=1699433745&width=535",
     "name": "Adjustable Stand",
     "price": 24.99,
     "colors": [
@@ -97,7 +97,7 @@
   {
     "id": 5,
     "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/02-bags-color-01.jpg?v=1699507659&width=535",
-    "name": "Adjustable Stand",
+    "name": "Casual Business Tote",
     "price": 65.99,
     "colors": [
       {
@@ -161,8 +161,8 @@
   },
   {
     "id": 8,
-    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/05-straps.jpg?v=1699354373&width=535",
-    "name": "Adjustable Stand",
+    "imgSrc": "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/08-stands.jpg?v=1699435514&width=535",
+    "name": "Trio Tech Display Stand",
     "price": 49.0,
     "colors": [
       {

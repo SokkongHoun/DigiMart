@@ -67,7 +67,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function Shops({ setCart, cart }) {
+function Shops({ setCart, cart, open, setOpen }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
@@ -348,7 +348,12 @@ function Shops({ setCart, cart }) {
 
               {/* Product grid */}
               <div className="lg:col-span-3">
-                <Products setCart={setCart} cart={cart} />
+                <Products
+                  setCart={setCart}
+                  cart={cart}
+                  open={open}
+                  setOpen={setOpen}
+                />
               </div>
             </div>
           </section>

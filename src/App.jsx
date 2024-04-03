@@ -8,6 +8,7 @@ import React, { useState } from "react";
 
 function App() {
   const [cart, setCart] = useState([]);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -18,7 +19,14 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route
             path="/shop"
-            element={<Shops setCart={setCart} cart={cart} />}
+            element={
+              <Shops
+                setCart={setCart}
+                cart={cart}
+                open={open}
+                setOpen={setOpen}
+              />
+            }
           />
           <Route path="/NotFoundPage" element={<NotFoundPage />} />
         </Routes>
