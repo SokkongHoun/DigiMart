@@ -11,14 +11,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import ShoppingCart from "./ShoppingCart";
 import { SearchProduct } from "./SearchProduct.jsx";
 
-function NavbarSection({
-  cart,
-  setCart,
-  isOpen,
-  setIsOpen,
-  selectedProduct,
-  setSelectedProduct,
-}) {
+function NavbarSection({ cart, setCart }) {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -300,11 +293,7 @@ function NavbarSection({
       <div className="ml-4 flex lg:ml-0">
         <Link to="/">
           <span className="sr-only">Your Company</span>
-          <img
-            className="h-8 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="brand logo"
-          />
+          <h1 className="text-3xl font-semibold">Digi</h1>
         </Link>
       </div>
     );
