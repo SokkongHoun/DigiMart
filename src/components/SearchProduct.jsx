@@ -1,38 +1,32 @@
 import { Modal } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import productData from "../data/productData.json";
 
 export function SearchProduct() {
+  const [products, setProducts] = useState(productData);
+  const [filteredProducts, setFilteredProducts] = useState(products);
   const [openModal, setOpenModal] = useState(false);
+  const [filterText, setFilterText] = useState("");
+
+  const handleFilterText = (event) => {
+    setFilterText(event.target.value);
+  };
+
+  useEffect(() => {
+    let searchResult = products.filter((prod) =>
+      prod.name.toLowerCase().includes(filterText.toLowerCase())
+    );
+    setFilteredProducts(searchResult);
+  }, [filterText, products]);
 
   const handleProductQuickView = (index) => {
     console.log(productData[index]);
   };
 
-  const SearchField = () => {
-    return (
-      <label className="bg-custom input input-bordered flex items-center gap-2">
-        <input type="text" className="grow" placeholder="type something" />
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 16"
-          fill="currentColor"
-          className="w-4 h-4 opacity-70"
-        >
-          <path
-            fillRule="evenodd"
-            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </label>
-    );
-  };
-
   const ProductCard = () => {
     return (
       <>
-        {productData.map((val, index) => {
+        {filteredProducts.map((val, index) => {
           return (
             <div
               key={index}
@@ -58,7 +52,7 @@ export function SearchProduct() {
                 <div className="card-actions">
                   <div
                     className="badge badge-outline cursor-pointer hover:bg-first"
-                    onClick={(index) => handleProductQuickView(index)}
+                    onClick={() => handleProductQuickView(index)}
                   >
                     view
                   </div>
@@ -88,7 +82,29 @@ export function SearchProduct() {
         className=" bg-custom"
       >
         <Modal.Header className="bg-black">
-          <SearchField />
+          <div>
+            <label className="bg-custom input input-bordered flex items-center gap-2">
+              <input
+                value={filterText}
+                type="text"
+                className="grow"
+                placeholder="type something"
+                onChange={(event) => handleFilterText(event)}
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                className="w-4 h-4 opacity-70"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </label>
+          </div>
         </Modal.Header>
         <Modal.Body className="bg-black rounded-b-md">
           <div className="mt-5 grid grid-cols-1 sm:grid-cols-[1fr,1fr] gap- items-center justify-center">
