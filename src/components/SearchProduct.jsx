@@ -1,8 +1,11 @@
 import { Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import productData from "../data/productData.json";
+import ProductQuickViews from "./ProductQuickViews";
 
-export function SearchProduct() {
+export function SearchProduct({ cart, setCart }) {
+  const [searchProductData, setSearchProductData] = useState([]);
+  const [isProductQuickViewOpen, setIsProductQuickViewOpen] = useState(false);
   const [products, setProducts] = useState(productData);
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [openModal, setOpenModal] = useState(false);
@@ -19,14 +22,17 @@ export function SearchProduct() {
     setFilteredProducts(searchResult);
   }, [filterText, products]);
 
-  const handleProductQuickView = (index) => {
-    console.log(productData[index]);
+  const handleProductQuickView = (value) => {
+    setSearchProductData([value]);
+    setIsProductQuickViewOpen(true);
+    setOpenModal(false);
+    console.log(value);
   };
 
   const ProductCard = () => {
     return (
       <>
-        {filteredProducts.map((val, index) => {
+        {filteredProducts.map((value, index) => {
           return (
             <div
               key={index}
@@ -35,14 +41,14 @@ export function SearchProduct() {
               <figure className="w-full h-full sm:h-56">
                 <img
                   className="w-full h-72 sm:h-full object-cover object-center"
-                  src={val.imgSrc}
+                  src={value.imgSrc}
                 />
               </figure>
               <div className="card-body bg-custom rounded-b-2xl">
-                <h1 className="card-title text-sm">{val.name}</h1>
-                <p>{val.price.toFixed(2)} $</p>
+                <h1 className="card-title text-sm">{value.name}</h1>
+                <p>{value.price.toFixed(2)} $</p>
                 <div>
-                  {val.colors.map((color, colorIndex) => (
+                  {value.colors.map((color, colorIndex) => (
                     <p
                       key={colorIndex}
                       className={`w-5 h-5 object-contain ${color.class} rounded-full border-blue-100 my-4 border-2 inline-block mr-2`}
@@ -52,7 +58,7 @@ export function SearchProduct() {
                 <div className="card-actions">
                   <div
                     className="badge badge-outline cursor-pointer hover:bg-first"
-                    onClick={() => handleProductQuickView(index)}
+                    onClick={() => handleProductQuickView(value)}
                   >
                     view
                   </div>
@@ -112,6 +118,15 @@ export function SearchProduct() {
           </div>
         </Modal.Body>
       </Modal>
+      {searchProductData.length > 0 && (
+        <ProductQuickViews
+          isOpen={isProductQuickViewOpen}
+          setIsOpen={setIsProductQuickViewOpen}
+          productData={searchProductData[0]} // Pass the first product from the array
+          setCart={setCart}
+          cart={cart}
+        />
+      )}
     </>
   );
 }

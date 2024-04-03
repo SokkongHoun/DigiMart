@@ -9,9 +9,16 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import ShoppingCart from "./ShoppingCart";
-import { SearchProduct } from "./SearchProduct";
+import { SearchProduct } from "./SearchProduct.jsx";
 
-function NavbarSection({ cart, setCart }) {
+function NavbarSection({
+  cart,
+  setCart,
+  isOpen,
+  setIsOpen,
+  selectedProduct,
+  setSelectedProduct,
+}) {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -476,7 +483,7 @@ function NavbarSection({ cart, setCart }) {
 
           {/* Search */}
           <div className="flex lg:ml-6">
-            <SearchProduct />
+            <SearchProduct cart={cart} setCart={setCart} />
           </div>
 
           {/* Cart */}

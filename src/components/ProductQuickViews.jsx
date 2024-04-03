@@ -8,8 +8,8 @@ function classNames(...classes) {
 }
 
 export default function ProductQuickViews({
-  open,
-  setOpen,
+  isOpen,
+  setIsOpen,
   productData,
   setCart,
   cart,
@@ -20,30 +20,34 @@ export default function ProductQuickViews({
   const [selectedColor, setSelectedColor] = useState(productData.colors[0]);
 
   const handleAddToCart = () => {
-    let foundItem = cart.find(
+    const foundIndex = cart.findIndex(
       (cartItem) =>
-        cartItem.name === productData.name && cartItem.color === selectedColor
+        cartItem.id === productData.id && cartItem.color === selectedColor
     );
 
-    if (foundItem) {
-      foundItem.qty += 1;
+    if (foundIndex !== -1) {
+      const updatedCart = cart.map((item, index) =>
+        index === foundIndex ? { ...item, qty: item.qty + 1 } : item
+      );
+      setCart(updatedCart);
     } else {
-      cart.push({
+      const newItem = {
+        id: productData.id,
         imgSrc: productData.imgSrc,
         name: productData.name,
         price: productData.price,
         color: selectedColor,
         qty: 1,
-      });
+      };
+      setCart([...cart, newItem]);
     }
-    const newCart = [...cart];
-
-    setCart(newCart);
   };
 
+  console.log(cart);
+
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+    <Transition.Root show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={setIsOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -72,7 +76,7 @@ export default function ProductQuickViews({
                   <button
                     type="button"
                     className="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
-                    onClick={() => setOpen(false)}
+                    onClick={() => setIsOpen(false)}
                   >
                     <span className="sr-only">Close</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />

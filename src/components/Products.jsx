@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import productData from "../data/productData.json";
 import ProductQuickViews from "./ProductQuickViews";
 
-const Products = ({ setCart, cart, open, setOpen }) => {
+const Products = ({ setCart, cart }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   function handleToggleProductViews(product) {
     setSelectedProduct(product);
-    setOpen(true);
+    setIsOpen(true);
   }
 
   return (
@@ -15,8 +16,8 @@ const Products = ({ setCart, cart, open, setOpen }) => {
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         {selectedProduct && (
           <ProductQuickViews
-            open={open}
-            setOpen={setOpen}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
             productData={selectedProduct}
             setCart={setCart}
             cart={cart}
