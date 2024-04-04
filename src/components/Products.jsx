@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import productData from "../data/productData.json";
 import ProductQuickViews from "./ProductQuickViews";
 
-const Products = () => {
+const Products = ({ filteredSubCategory }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -10,6 +10,10 @@ const Products = () => {
     setSelectedProduct(product);
     setIsOpen(true);
   }
+
+  const productDataToRender = filteredSubCategory
+    ? filteredSubCategory
+    : productData;
 
   return (
     <div>
@@ -26,7 +30,7 @@ const Products = () => {
         </h2>
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-          {productData.map((product) => (
+          {productDataToRender.map((product) => (
             <div
               key={product.id}
               className="group relative"
