@@ -8,20 +8,24 @@ export function SearchProduct() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [products, setProducts] = useState(productData);
-  const [filteredProducts, setFilteredProducts] = useState(products);
   const [openModal, setOpenModal] = useState(false);
   const [filterText, setFilterText] = useState("");
 
   const handleFilterText = (event) => {
     setFilterText(event.target.value);
+    console.log(filterText);
   };
 
   useEffect(() => {
-    let searchResult = products.filter((prod) =>
-      prod.name.toLowerCase().includes(filterText.toLowerCase())
-    );
-    setFilteredProducts(searchResult);
-  }, [filterText, products]);
+    if (filterText === "") {
+      setProducts(productData);
+    } else {
+      let searchResult = productData.filter((prod) =>
+        prod.name.toLowerCase().includes(filterText.toLowerCase())
+      );
+      setProducts(searchResult);
+    }
+  }, [filterText, productData]);
 
   const handleProductQuickView = (value) => {
     setSelectedProduct(value);
@@ -81,7 +85,7 @@ export function SearchProduct() {
           <div className="mt-5 grid grid-cols-1 sm:grid-cols-[1fr,1fr] gap- items-center justify-center">
             <ProductCard
               handleProductQuickView={handleProductQuickView}
-              filteredProducts={filteredProducts}
+              products={products}
             />
           </div>
         </Modal.Body>
