@@ -9,7 +9,6 @@ const Products = () => {
   function handleToggleProductViews(product) {
     setSelectedProduct(product);
     setIsOpen(true);
-    console.log(selectedProduct);
   }
 
   return (

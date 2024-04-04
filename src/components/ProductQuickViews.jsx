@@ -12,35 +12,34 @@ export default function ProductQuickViews({ isOpen, setIsOpen, productData }) {
   const { cart, setCart } = useContext(CartContext);
   useEffect(() => {
     setSelectedColor(productData.colors[0]);
-    console.log(productData);
   }, [productData]);
   const [selectedColor, setSelectedColor] = useState(productData.colors[0]);
 
-  const handleAddToCart = (event) => {
-    console.log(cart);
-    event.stopPropagation();
-    const foundIndex = cart.findIndex(
-      (cartItem) =>
-        cartItem.id === productData.id && cartItem.color === selectedColor
-    );
-
-    if (foundIndex !== -1) {
-      const updatedCart = cart.map((item, index) =>
-        index === foundIndex ? { ...item, qty: item.qty + 1 } : item
+  const handleAddToCart = () => {
+    setCart((currentCart) => {
+      const foundIndex = currentCart.findIndex(
+        (cartItem) =>
+          cartItem.id === productData.id && cartItem.color === selectedColor
       );
-      setCart(updatedCart);
-    } else {
-      const newItem = {
-        id: productData.id,
-        imgSrc: productData.imgSrc,
-        name: productData.name,
-        price: productData.price,
-        color: selectedColor,
-        qty: 1,
-      };
-      setCart([...cart, newItem]);
-    }
-    console.log(event.target.value);
+
+      if (foundIndex !== -1) {
+        // Update the quantity of the found item
+        return currentCart.map((item, index) =>
+          index === foundIndex ? { ...item, qty: item.qty + 1 } : item
+        );
+      } else {
+        // Add a new item to the cart
+        const newItem = {
+          id: productData.id,
+          imgSrc: productData.imgSrc,
+          name: productData.name,
+          price: productData.price,
+          color: selectedColor,
+          qty: 1,
+        };
+        return [...currentCart, newItem];
+      }
+    });
   };
 
   return (

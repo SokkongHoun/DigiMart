@@ -4,7 +4,7 @@ import NotFoundPage from "./pages/NotFoundPage.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from "./pages/About.jsx";
 import Shops from "./pages/Shop.jsx";
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, createContext } from "react";
 
 export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
