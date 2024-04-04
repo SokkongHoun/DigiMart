@@ -13,7 +13,6 @@ export function SearchProduct() {
 
   const handleFilterText = (event) => {
     setFilterText(event.target.value);
-    console.log(filterText);
   };
 
   useEffect(() => {

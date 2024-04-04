@@ -44,7 +44,7 @@ export default function ProductQuickViews({ isOpen, setIsOpen, productData }) {
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setIsOpen}>
+      <Dialog as="div" className="relative z-50" onClose={setIsOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -57,7 +57,7 @@ export default function ProductQuickViews({ isOpen, setIsOpen, productData }) {
           <div className="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
           <div className="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
             <Transition.Child
               as={Fragment}

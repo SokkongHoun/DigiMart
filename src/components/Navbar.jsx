@@ -100,7 +100,7 @@ function NavbarSection() {
         <Transition.Root show={open} as={Fragment}>
           <Dialog
             as="div"
-            className="relative z-40 lg:hidden"
+            className="fixed top-0 left-0 w-full z-40"
             onClose={setOpen}
           >
             <Transition.Child
