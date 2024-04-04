@@ -4,9 +4,9 @@ import productData from "../data/productData.json";
 import ProductQuickViews from "./ProductQuickViews";
 import { ProductCard } from "./SearchProductCard.jsx";
 
-export function SearchProduct({ cart, setCart }) {
-  const [searchProductData, setSearchProductData] = useState([]);
-  const [isProductQuickViewOpen, setIsProductQuickViewOpen] = useState(false);
+export function SearchProduct() {
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const [products, setProducts] = useState(productData);
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [openModal, setOpenModal] = useState(false);
@@ -24,21 +24,18 @@ export function SearchProduct({ cart, setCart }) {
   }, [filterText, products]);
 
   const handleProductQuickView = (value) => {
-    setSearchProductData([value]);
-    setIsProductQuickViewOpen(true);
+    setSelectedProduct(value);
+    setIsOpen(true);
     setOpenModal(false);
-    console.log(value);
   };
 
   return (
-    <>
-      {searchProductData.length > 0 && (
+    <div>
+      {selectedProduct && (
         <ProductQuickViews
-          isOpen={isProductQuickViewOpen}
-          setIsOpen={setIsProductQuickViewOpen}
-          productData={searchProductData[0]} // Pass the first product from the array
-          setCart={setCart}
-          cart={cart}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          productData={selectedProduct}
         />
       )}
       <button className="border-r-2 border-gray-400 cursor-pointer">
@@ -83,12 +80,12 @@ export function SearchProduct({ cart, setCart }) {
         <Modal.Body className="bg-black rounded-b-md">
           <div className="mt-5 grid grid-cols-1 sm:grid-cols-[1fr,1fr] gap- items-center justify-center">
             <ProductCard
-              filteredProducts={filteredProducts}
               handleProductQuickView={handleProductQuickView}
+              filteredProducts={filteredProducts}
             />
           </div>
         </Modal.Body>
       </Modal>
-    </>
+    </div>
   );
 }

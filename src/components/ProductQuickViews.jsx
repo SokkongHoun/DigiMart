@@ -1,27 +1,24 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, useContext } from "react";
 import { Dialog, RadioGroup, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/20/solid";
+import { CartContext } from "../App";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ProductQuickViews({
-  isOpen,
-  setIsOpen,
-  productData,
-  setCart,
-  cart,
-}) {
+export default function ProductQuickViews({ isOpen, setIsOpen, productData }) {
+  const { cart, setCart } = useContext(CartContext);
   useEffect(() => {
     setSelectedColor(productData.colors[0]);
+    console.log(productData);
   }, [productData]);
   const [selectedColor, setSelectedColor] = useState(productData.colors[0]);
 
-  console.log(isOpen);
-
-  const handleAddToCart = () => {
+  const handleAddToCart = (event) => {
+    console.log(cart);
+    event.stopPropagation();
     const foundIndex = cart.findIndex(
       (cartItem) =>
         cartItem.id === productData.id && cartItem.color === selectedColor
@@ -43,9 +40,8 @@ export default function ProductQuickViews({
       };
       setCart([...cart, newItem]);
     }
+    console.log(event.target.value);
   };
-
-  console.log(cart);
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -205,7 +201,7 @@ export default function ProductQuickViews({
                             molestias rem aut in earum!
                           </p>
                           <button
-                            onClick={handleAddToCart}
+                            onClick={(event) => handleAddToCart(event)}
                             className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-black px-8 py-3 text-base font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
                           >
                             Add to cart

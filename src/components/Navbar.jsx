@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import "../styles/Navbar.css";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
@@ -10,10 +10,12 @@ import {
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import ShoppingCart from "./ShoppingCart";
 import { SearchProduct } from "./SearchProduct.jsx";
+import { CartContext } from "../App.jsx";
 
-function NavbarSection({ cart, setCart }) {
+function NavbarSection() {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const { cart } = useContext(CartContext);
 
   // copy the "get this" object to have another category
   const navigation = {
@@ -310,12 +312,7 @@ function NavbarSection({ cart, setCart }) {
   const FlyOutMenu = () => {
     return (
       <>
-        <ShoppingCart
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-          cart={cart}
-          setCart={setCart}
-        />
+        <ShoppingCart openModal={openModal} setOpenModal={setOpenModal} />
         <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
           <div className="flex h-full space-x-8 ">
             {navigation.categories.map((category) => (
@@ -472,7 +469,7 @@ function NavbarSection({ cart, setCart }) {
 
           {/* Search */}
           <div className="flex lg:ml-6">
-            <SearchProduct cart={cart} setCart={setCart} />
+            <SearchProduct />
           </div>
 
           {/* Cart */}

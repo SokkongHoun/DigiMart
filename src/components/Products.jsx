@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import productData from "../data/productData.json";
 import ProductQuickViews from "./ProductQuickViews";
 
-const Products = ({ setCart, cart }) => {
+const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   function handleToggleProductViews(product) {
     setSelectedProduct(product);
     setIsOpen(true);
+    console.log(selectedProduct);
   }
 
   return (
@@ -19,8 +20,6 @@ const Products = ({ setCart, cart }) => {
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             productData={selectedProduct}
-            setCart={setCart}
-            cart={cart}
           />
         )}
         <h2 className="text-2xl font-bold tracking-tight text-custom">

@@ -1,9 +1,13 @@
 import { Modal } from "flowbite-react";
+import { CartContext } from "../App";
+import React, { useContext } from "react";
 
 /*
-<ShoppingCart cart={cart} setCart={setCart} />  is receiving its props from Navbar.jsx ctrl + F (ShoppingCart) to find where its located
+
 */
-function ShoppingCart({ openModal, setOpenModal, cart, setCart }) {
+function ShoppingCart({ openModal, setOpenModal }) {
+  const { cart, setCart } = useContext(CartContext);
+
   const productInCartCard = () => {
     const handleSelectQty = (event, index) => {
       const newCart = [...cart];
