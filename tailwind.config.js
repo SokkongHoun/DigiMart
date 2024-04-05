@@ -14,6 +14,7 @@ export default {
         custom: "#18181b",
         secondary: "#27272a",
         third: "#4a4a4c",
+        brownColor: "#A52A2A",
       },
       boxShadow: {
         custom: "inset 0 0 0 1px rgba(186, 188, 243, 0.06)",

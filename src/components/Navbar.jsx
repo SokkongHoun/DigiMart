@@ -295,7 +295,7 @@ function NavbarSection() {
       <div className="ml-4 flex lg:ml-0">
         <Link to="/">
           <span className="sr-only">Your Company</span>
-          <h1 className="text-3xl font-semibold">Digi</h1>
+          <img className="w-10" src="../public/logo.png" alt="Digi-Mart" />
         </Link>
       </div>
     );

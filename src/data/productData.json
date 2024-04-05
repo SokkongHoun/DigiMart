@@ -54,8 +54,8 @@
       },
       {
         "name": "Yellow",
-        "class": "bg-orange-400",
-        "selectedClass": "ring-gray-900"
+        "class": "bg-yellow-400",
+        "selectedClass": "ring-gray-400"
       },
       {
         "name": "Black",
@@ -173,8 +173,8 @@
     "price": 49.0,
     "colors": [
       {
-        "name": "Brown",
-        "class": "bg-amber-900",
+        "name": "Gray",
+        "class": " bg-stone-500",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -189,8 +189,8 @@
     "price": 19.99,
     "colors": [
       {
-        "name": "Brown",
-        "class": "bg-amber-900",
+        "name": "Gray",
+        "class": "bg-stone-500",
         "selectedClass": "ring-gray-900"
       },
       {
@@ -369,7 +369,7 @@
       },
       {
         "name": "Yellow",
-        "class": "bg-orange-400",
+        "class": "bg-yellow-400",
         "selectedClass": "ring-gray-900"
       },
       {
@@ -399,8 +399,8 @@
         "selectedClass": "ring-gray-400"
       },
       {
-        "name": "Brown",
-        "class": "bg-amber-900",
+        "name": "Gray",
+        "class": "bg-stone-500",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -425,8 +425,8 @@
         "selectedClass": "ring-gray-400"
       },
       {
-        "name": "Brown",
-        "class": "bg-amber-900",
+        "name": "Gray",
+        "class": "bg-stone-500",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -447,7 +447,7 @@
       },
       {
         "name": "Yellow",
-        "class": "bg-orange-400",
+        "class": "bg-yellow-400",
         "selectedClass": "ring-gray-900"
       },
       {
@@ -535,8 +535,13 @@
     "price": 45.0,
     "colors": [
       {
+        "name": "Orange",
+        "class": "bg-yellow-600",
+        "selectedClass": "ring-gray-900"
+      },
+      {
         "name": "Yellow",
-        "class": "bg-orange-400",
+        "class": "bg-yellow-400",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -662,8 +667,8 @@
         "selectedClass": "ring-gray-900"
       },
       {
-        "name": "Brown",
-        "class": "bg-amber-900",
+        "name": "Gray",
+        "class": "bg-stone-500",
         "selectedClass": "ring-gray-900"
       },
       {
@@ -694,7 +699,7 @@
       },
       {
         "name": "Pink",
-        "class": "bg-pink-700",
+        "class": "bg-pink-600",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -834,8 +839,8 @@
         "selectedClass": "ring-gray-900"
       },
       {
-        "name": "Brown",
-        "class": "bg-amber-900",
+        "name": "Gray",
+        "class": "bg-stone-500",
         "selectedClass": "ring-gray-900"
       }
     ],
