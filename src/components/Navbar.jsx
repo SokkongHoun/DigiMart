@@ -22,64 +22,68 @@ function NavbarSection() {
     categories: [
       // get this
       {
-        id: "Collections",
-        name: "Collections",
+        id: "View Collections",
+        name: "View Collections",
         featured: [
           {
             name: "New Arrivals",
             href: "#",
             imageSrc:
-              "https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg",
-            imageAlt:
-              "Models sitting back to back, wearing Basic Tee in black and bone.",
+              "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/04-bags-color-01.jpg?v=1699508089&width=535",
+            imageAlt: "Comfortable bag good for office and school",
           },
           {
-            name: "Basic Tees",
+            name: "Denim Comfort Fit",
             href: "#",
             imageSrc:
-              "https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg",
-            imageAlt:
-              "Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.",
+              "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/07-straps.jpg?v=1699354960&width=535",
+            imageAlt: "Comfortable, and stylish apple Iwatch Strap",
           },
         ],
         sections: [
           {
-            id: "clothing",
-            name: "Clothing",
-            items: [
-              { name: "Tops", href: "#" },
-              { name: "Dresses", href: "#" },
-              { name: "Pants", href: "#" },
-              { name: "Denim", href: "#" },
-              { name: "Sweaters", href: "#" },
-              { name: "T-Shirts", href: "#" },
-              { name: "Jackets", href: "#" },
-              { name: "Activewear", href: "#" },
-              { name: "Browse All", href: "#" },
-            ],
+            id: "watch straps",
+            name: <span class="material-symbols-outlined">watch</span>,
+            items: [{ name: "Watch Straps", href: "#" }],
+            description:
+              "Durable silicone or leather watch straps, a stylish accessory choice.",
           },
           {
-            id: "accessories",
-            name: "Accessories",
-            items: [
-              { name: "Watches", href: "#" },
-              { name: "Wallets", href: "#" },
-              { name: "Bags", href: "#" },
-              { name: "Sunglasses", href: "#" },
-              { name: "Hats", href: "#" },
-              { name: "Belts", href: "#" },
-            ],
+            id: "laptop bags",
+            name: <span class="material-symbols-outlined">enterprise</span>,
+            items: [{ name: "Laptop bags", href: "#" }],
+            description:
+              "Chic laptop bags: on-the-go protection, padded, stylish",
           },
           {
-            id: "brands",
-            name: "Brands",
-            items: [
-              { name: "Full Nelson", href: "#" },
-              { name: "My Way", href: "#" },
-              { name: "Re-Arranged", href: "#" },
-              { name: "Counterfeit", href: "#" },
-              { name: "Significant Other", href: "#" },
-            ],
+            id: "stands",
+            name: (
+              <span class="material-symbols-outlined">desktop_windows</span>
+            ),
+            items: [{ name: "Stands", href: "#" }],
+            description:
+              "Hands-free, adjustable for comfortable device viewing and interaction",
+          },
+          {
+            id: "cases",
+            name: <span class="material-symbols-outlined">cases</span>,
+            items: [{ name: "Cases", href: "#" }],
+            description:
+              "Wear-resistant cases in diverse materials, designs for personalized style. ",
+          },
+          {
+            id: "phone card holders",
+            name: <span class="material-symbols-outlined">wallet</span>,
+            items: [{ name: "Phone card holders", href: "#" }],
+            description:
+              "Slim, secure phone card holder for conveninet on-the-go storage. ",
+          },
+          {
+            id: "mouse pads",
+            name: <span class="material-symbols-outlined">touchpad_mouse</span>,
+            items: [{ name: "Mouse Pads", href: "#" }],
+            description:
+              "Ulta-smooth, ergonomic premium mouse pads for superiors comfort",
           },
         ],
       },
@@ -198,14 +202,14 @@ function NavbarSection() {
                             <div key={section.name}>
                               <p
                                 id={`${category.id}-${section.id}-heading-mobile`}
-                                className="font-medium text-custom"
+                                className="font-medium text-custom "
                               >
                                 {section.name}
                               </p>
                               <ul
                                 role="list"
                                 aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
-                                className="mt-6 flex flex-col space-y-6"
+                                className="mt-3 flex flex-col space-y-6"
                               >
                                 {section.items.map((item) => (
                                   <li key={item.name} className="flow-root">
@@ -314,7 +318,7 @@ function NavbarSection() {
       <>
         <ShoppingCart openModal={openModal} setOpenModal={setOpenModal} />
         <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
-          <div className="flex h-full space-x-8 ">
+          <div className="flex h-full space-x-8">
             {navigation.categories.map((category) => (
               <Popover key={category.name} className="flex">
                 {({ open }) => (
@@ -325,7 +329,7 @@ function NavbarSection() {
                           open
                             ? "border-blue-800 text-blue-500"
                             : "border-transparent text-custom hover:text-gray-300",
-                          "relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out"
+                          "relative z-10 -mb-px flex items-center border-b-2 pt-px text-base font-medium transition-colors duration-200 ease-out"
                         )}
                       >
                         {category.name}
@@ -380,15 +384,18 @@ function NavbarSection() {
                                   </div>
                                 ))}
                               </div>
-                              <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
+                              <div className="row-start-1 grid grid-cols-2 gap-x-8 gap-y-10 text-sm">
                                 {category.sections.map((section) => (
                                   <div key={section.name}>
-                                    <p
-                                      id={`${section.name}-heading`}
-                                      className="font-medium text-gray-900"
-                                    >
-                                      {section.name}
-                                    </p>
+                                    <div className="w-12">
+                                      <p
+                                        id={`${section.name}-heading`}
+                                        className="font-medium text-custom bg-secondary text-center rounded-sm py-1"
+                                      >
+                                        {section.name}
+                                      </p>
+                                    </div>
+
                                     <ul
                                       role="list"
                                       aria-labelledby={`${section.name}-heading`}
@@ -405,6 +412,7 @@ function NavbarSection() {
                                         </li>
                                       ))}
                                     </ul>
+                                    <p>{section.description}</p>
                                   </div>
                                 ))}
                               </div>
