@@ -1,7 +1,5 @@
 export const sortOptions = [
-  { name: "Most Popular", href: "#", current: true },
-  { name: "Best Rating", href: "#", current: false },
-  { name: "Newest", href: "#", current: false },
+  { name: "Best Rating", href: "#", current: true },
   { name: "Price: Low to High", href: "#", current: false },
   { name: "Price: High to Low", href: "#", current: false },
 ];
@@ -14,7 +12,6 @@ export const subCategories = [
   { name: "Cases", href: "#" },
 ];
 export const filters = [
-  /* to create new filters, copy below object, using same structure */
   {
     id: "color",
     name: "Color",

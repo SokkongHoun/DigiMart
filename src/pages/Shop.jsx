@@ -24,9 +24,14 @@ function Shops() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [filteredSubCategory, setFilteredSubCategory] = useState(productData);
   const [selectedListOfColors, setSelectedListOfColors] = useState([]);
+  /* for underline the selected category */
   const [underline, setUnderline] = useState(null);
+  /* for highlight the selected sort option */
+  const [selectedSort, setSelectedSort] = useState(null);
 
-  const handleFilterSubCate = (subCategoryName) => {
+  let finalProductData = filteredSubCategory;
+
+  const handleFilterSubCategory = (subCategoryName) => {
     const filteredProducts = productData.filter(
       (product) => product.category === subCategoryName
     );
@@ -45,7 +50,24 @@ function Shops() {
     });
   };
 
-  let finalProductData = filteredSubCategory;
+  const handleSorting = (option) => {
+    let sortedProducts;
+    if (option.name === "Best Rating") {
+      sortedProducts = [...filteredSubCategory].sort(
+        (a, b) => b.reviewCount - a.reviewCount
+      );
+    } else if (option.name === "Price: Low to High") {
+      sortedProducts = [...filteredSubCategory].sort(
+        (a, b) => a.price - b.price
+      );
+    } else if (option.name === "Price: High to Low") {
+      sortedProducts = [...filteredSubCategory].sort(
+        (a, b) => b.price - a.price
+      );
+    }
+    setFilteredSubCategory(sortedProducts);
+    setSelectedSort(option.name);
+  };
 
   if (selectedListOfColors.length > 0) {
     finalProductData = filteredSubCategory.filter((product) =>
@@ -56,6 +78,7 @@ function Shops() {
       )
     );
   }
+
   return (
     <div className="bg-custom">
       <div>
@@ -116,7 +139,9 @@ function Shops() {
                             className={`block px-2 py-3 cursor-pointer ${
                               category.name === underline ? "underline" : ""
                             }`}
-                            onClick={() => handleFilterSubCate(category.name)}
+                            onClick={() =>
+                              handleFilterSubCategory(category.name)
+                            }
                           >
                             {category.name}
                           </a>
@@ -224,8 +249,9 @@ function Shops() {
                           {({ active }) => (
                             <a
                               href={option.href}
+                              onClick={() => handleSorting(option)}
                               className={classNames(
-                                option.current
+                                option.name === selectedSort
                                   ? "font-medium text-gray-900"
                                   : "text-gray-500",
                                 active ? "bg-gray-100" : "",
@@ -277,7 +303,7 @@ function Shops() {
                     <li key={category.name}>
                       <a
                         href={category.href}
-                        onClick={() => handleFilterSubCate(category.name)}
+                        onClick={() => handleFilterSubCategory(category.name)}
                         className={`${
                           category.name === underline ? "underline" : ""
                         } cursor-pointer`}
