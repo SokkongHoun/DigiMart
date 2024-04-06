@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -10,35 +11,31 @@ import {
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import Products from "../components/Products.jsx";
-import productData from "../data/productData.json";
 import {
   sortOptions,
   subCategories,
   filters,
 } from "../filtering/shopPageFilter.js";
+import { ShopContext } from "../App.jsx";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 function Shops() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [filteredSubCategory, setFilteredSubCategory] = useState(productData);
   const [selectedListOfColors, setSelectedListOfColors] = useState([]);
-  /* for underline the selected category */
-  const [underline, setUnderline] = useState(null);
+
   /* for highlight the selected sort option */
   const [selectedSort, setSelectedSort] = useState(null);
 
+  const {
+    filteredSubCategory,
+    handleFilterSubCategory,
+    setFilteredSubCategory,
+    underline,
+  } = useContext(ShopContext);
+
   let finalProductData = filteredSubCategory;
-
-  const handleFilterSubCategory = (subCategoryName) => {
-    const filteredProducts = productData.filter(
-      (product) => product.category === subCategoryName
-    );
-
-    setUnderline(subCategoryName);
-    setFilteredSubCategory(filteredProducts);
-  };
 
   const handleColorOptions = (value) => {
     setSelectedListOfColors((prevState) => {
@@ -135,7 +132,7 @@ function Shops() {
                     >
                       {subCategories.map((category) => (
                         <li key={category.name}>
-                          <a
+                          <Link
                             className={`block px-2 py-3 cursor-pointer ${
                               category.name === underline ? "underline" : ""
                             }`}
@@ -144,7 +141,7 @@ function Shops() {
                             }
                           >
                             {category.name}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -301,15 +298,14 @@ function Shops() {
                 >
                   {subCategories.map((category) => (
                     <li key={category.name}>
-                      <a
-                        href={category.href}
+                      <Link
                         onClick={() => handleFilterSubCategory(category.name)}
                         className={`${
                           category.name === underline ? "underline" : ""
                         } cursor-pointer`}
                       >
                         {category.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>

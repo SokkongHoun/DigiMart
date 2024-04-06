@@ -11,11 +11,13 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import ShoppingCart from "./ShoppingCart";
 import { SearchProduct } from "./SearchProduct.jsx";
 import { CartContext } from "../App.jsx";
+import { ShopContext } from "../App.jsx";
 
 function NavbarSection() {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const { cart } = useContext(CartContext);
+  const { handleFilterSubCategory } = useContext(ShopContext);
 
   // copy the "get this" object to have another category
   const navigation = {
@@ -352,7 +354,7 @@ function NavbarSection() {
                           aria-hidden="true"
                         />
 
-                        <div className="relative bg-white z-50">
+                        <div className="relative bg-custom z-50">
                           <div className="mx-auto max-w-7xl px-8">
                             <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
                               <div className="col-start-2 grid grid-cols-2 gap-x-8">
@@ -370,7 +372,7 @@ function NavbarSection() {
                                     </div>
                                     <Link
                                       href={item.href}
-                                      className="mt-6 block font-medium text-gray-900"
+                                      className="mt-6 block font-medium text-custom"
                                     >
                                       <span
                                         className="absolute inset-0 z-10"
@@ -378,7 +380,10 @@ function NavbarSection() {
                                       />
                                       {item.name}
                                     </Link>
-                                    <p aria-hidden="true" className="mt-1">
+                                    <p
+                                      aria-hidden="true"
+                                      className="mt-1 text-first"
+                                    >
                                       Shop now
                                     </p>
                                   </div>
@@ -390,7 +395,7 @@ function NavbarSection() {
                                     <div className="w-12">
                                       <p
                                         id={`${section.name}-heading`}
-                                        className="font-medium text-custom bg-secondary text-center rounded-sm py-1"
+                                        className="font-medium text-custom"
                                       >
                                         {section.name}
                                       </p>
@@ -404,15 +409,22 @@ function NavbarSection() {
                                       {section.items.map((item) => (
                                         <li key={item.name} className="flex">
                                           <Link
-                                            href={item.href}
-                                            className="hover:text-gray-800"
+                                            to="/shop"
+                                            onClick={() => {
+                                              handleFilterSubCategory(
+                                                item.name
+                                              );
+                                            }}
+                                            className="text-custom hover:text-gray-300"
                                           >
                                             {item.name}
                                           </Link>
                                         </li>
                                       ))}
                                     </ul>
-                                    <p>{section.description}</p>
+                                    <p className="text-first">
+                                      {section.description}
+                                    </p>
                                   </div>
                                 ))}
                               </div>
