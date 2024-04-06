@@ -1,5 +1,4 @@
 import React from "react";
-import "../styles/Homepage.css";
 import Marquee from "react-fast-marquee";
 import { useNavigate } from "react-router-dom";
 

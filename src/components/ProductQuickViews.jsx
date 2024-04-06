@@ -23,12 +23,10 @@ export default function ProductQuickViews({ isOpen, setIsOpen, productData }) {
       );
 
       if (foundIndex !== -1) {
-        // Update the quantity of the found item
         return currentCart.map((item, index) =>
           index === foundIndex ? { ...item, qty: item.qty + 1 } : item
         );
       } else {
-        // Add a new item to the cart
         const newItem = {
           id: productData.id,
           imgSrc: productData.imgSrc,

@@ -24,7 +24,7 @@ export function SearchProduct() {
       );
       setProducts(searchResult);
     }
-  }, [filterText, productData]);
+  }, [filterText]);
 
   const handleProductQuickView = (value) => {
     setSelectedProduct(value);

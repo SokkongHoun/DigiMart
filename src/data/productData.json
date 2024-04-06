@@ -7,7 +7,7 @@
     "colors": [
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -28,7 +28,7 @@
       },
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -59,7 +59,7 @@
       },
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -75,7 +75,7 @@
     "colors": [
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       },
       {
@@ -116,7 +116,7 @@
       },
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -195,7 +195,7 @@
       },
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       },
       {
@@ -237,7 +237,7 @@
       },
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -374,7 +374,7 @@
       },
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -390,7 +390,7 @@
     "colors": [
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       },
       {
@@ -452,7 +452,7 @@
       },
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -468,7 +468,7 @@
     "colors": [
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       },
       {
@@ -499,7 +499,7 @@
       },
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       },
       {
@@ -599,7 +599,7 @@
       },
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -673,7 +673,7 @@
       },
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -720,7 +720,7 @@
       },
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -741,7 +741,7 @@
       },
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -757,7 +757,7 @@
     "colors": [
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       },
       {
@@ -793,7 +793,7 @@
       },
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       }
     ],
@@ -809,7 +809,7 @@
     "colors": [
       {
         "name": "Black",
-        "class": "bg-gray-900",
+        "class": "bg-black",
         "selectedClass": "ring-gray-900"
       },
       {

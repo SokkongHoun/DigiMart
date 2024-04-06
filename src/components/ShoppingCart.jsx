@@ -1,6 +1,6 @@
 import { Modal } from "flowbite-react";
 import { CartContext } from "../App";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 /*
 
@@ -107,6 +107,43 @@ function ShoppingCart({ openModal, setOpenModal }) {
     );
   };
 
+  const OrderSummary = () => {
+    let subtotal = 0;
+    cart.forEach((item) => {
+      let itemCost = item.price * item.qty;
+      subtotal += itemCost;
+    });
+    let shipping = 5;
+    let taxEstaimted = subtotal * 0.05;
+
+    const orderTotal = taxEstaimted + subtotal + shipping;
+
+    return (
+      <div className="w-full text-black bg-gray-100 p-5">
+        <h1 className="text-lg mb-4 font-bold">Order summary</h1>
+        <div className="flex justify-between mb-3">
+          <p className="text-sm sm:text-base">Subtotal</p>
+          <p className="text-sm sm:text-base">${subtotal.toFixed(2)}</p>
+        </div>
+        <hr className="border border-third" />
+        <div className="flex justify-between mt-4 mb-3">
+          <p className="text-sm sm:text-base">Shipping estimated</p>
+          <p className="text-sm sm:text-base">${shipping.toFixed(2)}</p>
+        </div>
+        <hr className="border border-third" />
+        <div className="flex justify-between mt-4 mb-3">
+          <p className="text-sm sm:text-base">Tax estimated</p>
+          <p className="text-sm sm:text-base">${taxEstaimted.toFixed(2)}</p>
+        </div>
+        <hr className="border border-third" />
+        <div className="flex justify-between mt-4">
+          <h3 className="text-base font-bold">Order total</h3>
+          <h3 className="text-base font-bold">${orderTotal.toFixed(2)}</h3>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
@@ -118,7 +155,8 @@ function ShoppingCart({ openModal, setOpenModal }) {
         <Modal.Body className="bg-white">
           <div className="space-y-6">{productInCartCard()}</div>
         </Modal.Body>
-        <Modal.Footer className="bg-white">
+        <Modal.Footer className="bg-white flex flex-col">
+          <OrderSummary />
           {cart.length === 0 ? (
             <Button child="Continue shopping" />
           ) : (
