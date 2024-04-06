@@ -41,7 +41,7 @@ export function SearchProduct() {
           productData={selectedProduct}
         />
       )}
-      <button className="border-r-2 border-gray-400 cursor-pointer">
+      <button className=" cursor-pointer">
         <span
           onClick={() => setOpenModal(true)}
           className="material-symbols-outlined text-first mt-3 mr-4"

@@ -76,7 +76,7 @@ function NavbarSection() {
           {
             id: "phone card holders",
             name: <span class="material-symbols-outlined">wallet</span>,
-            items: [{ name: "Phone card holders", href: "#" }],
+            items: [{ name: "Phone Card Holders", href: "#" }],
             description:
               "Slim, secure phone card holder for conveninet on-the-go storage. ",
           },
@@ -256,20 +256,6 @@ function NavbarSection() {
                         Create account
                       </Link>
                     </div>
-                  </div>
-
-                  <div className="border-t border-gray-200 px-4 py-6">
-                    <Link href="#" className="-m-2 flex items-center p-2">
-                      <img
-                        src="https://tailwindui.com/img/flags/flag-canada.svg"
-                        alt=""
-                        className="block h-auto w-5 flex-shrink-0"
-                      />
-                      <span className="ml-3 block text-base font-medium text-gray-300">
-                        CAD
-                      </span>
-                      <span className="sr-only">, change currency</span>
-                    </Link>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -472,28 +458,16 @@ function NavbarSection() {
             </Link>
           </div>
 
-          <div className="hidden lg:ml-8 lg:flex">
-            <Link
-              href="#"
-              className="flex items-center text-custom hover:text-gray-300"
-            >
-              <img
-                src="https://tailwindui.com/img/flags/flag-canada.svg"
-                alt=""
-                className="block h-auto w-5 flex-shrink-0"
-              />
-              <span className="ml-3 block text-sm font-medium">CAD</span>
-              <span className="sr-only">, change currency</span>
-            </Link>
-          </div>
-
           {/* Search */}
           <div className="flex lg:ml-6">
             <SearchProduct />
           </div>
-
+          <span
+            className="h-6 w-px bg-gray-200 block lg:hidden mr-4 lg:mr-0"
+            aria-hidden="true"
+          />
           {/* Cart */}
-          <div className="ml-4 flow-root lg:ml-6">
+          <div className="flow-root lg:ml-6">
             <Link href="#" className="group -m-2 flex items-center p-2">
               <ShoppingBagIcon
                 className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
