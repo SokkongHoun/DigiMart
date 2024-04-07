@@ -8,7 +8,6 @@ const BannerSection = () => {
   function handleNavigate() {
     navigate("/shop");
   }
-
   return (
     <div className="flex flex-col text-center items-center bg-custom pt-20 sm:pt-32">
       <p className="flex gap-1 items-center bg-black px-2 rounded-xl text-xs font-semibold mb-4 py-1">
@@ -29,10 +28,10 @@ const BannerSection = () => {
       <h1 className="high-tech-title text-3xl font-semibold sm:text-4xl">
         High-Tech Accessories for Innovative Realities
       </h1>
-      <p className="elevate-title text-sm text-custom mt-4">
+      <h1 className="elevate-title text-sm text-custom mt-4">
         Elevate your technology experience to a whole new level with our
-        meticulously designed accessories.
-      </p>
+        meticulously designed accessories
+      </h1>
       <div className=" flex items-center gap-5 mt-8">
         <button
           className="bg-black px-6 py-4 rounded-md text-sm cursor-pointer"
