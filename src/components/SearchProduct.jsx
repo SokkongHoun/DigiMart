@@ -1,10 +1,12 @@
 import { Modal } from "flowbite-react";
-import { useEffect, useState } from "react";
-import productData from "../data/productData.json";
+import { useEffect, useState, useContext } from "react";
 import ProductQuickViews from "./ProductQuickViews";
 import { ProductCard } from "./SearchProductCard.jsx";
+import { FirebaseData } from "../data/productData.jsx";
 
 export function SearchProduct() {
+  const { productData } = useContext(FirebaseData);
+
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [products, setProducts] = useState(productData);
@@ -29,7 +31,7 @@ export function SearchProduct() {
   const handleProductQuickView = (value) => {
     setSelectedProduct(value);
     setIsOpen(true);
-    setOpenModal(false);
+    // setOpenModal(false);
   };
 
   return (

@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import "../styles/Aboutus.css";
 import { Timeline } from "flowbite-react";
-import { HiArrowNarrowRight } from "react-icons/hi";
 import { Carousel } from "flowbite-react";
 import { Link } from "react-router-dom";
 

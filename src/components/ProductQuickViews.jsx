@@ -9,13 +9,15 @@ function classNames(...classes) {
 }
 
 export default function ProductQuickViews({ isOpen, setIsOpen, productData }) {
-  const { cart, setCart } = useContext(CartContext);
+  const { setCart } = useContext(CartContext);
   useEffect(() => {
     setSelectedColor(productData.colors[0]);
   }, [productData]);
   const [selectedColor, setSelectedColor] = useState(productData.colors[0]);
 
   const handleAddToCart = () => {
+    // alert("handle add to card ");
+
     setCart((currentCart) => {
       const foundIndex = currentCart.findIndex(
         (cartItem) =>
@@ -38,6 +40,8 @@ export default function ProductQuickViews({ isOpen, setIsOpen, productData }) {
         return [...currentCart, newItem];
       }
     });
+
+    console.log(productData);
   };
 
   return (
@@ -198,7 +202,7 @@ export default function ProductQuickViews({ isOpen, setIsOpen, productData }) {
                             molestias rem aut in earum!
                           </p>
                           <button
-                            onClick={(event) => handleAddToCart(event)}
+                            onClick={handleAddToCart}
                             className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-black px-8 py-3 text-base font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
                           >
                             Add to cart

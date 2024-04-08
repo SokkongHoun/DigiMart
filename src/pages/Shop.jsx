@@ -1,5 +1,5 @@
-import React, { useEffect, useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -17,6 +17,7 @@ import {
   filters,
 } from "../filtering/shopPageFilter.js";
 import { ShopContext } from "../App.jsx";
+import { FirebaseData } from "../data/productData.jsx";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -34,8 +35,9 @@ function Shops() {
     setFilteredSubCategory,
     underline,
   } = useContext(ShopContext);
+  const { productData } = useContext(FirebaseData);
 
-  let finalProductData = filteredSubCategory;
+  let finalProductData = filteredSubCategory || productData;
 
   const handleColorOptions = (value) => {
     setSelectedListOfColors((prevState) => {

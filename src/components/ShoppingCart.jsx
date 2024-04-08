@@ -2,9 +2,6 @@ import { Modal } from "flowbite-react";
 import { CartContext } from "../App";
 import React, { useContext, useState } from "react";
 
-/*
-
-*/
 function ShoppingCart({ openModal, setOpenModal }) {
   const { cart, setCart } = useContext(CartContext);
 
