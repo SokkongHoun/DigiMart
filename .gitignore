@@ -25,4 +25,3 @@ dist-ssr
 
 # Firebase config and environment variables
 .env
-firebaseConfig.js
