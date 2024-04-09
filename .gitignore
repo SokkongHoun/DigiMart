@@ -19,9 +19,8 @@ dist-ssr
 .DS_Store
 *.suo
 *.ntvs*
+.env
 *.njsproj
 *.sln
 *.sw?
 
-# Firebase config and environment variables
-.env
