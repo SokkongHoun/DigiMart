@@ -93,7 +93,8 @@ function App() {
                   path="/FirebaseData"
                   element={<FirebaseDataProvider />}
                 />
-                <Route path="/NotFoundPage" element={<NotFoundPage />} />
+
+                <Route path="/*" element={<NotFoundPage />} />
               </Routes>
             </BrowserRouter>
           </ShopProvider>

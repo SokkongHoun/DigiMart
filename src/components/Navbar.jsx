@@ -284,10 +284,10 @@ function NavbarSection() {
 
   const BrandLogo = () => {
     return (
-      <div className="ml-4 flex lg:ml-0">
+      <div className="ml-7 flex">
         <Link to="/">
           <span className="sr-only">Your Company</span>
-          <img className="w-10" src="/logo.png" alt="Digi-Mart" />
+          <img className="w-16" src="/logo.png" alt="Digi-Mart" />
         </Link>
       </div>
     );
@@ -498,7 +498,7 @@ function NavbarSection() {
           className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-custom"
         >
           <div>
-            <div className="flex h-16 items-center">
+            <div className="flex h-16 items-center py-8">
               <MobileMenuButton />
               {/* Logo */}
               <BrandLogo />

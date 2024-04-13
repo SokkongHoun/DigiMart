@@ -31,7 +31,7 @@ export function SearchProduct() {
   const handleProductQuickView = (value) => {
     setSelectedProduct(value);
     setIsOpen(true);
-    // setOpenModal(false);
+    setOpenModal(false);
   };
 
   return (

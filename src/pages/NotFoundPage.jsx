@@ -1,11 +1,16 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../styles/Notfoundpage.css";
 
 const NotFoundPage = () => {
+  const navigate = useNavigate();
+
+  const toHomepage = () => {
+    navigate("/");
+  };
   return (
     <>
-      <div className="flex flex-col items-center mt-40">
+      <div className="flex flex-col items-center pt-10 pb-20">
         <div>
           <img src="https://i.ibb.co/ck1SGFJ/Group.png" />
         </div>
@@ -19,7 +24,7 @@ const NotFoundPage = () => {
               to go.
             </p>
             <button
-              to="/NotFoundPage"
+              onClick={toHomepage}
               className="bg-secondary py-5 px-10 rounded-lg hover:bg-third"
             >
               Take me there!

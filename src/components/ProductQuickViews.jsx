@@ -16,8 +16,6 @@ export default function ProductQuickViews({ isOpen, setIsOpen, productData }) {
   const [selectedColor, setSelectedColor] = useState(productData.colors[0]);
 
   const handleAddToCart = () => {
-    // alert("handle add to card ");
-
     setCart((currentCart) => {
       const foundIndex = currentCart.findIndex(
         (cartItem) =>
@@ -40,8 +38,6 @@ export default function ProductQuickViews({ isOpen, setIsOpen, productData }) {
         return [...currentCart, newItem];
       }
     });
-
-    console.log(productData);
   };
 
   return (
