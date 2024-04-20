@@ -3,6 +3,8 @@ import { Dialog, RadioGroup, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { CartContext } from "../App";
+import { UserAuth } from "../auth/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -14,6 +16,8 @@ export default function ProductQuickViews({ isOpen, setIsOpen, productData }) {
     setSelectedColor(productData.colors[0]);
   }, [productData]);
   const [selectedColor, setSelectedColor] = useState(productData.colors[0]);
+  const { userUI } = UserAuth();
+  const navigate = useNavigate();
 
   const handleAddToCart = () => {
     setCart((currentCart) => {
@@ -197,12 +201,21 @@ export default function ProductQuickViews({ isOpen, setIsOpen, productData }) {
                             explicabo voluptates consequuntur natus fugit,
                             molestias rem aut in earum!
                           </p>
-                          <button
-                            onClick={handleAddToCart}
-                            className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-black px-8 py-3 text-base font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-                          >
-                            Add to cart
-                          </button>
+                          {userUI ? (
+                            <button
+                              onClick={handleAddToCart}
+                              className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-black px-8 py-3 text-base font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+                            >
+                              Add to cart
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => navigate("/signIn")}
+                              className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-black px-8 py-3 text-base font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+                            >
+                              sign in to continue
+                            </button>
+                          )}
                         </div>
                       </section>
                     </div>

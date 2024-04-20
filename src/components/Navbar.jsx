@@ -19,7 +19,8 @@ function NavbarSection() {
   const [openModal, setOpenModal] = useState(false);
   const { cart } = useContext(CartContext);
   const { handleFilterSubCategory } = useContext(ShopContext);
-  const { userUI } = UserAuth();
+  const { userUI, logout } = UserAuth();
+  const navigate = useNavigate();
 
   // copy the "get this" object to have another category
   const navigation = {
@@ -100,6 +101,15 @@ function NavbarSection() {
     return classes.filter(Boolean).join(" ");
   }
 
+  async function handleLogOut() {
+    try {
+      await logout();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   const HandleViewCart = () => {
     return (
       <div className="flow-root lg:ml-6">
@@ -135,7 +145,7 @@ function NavbarSection() {
             <a>Order History</a>
           </li>
           <li>
-            <a>Sign out</a>
+            <Link onClick={handleLogOut}>Sign out</Link>
           </li>
         </ul>
       </div>

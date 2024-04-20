@@ -12,7 +12,7 @@ const UserContext = createContext();
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
-  const [userUI, setUserUi] = useState(false);
+  const [userUI, setUserUI] = useState(false);
 
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -30,7 +30,11 @@ export const AuthContextProvider = ({ children }) => {
       setUser(currentUser);
       console.log(currentUser);
       setLoading(false);
-      setUserUi(true);
+      if (currentUser) {
+        setUserUI(true);
+      } else {
+        setUserUI(false);
+      }
     });
 
     return () => {
