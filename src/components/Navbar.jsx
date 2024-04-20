@@ -242,7 +242,7 @@ function NavbarSection() {
                   <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                     <div className="flow-root">
                       <Link
-                        href="#"
+                        to="/signIn"
                         className="-m-2 block p-2 font-medium text-gray-300"
                       >
                         Sign in
@@ -250,7 +250,7 @@ function NavbarSection() {
                     </div>
                     <div className="flow-root">
                       <Link
-                        href="#"
+                        to="/signUp"
                         className="-m-2 block p-2 font-medium text-gray-300"
                       >
                         Create account
@@ -444,14 +444,14 @@ function NavbarSection() {
         <div className="ml-auto flex items-center">
           <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
             <Link
-              href="#"
+              to="/signIn"
               className="text-sm font-medium text-custom hover:text-gray-300"
             >
               Sign in
             </Link>
             <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
             <Link
-              href="#"
+              to="/signUp"
               className="text-sm font-medium text-custom hover:text-gray-300"
             >
               Create account

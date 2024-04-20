@@ -8,6 +8,9 @@ import React, { useState, createContext, useContext, useEffect } from "react";
 import LayoutFooter from "./components/routes/LayoutFooter.jsx";
 import FirebaseDataProvider from "./data/productData.jsx";
 import { FirebaseData } from "./data/productData.jsx";
+import SignInForm from "./pages/SignInForm.jsx";
+import SignUpForm from "./pages/SignUpForm.jsx";
+import ResetPasswordForm from "./pages/ResetPasswordForm.jsx";
 
 export const CartContext = createContext();
 export const ShopContext = createContext();
@@ -90,11 +93,30 @@ function App() {
                   }
                 />
                 <Route
-                  path="/FirebaseData"
-                  element={<FirebaseDataProvider />}
+                  path="/signIn"
+                  element={
+                    <LayoutFooter includeFooter={true}>
+                      <SignInForm />
+                    </LayoutFooter>
+                  }
                 />
-
-                <Route path="/*" element={<NotFoundPage />} />
+                <Route
+                  path="/signUp"
+                  element={
+                    <LayoutFooter includeFooter={true}>
+                      <SignUpForm />
+                    </LayoutFooter>
+                  }
+                />
+                <Route path="*" element={<NotFoundPage />} />
+                <Route
+                  path="/resetpassword"
+                  element={
+                    <LayoutFooter includeFooter={true}>
+                      <ResetPasswordForm />
+                    </LayoutFooter>
+                  }
+                />
               </Routes>
             </BrowserRouter>
           </ShopProvider>
