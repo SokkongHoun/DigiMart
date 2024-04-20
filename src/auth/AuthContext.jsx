@@ -11,8 +11,8 @@ const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [userUI, setUserUI] = useState(false);
+  const [userUI, setUserUI] = useState(null);
+  const [adminStatus, setAdminStatus] = useState(null);
 
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -28,12 +28,20 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log(currentUser);
-      setLoading(false);
       if (currentUser) {
         setUserUI(true);
       } else {
         setUserUI(false);
+      }
+
+      if (currentUser) {
+        currentUser.getIdTokenResult().then((idTokenResult) => {
+          if (idTokenResult.claims.admin) {
+            setAdminStatus(true);
+          } else {
+            setAdminStatus(null);
+          }
+        });
       }
     });
 
@@ -43,8 +51,10 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ createUser, user, logout, signIn, userUI }}>
-      {!loading && children}
+    <UserContext.Provider
+      value={{ createUser, user, logout, signIn, userUI, adminStatus }}
+    >
+      {children}
     </UserContext.Provider>
   );
 };
