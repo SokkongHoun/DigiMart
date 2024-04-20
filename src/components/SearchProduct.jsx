@@ -2,7 +2,7 @@ import { Modal } from "flowbite-react";
 import { useEffect, useState, useContext } from "react";
 import ProductQuickViews from "./ProductQuickViews";
 import { ProductCard } from "./SearchProductCard.jsx";
-import { FirebaseData } from "../data/productData.jsx";
+import { FirebaseData } from "../contexts/productData.jsx";
 
 export function SearchProduct() {
   const { productData } = useContext(FirebaseData);

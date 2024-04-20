@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from "../auth/AuthContext";
+import { toast } from "react-toastify";
 
 const SignUpForm = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
+
+  const { createUser } = UserAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (password && confirmPassword) {
@@ -20,6 +26,18 @@ const SignUpForm = () => {
     }
   }, [password, confirmPassword]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await createUser(email, password);
+      navigate("/");
+      toast.success("Account created successfully");
+    } catch (error) {
+      console.log(error);
+      toast.error("Unable to create account", error);
+    }
+  };
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -32,7 +50,6 @@ const SignUpForm = () => {
           Sign up to continue
         </h2>
       </div>
-
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" action="#" method="POST">
           <div>
@@ -44,6 +61,7 @@ const SignUpForm = () => {
             </label>
             <div className="mt-2">
               <input
+                onChange={(e) => setEmail(e.target.value)}
                 id="email"
                 name="email"
                 type="email"
@@ -102,6 +120,7 @@ const SignUpForm = () => {
           <div>
             <button
               disabled={isButtonDisabled}
+              onClick={handleSubmit}
               type="submit"
               className={`flex w-full justify-center rounded-md bg-secondary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-third focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
                 isButtonDisabled ? "cursor-not-allowed" : "cursor-pointer"

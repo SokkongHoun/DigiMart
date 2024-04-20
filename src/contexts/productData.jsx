@@ -21,7 +21,6 @@ const FirebaseDataProvider = ({ children }) => {
           id: key,
           ...data[key],
         }));
-        console.log("Data retrieved successfully");
         setProductsData(productsWithIds);
         setLoading(false);
       } catch (err) {

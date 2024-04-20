@@ -11,6 +11,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import ShoppingCart from "./ShoppingCart";
 import { SearchProduct } from "./SearchProduct.jsx";
 import { CartContext } from "../App.jsx";
+import { UserAuth } from "../auth/AuthContext.jsx";
 import { ShopContext } from "../App.jsx";
 
 function NavbarSection() {
@@ -18,6 +19,7 @@ function NavbarSection() {
   const [openModal, setOpenModal] = useState(false);
   const { cart } = useContext(CartContext);
   const { handleFilterSubCategory } = useContext(ShopContext);
+  const { userUI } = UserAuth();
 
   // copy the "get this" object to have another category
   const navigation = {
@@ -45,14 +47,14 @@ function NavbarSection() {
         sections: [
           {
             id: "watch straps",
-            name: <span class="material-symbols-outlined">watch</span>,
+            name: <span className="material-symbols-outlined">watch</span>,
             items: [{ name: "Watch Straps", href: "#" }],
             description:
               "Durable silicone or leather watch straps, a stylish accessory choice.",
           },
           {
             id: "laptop bags",
-            name: <span class="material-symbols-outlined">enterprise</span>,
+            name: <span className="material-symbols-outlined">enterprise</span>,
             items: [{ name: "Laptop bags", href: "#" }],
             description:
               "Chic laptop bags: on-the-go protection, padded, stylish",
@@ -60,7 +62,7 @@ function NavbarSection() {
           {
             id: "stands",
             name: (
-              <span class="material-symbols-outlined">desktop_windows</span>
+              <span className="material-symbols-outlined">desktop_windows</span>
             ),
             items: [{ name: "Stands", href: "#" }],
             description:
@@ -68,21 +70,23 @@ function NavbarSection() {
           },
           {
             id: "cases",
-            name: <span class="material-symbols-outlined">cases</span>,
+            name: <span className="material-symbols-outlined">cases</span>,
             items: [{ name: "Cases", href: "#" }],
             description:
               "Wear-resistant cases in diverse materials, designs for personalized style. ",
           },
           {
             id: "phone card holders",
-            name: <span class="material-symbols-outlined">wallet</span>,
+            name: <span className="material-symbols-outlined">wallet</span>,
             items: [{ name: "Phone Card Holders", href: "#" }],
             description:
               "Slim, secure phone card holder for conveninet on-the-go storage. ",
           },
           {
             id: "mouse pads",
-            name: <span class="material-symbols-outlined">touchpad_mouse</span>,
+            name: (
+              <span className="material-symbols-outlined">touchpad_mouse</span>
+            ),
             items: [{ name: "Mouse Pads", href: "#" }],
             description:
               "Ulta-smooth, ergonomic premium mouse pads for superiors comfort",
@@ -96,8 +100,46 @@ function NavbarSection() {
     return classes.filter(Boolean).join(" ");
   }
 
-  const handleViewCarts = () => {
-    setOpenModal(true);
+  const HandleViewCart = () => {
+    return (
+      <div className="flow-root lg:ml-6">
+        <Link href="#" className="group -m-2 flex items-center p-2">
+          <ShoppingBagIcon
+            className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+            aria-hidden="true"
+            onClick={() => setOpenModal(true)}
+          />
+          <span className="ml-2 text-sm font-medium text-custom">
+            {calculateCartQuantities()}
+          </span>
+          <span className="sr-only">items in cart, view bag</span>
+        </Link>
+      </div>
+    );
+  };
+
+  const HandleViewUsersAccount = () => {
+    return (
+      <div className="dropdown dropdown-bottom dropdown-end ml-4 lg:ml-8 mt-2">
+        <div tabIndex={0} role="button">
+          <span className="material-symbols-sharp">account_circle</span>
+        </div>
+        <ul
+          tabIndex={0}
+          className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-secondary"
+        >
+          <li>
+            <a>Account</a>
+          </li>
+          <li>
+            <a>Order History</a>
+          </li>
+          <li>
+            <a>Sign out</a>
+          </li>
+        </ul>
+      </div>
+    );
   };
 
   const MobileMenu = () => {
@@ -443,22 +485,25 @@ function NavbarSection() {
       <>
         <div className="ml-auto flex items-center">
           <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-            <Link
-              to="/signIn"
-              className="text-sm font-medium text-custom hover:text-gray-300"
-            >
-              Sign in
-            </Link>
-            <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-            <Link
-              to="/signUp"
-              className="text-sm font-medium text-custom hover:text-gray-300"
-            >
-              Create account
-            </Link>
+            {!userUI && (
+              <>
+                <Link
+                  to="/signIn"
+                  className="text-sm font-medium text-custom hover:text-gray-300"
+                >
+                  Sign in
+                </Link>
+                <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                <Link
+                  to="/signUp"
+                  className="text-sm font-medium text-custom hover:text-gray-300"
+                >
+                  Create account
+                </Link>
+              </>
+            )}
           </div>
 
-          {/* Search */}
           <div className="flex lg:ml-6">
             <SearchProduct />
           </div>
@@ -466,20 +511,12 @@ function NavbarSection() {
             className="h-6 w-px bg-gray-200 block lg:hidden mr-4 lg:mr-0"
             aria-hidden="true"
           />
-          {/* Cart */}
-          <div className="flow-root lg:ml-6">
-            <Link href="#" className="group -m-2 flex items-center p-2">
-              <ShoppingBagIcon
-                className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                aria-hidden="true"
-                onClick={handleViewCarts}
-              />
-              <span className="ml-2 text-sm font-medium text-custom">
-                {calculateCartQuantities()}
-              </span>
-              <span className="sr-only">items in cart, view bag</span>
-            </Link>
-          </div>
+          {userUI && (
+            <>
+              <HandleViewCart />
+              <HandleViewUsersAccount />
+            </>
+          )}
         </div>
       </>
     );

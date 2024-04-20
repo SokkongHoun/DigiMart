@@ -17,7 +17,7 @@ import {
   filters,
 } from "../filtering/shopPageFilter.js";
 import { ShopContext } from "../App.jsx";
-import { FirebaseData } from "../data/productData.jsx";
+import { FirebaseData } from "../contexts/productData.jsx";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
