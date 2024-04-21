@@ -18,6 +18,7 @@ import { UserAuth } from "./auth/AuthContext.jsx";
 import AdminNav from "./components/admin/AdminNav.jsx";
 import ProductDashboard from "./pages/admin/ProductDashboard.jsx";
 import Dashboard from "./pages/admin/Dashboard.jsx";
+import ProtectedRoute from "./components/routes/ProtectedRoute.jsx";
 
 export const CartContext = createContext();
 export const ShopContext = createContext();
@@ -78,14 +79,29 @@ function App() {
                 <>
                   <AdminNav />
                   <Routes>
-                    <Route index element={<Dashboard />} />
+                    <Route
+                      index
+                      element={
+                        <ProtectedRoute>
+                          <Dashboard />
+                        </ProtectedRoute>
+                      }
+                    />
                     <Route
                       path="/GrantingAdminAccessibility"
-                      element={<AdminSetUp />}
+                      element={
+                        <ProtectedRoute>
+                          <AdminSetUp />
+                        </ProtectedRoute>
+                      }
                     />
                     <Route
                       path="/productdashboard"
-                      element={<ProductDashboard />}
+                      element={
+                        <ProtectedRoute>
+                          <ProductDashboard />
+                        </ProtectedRoute>
+                      }
                     />
                     <Route path="*" element={<NotFoundPage />} />
                   </Routes>
