@@ -2,7 +2,7 @@ import React from "react";
 import { UserAuth } from "../../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const SignOutPage = () => {
+export const useLogout = () => {
   const { logout } = UserAuth();
   const navigate = useNavigate();
 
@@ -14,13 +14,6 @@ const SignOutPage = () => {
       console.log(error);
     }
   }
-  return (
-    <div>
-      <button onClick={handleLogOut} className="px-5 py-2">
-        log out
-      </button>
-    </div>
-  );
-};
 
-export default SignOutPage;
+  return handleLogOut;
+};

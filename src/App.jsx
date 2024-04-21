@@ -15,7 +15,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminSetUp from "./pages/admin/AdminSetUp.jsx";
 import { UserAuth } from "./auth/AuthContext.jsx";
-import SignOutPage from "./pages/admin/SignOutPage.jsx";
+import AdminNav from "./components/admin/AdminNav.jsx";
+import ProductDashboard from "./pages/admin/ProductDashboard.jsx";
+import Dashboard from "./pages/admin/Dashboard.jsx";
 
 export const CartContext = createContext();
 export const ShopContext = createContext();
@@ -74,9 +76,17 @@ function App() {
             <BrowserRouter>
               {adminStatus ? (
                 <>
+                  <AdminNav />
                   <Routes>
-                    <Route index element={<AdminSetUp />} />
-                    <Route path="/signout" element={<SignOutPage />} />
+                    <Route index element={<Dashboard />} />
+                    <Route
+                      path="/GrantingAdminAccessibility"
+                      element={<AdminSetUp />}
+                    />
+                    <Route
+                      path="/productdashboard"
+                      element={<ProductDashboard />}
+                    />
                     <Route path="*" element={<NotFoundPage />} />
                   </Routes>
                 </>
