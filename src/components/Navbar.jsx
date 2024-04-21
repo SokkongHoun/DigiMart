@@ -13,6 +13,7 @@ import { SearchProduct } from "./SearchProduct.jsx";
 import { CartContext } from "../App.jsx";
 import { UserAuth } from "../auth/AuthContext.jsx";
 import { ShopContext } from "../App.jsx";
+import { toast } from "react-toastify";
 
 function NavbarSection() {
   const [open, setOpen] = useState(false);
@@ -105,26 +106,64 @@ function NavbarSection() {
     try {
       await logout();
       navigate("/");
+      toast.info("log out successfully");
     } catch (error) {
-      console.log(error);
+      toast.error("unable to log out");
     }
   }
 
   const HandleViewCart = () => {
     return (
-      <div className="flow-root lg:ml-6">
-        <Link href="#" className="group -m-2 flex items-center p-2">
-          <ShoppingBagIcon
-            className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-            aria-hidden="true"
-            onClick={() => setOpenModal(true)}
-          />
-          <span className="ml-2 text-sm font-medium text-custom">
-            {calculateCartQuantities()}
-          </span>
-          <span className="sr-only">items in cart, view bag</span>
-        </Link>
-      </div>
+      <>
+        <div className="flex-none lg:ml-6">
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle"
+            >
+              <div className="indicator">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+                <span className="badge badge-sm indicator-item">
+                  {calculateCartQuantities()}
+                </span>
+              </div>
+            </div>
+            <div
+              tabIndex={0}
+              className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+            >
+              <div className="card-body bg-secondary rounded-xl">
+                <span className="font-bold text-lg">
+                  {calculateCartQuantities()} Items
+                </span>
+                <span className="text-info">Subtotal: $XXX</span>
+                <div className="card-actions">
+                  <button
+                    onClick={() => setOpenModal(true)}
+                    className="btn bg-custom hover:bg-third btn-block text-custom border-none"
+                  >
+                    View cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
     );
   };
 
@@ -291,24 +330,28 @@ function NavbarSection() {
                     </Link>
                   </div>
 
-                  <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                    <div className="flow-root">
-                      <Link
-                        to="/signIn"
-                        className="-m-2 block p-2 font-medium text-gray-300"
-                      >
-                        Sign in
-                      </Link>
-                    </div>
-                    <div className="flow-root">
-                      <Link
-                        to="/signUp"
-                        className="-m-2 block p-2 font-medium text-gray-300"
-                      >
-                        Create account
-                      </Link>
-                    </div>
-                  </div>
+                  {!userUI && (
+                    <>
+                      <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                        <div className="flow-root">
+                          <Link
+                            to="/signIn"
+                            className="-m-2 block p-2 font-medium text-gray-300"
+                          >
+                            Sign in
+                          </Link>
+                        </div>
+                        <div className="flow-root">
+                          <Link
+                            to="/signUp"
+                            className="-m-2 block p-2 font-medium text-gray-300"
+                          >
+                            Create account
+                          </Link>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -517,13 +560,13 @@ function NavbarSection() {
           <div className="flex lg:ml-6">
             <SearchProduct />
           </div>
-          <span
-            className="h-6 w-px bg-gray-200 block lg:hidden mr-4 lg:mr-0"
-            aria-hidden="true"
-          />
           {userUI && (
             <>
               <HandleViewCart />
+              <span
+                className="h-6 w-px bg-gray-200 block mr-4 lg:mr-0 ml-5"
+                aria-hidden="true"
+              />
               <HandleViewUsersAccount />
             </>
           )}

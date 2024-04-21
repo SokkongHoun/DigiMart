@@ -20,8 +20,7 @@ const NotFoundPage = () => {
               Looks like you've found the doorway to the great nothing
             </h1>
             <p className="my-5 text-gray-300">
-              Sorry about that! Please visit our hompage to get where you need
-              to go.
+              Sorry about that! Please return to our homepage
             </p>
             <button
               onClick={toHomepage}

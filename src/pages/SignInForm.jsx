@@ -5,20 +5,21 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const SignInForm = () => {
-  const { signIn } = UserAuth();
+  const { signIn, adminStatus } = UserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await signIn(email, password);
-      navigate("/");
       toast.success("Sign in successfully");
+      navigate("/");
     } catch (error) {
       console.log(error);
-      toast.error(error);
+      toast.error("Invalid credentials");
     }
   };
 
