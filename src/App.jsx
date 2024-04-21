@@ -151,7 +151,14 @@ function App() {
                         </LayoutFooter>
                       }
                     />
-                    <Route path="*" element={<NotFoundPage />} />
+                    <Route
+                      path="*"
+                      element={
+                        <LayoutFooter includeFooter={true}>
+                          <NotFoundPage />
+                        </LayoutFooter>
+                      }
+                    />
                     <Route
                       path="/resetpassword"
                       element={
