@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLogout } from "./UseLogout";
 
 const ViewCartDropdown = () => {
   return (
@@ -40,6 +41,8 @@ const ViewCartDropdown = () => {
 };
 
 const AdminNav = () => {
+  const handleLogout = useLogout();
+
   return (
     <div className=" bg-secondary">
       <div className="navbar mx-auto max-w-4xl px-4 sm:px-6 lg:max-w-screen-2xl">
@@ -77,7 +80,7 @@ const AdminNav = () => {
                 <Link to="/GrantingAdminAccessibility">Admin access</Link>
               </li>
               <li>
-                <a>Logout</a>
+                <button onClick={handleLogout}>Logout</button>
               </li>
             </ul>
           </div>
