@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "../firebaseConfig";
+import LoadingAnimation from "../components/LoadingAnimation";
 
 const UserContext = createContext();
 
@@ -13,6 +14,7 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [userUI, setUserUI] = useState(null);
   const [adminStatus, setAdminStatus] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Add loading state
 
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -43,6 +45,7 @@ export const AuthContextProvider = ({ children }) => {
           }
         });
       }
+      setIsLoading(false); // Set loading to false after the callback is executed
     });
 
     return () => {
@@ -54,7 +57,8 @@ export const AuthContextProvider = ({ children }) => {
     <UserContext.Provider
       value={{ createUser, user, logout, signIn, userUI, adminStatus }}
     >
-      {children}
+      {isLoading ? <LoadingAnimation /> : children}{" "}
+      {/* Conditionally render LoadingAnimation or children */}
     </UserContext.Provider>
   );
 };

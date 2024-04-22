@@ -4,7 +4,7 @@ import { functions } from "../../firebaseConfig";
 import { httpsCallable } from "firebase/functions";
 import { toast } from "react-toastify";
 
-const AdminSetUp = () => {
+const AdminAccessibility = () => {
   const [adminEmail, setAdminEmail] = useState("");
   const addAdminRole = httpsCallable(functions, "addAdminRole");
 
@@ -28,7 +28,7 @@ const AdminSetUp = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <>
       <h1 className="text-2xl font-semibold">
         Granting User Admin Accessibility
       </h1>
@@ -50,14 +50,9 @@ const AdminSetUp = () => {
           />
         </label>
       </div>
-      <button
-        onClick={handleSubmit}
-        className="bg-secondary hover:bg-third px-10 py-2 rounded-md"
-      >
-        Commit
-      </button>
-    </div>
+      {/* <button onClick={handleSubmit}>Commit</button> */}
+    </>
   );
 };
 
-export default AdminSetUp;
+export default AdminAccessibility;

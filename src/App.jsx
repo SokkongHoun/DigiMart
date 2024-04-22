@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from "./pages/About.jsx";
 import Shops from "./pages/Shop.jsx";
 import React, { useState, createContext, useContext, useEffect } from "react";
-import LayoutFooter from "./components/routes/LayoutFooter.jsx";
+import LayoutFooter from "./contexts/LayoutFooter.jsx";
 import FirebaseDataProvider from "./contexts/productData.jsx";
 import { FirebaseData } from "./contexts/productData.jsx";
 import SignInForm from "./pages/SignInForm.jsx";
@@ -13,12 +13,12 @@ import SignUpForm from "./pages/SignUpForm.jsx";
 import ResetPasswordForm from "./pages/ResetPasswordForm.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AdminSetUp from "./pages/admin/AdminSetUp.jsx";
 import { UserAuth } from "./auth/AuthContext.jsx";
 import AdminNav from "./components/admin/AdminNav.jsx";
 import ProductDashboard from "./pages/admin/ProductDashboard.jsx";
 import Dashboard from "./pages/admin/Dashboard.jsx";
 import ProtectedRoute from "./components/routes/ProtectedRoute.jsx";
+import AdminAccessContext from "./contexts/AdminAccessContext.jsx";
 
 export const CartContext = createContext();
 export const ShopContext = createContext();
@@ -69,6 +69,7 @@ export const ShopProvider = ({ children }) => {
 
 function App() {
   const { adminStatus } = UserAuth();
+
   return (
     <>
       <FirebaseDataProvider>
@@ -77,34 +78,28 @@ function App() {
             <BrowserRouter>
               {adminStatus ? (
                 <>
-                  <AdminNav />
-                  <Routes>
-                    <Route
-                      index
-                      element={
-                        <ProtectedRoute>
-                          <Dashboard />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/GrantingAdminAccessibility"
-                      element={
-                        <ProtectedRoute>
-                          <AdminSetUp />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/productdashboard"
-                      element={
-                        <ProtectedRoute>
-                          <ProductDashboard />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route path="*" element={<NotFoundPage />} />
-                  </Routes>
+                  <AdminAccessContext>
+                    <AdminNav />
+                    <Routes>
+                      <Route
+                        index
+                        element={
+                          <ProtectedRoute>
+                            <Dashboard />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/productdashboard"
+                        element={
+                          <ProtectedRoute>
+                            <ProductDashboard />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                  </AdminAccessContext>
                 </>
               ) : (
                 <>
