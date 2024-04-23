@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useLogout } from "./UseLogout";
 import { ModalContext } from "../../contexts/AdminAccessContext";
 import AdminModal from "../../pages/admin/AdminModal";
+import { useNavigate } from "react-router-dom";
 export const MenuButton = () => {
   return (
     <label
@@ -29,6 +30,7 @@ export const MenuButton = () => {
 const AdminNav = () => {
   const handleLogout = useLogout();
   const { isOpen, setIsOpen } = useContext(ModalContext);
+  const navigate = useNavigate();
 
   const handleOpenAdminModal = () => {
     setIsOpen(true);
@@ -39,12 +41,22 @@ const AdminNav = () => {
   }, [isOpen]);
 
   return (
-    <div className=" bg-secondary">
+    <div className=" bg-custom border-neutral-600 border-b">
       <AdminModal />
-      <div className="navbar mx-auto max-w-4xl px-4 sm:px-6 lg:max-w-screen-2xl">
+      <div className="navbar mx-auto px-7">
         <div className="flex-1">
           <MenuButton />
-          <img src="../../logo.png" className="w-11 ml-7 lg:ml-0" />
+          <div
+            onClick={() => navigate("/")}
+            className="flex justify-center items-center cursor-pointer"
+          >
+            <img src="../../logo.png" className="w-11 ml-7 lg:ml-0" />{" "}
+            <span>
+              <h1 className="text-secondCustom text-xl font-semibold ml-5">
+                DigiMart
+              </h1>
+            </span>
+          </div>
         </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
