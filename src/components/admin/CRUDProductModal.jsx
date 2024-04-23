@@ -91,22 +91,152 @@ const SearchInput = () => {
 };
 
 const AddProductModal = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <button
-        className="btn"
-        onClick={() => document.getElementById("addProductModal").showModal()}
+        className="btn bg-blue-600 text-custom hover:bg-blue-800 hover:text-white"
+        onClick={openModal}
       >
-        Add Product
+        + Add Product
       </button>
-      <dialog id="addProductModal" className="modal">
-        <div className="modal-box">
-          <form method="dialog">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+      <dialog id="addProductModal" className="modal" open={isModalOpen}>
+        <div className="modal-box bg-secondary max-w-screen-sm">
+          <div>
+            <button
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              onClick={closeModal}
+            >
               ✕
             </button>
-          </form>
+          </div>
           <h3 className="font-bold text-lg">Add Product</h3>
+          <hr className="mt-5 border-neutral-400" />
+          <div className="grid grid-cols-2 gap-5">
+            <label className="form-control w-full max-w-xs mt-5">
+              <div className="label">
+                <span className="label-text">Product Name</span>
+              </div>
+              <input
+                type="text"
+                placeholder="Product Name"
+                className="input input-bordered w-full max-w-72"
+              />
+            </label>
+            <label className="form-control w-full max-w-xs mt-5">
+              <div className="label">
+                <span className="label-text">Price</span>
+              </div>
+              <input
+                type="number"
+                placeholder="Price"
+                className="input input-bordered w-full max-w-72"
+              />
+            </label>
+            <label className="form-control w-full max-w-xs mt-5">
+              <div className="label">
+                <span className="label-text">Rating</span>
+              </div>
+              <input
+                type="number"
+                placeholder="Product Name"
+                className="input input-bordered w-full max-w-72"
+              />
+            </label>
+            <label className="form-control w-full max-w-xs mt-5">
+              <div className="label">
+                <span className="label-text">Reviews</span>
+              </div>
+              <input
+                type="number"
+                placeholder="Reviews"
+                className="input input-bordered w-full max-w-72"
+              />
+            </label>
+            <label className="form-control w-full max-w-xs mt-5">
+              <div className="label">
+                <span className="label-text">Image URL</span>
+              </div>
+              <input
+                type="text"
+                placeholder="Image url"
+                className="input input-bordered w-full max-w-72"
+              />
+            </label>
+            <div className="flex gap-3">
+              <label className="form-control mt-5">
+                <div className="label">
+                  <span className="label-text">Category</span>
+                </div>
+                <div className="dropdown dropdown-top">
+                  <div tabIndex={0} role="button" className="btn w-36 text-xs">
+                    Select Category
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60 mt-2"
+                  >
+                    <li>
+                      <a>Stands</a>
+                    </li>
+                    <li>
+                      <a>Laptop bag</a>
+                    </li>
+                    <li>
+                      <a>Phone Case Holders</a>
+                    </li>
+                    <li>
+                      <a>Watch Straps</a>
+                    </li>
+                    <li>
+                      <a>Mouse pads</a>
+                    </li>
+                    <li>
+                      <a>Cases</a>
+                    </li>
+                  </ul>
+                </div>
+              </label>
+              <label className="form-control mt-5">
+                <div className="label">
+                  <span className="label-text">Color</span>
+                </div>
+                <div className="dropdown dropdown-top">
+                  <div tabIndex={0} role="button" className="btn w-32 text-xs">
+                    Select Color
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-36 mt-2"
+                  >
+                    <li>
+                      <a>Black</a>
+                    </li>
+                    <li>
+                      <a>Yellow</a>
+                    </li>
+                    <li>
+                      <a>Gray</a>
+                    </li>
+                    <li>
+                      <a>Yellow</a>
+                    </li>
+                  </ul>
+                </div>
+              </label>
+            </div>
+          </div>
+          <button className="btn bg-blue-600 text-custom hover:bg-blue-800 hover:text-white mt-6">
+            + Add Product
+          </button>
         </div>
       </dialog>
     </>
@@ -116,18 +246,58 @@ const AddProductModal = () => {
 const FilterDropdown = () => {
   return (
     <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn m-1">
+      <div
+        tabIndex={0}
+        role="button"
+        className="btn m-1 bg-transparent hover:bg-third hover:text-white"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            fillRule="evenodd"
+            d="M3.792 2.938A49.069 49.069 0 0 1 12 2.25c2.797 0 5.54.236 8.209.688a1.857 1.857 0 0 1 1.541 1.836v1.044a3 3 0 0 1-.879 2.121l-6.182 6.182a1.5 1.5 0 0 0-.439 1.061v2.927a3 3 0 0 1-1.658 2.684l-1.757.878A.75.75 0 0 1 9.75 21v-5.818a1.5 1.5 0 0 0-.44-1.06L3.13 7.938a3 3 0 0 1-.879-2.121V4.774c0-.897.64-1.683 1.542-1.836Z"
+            clipRule="evenodd"
+          />
+        </svg>
         Filter
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            fillRule="evenodd"
+            d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+            clipRule="evenodd"
+          />
+        </svg>
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+        className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-third"
       >
         <li>
-          <a>Item 1</a>
+          <a>Stands</a>
         </li>
         <li>
-          <a>Item 2</a>
+          <a>Phone Card Holders</a>
+        </li>
+        <li>
+          <a>Cases</a>
+        </li>
+        <li>
+          <a>Watch Straps</a>
+        </li>
+        <li>
+          <a>Laptop bags</a>
+        </li>
+        <li>
+          <a>Mouse Pads</a>
         </li>
       </ul>
     </div>
@@ -269,7 +439,7 @@ const CRUDProductModal = () => {
               </table>
             </div>
             <ReactPaginate
-              className="w-full flex grow gap-10 justify-center px-3 py-3 font-bold text-custom"
+              className="w-full flex grow gap-10 justify-center px-3 py-3 font-bold text-custom bg-third"
               breakLabel="..."
               nextLabel="next"
               onPageChange={handlePageClick}
