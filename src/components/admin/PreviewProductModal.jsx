@@ -15,10 +15,20 @@ const PreviewProductModal = () => {
     }
   };
 
+  const RatingIcon = () => {
+    return (
+      <input
+        type="radio"
+        name="rating-2"
+        className="mask mask-star-2 bg-orange-400 w-4"
+      />
+    );
+  };
+
   return (
     <>
       <button
-        className="w-full py-2 flex items-center pl-2 hover:bg-secondary rounded-md"
+        className="w-full py-2 flex items-center pl-2"
         onClick={handleOpenModal}
       >
         <svg
@@ -37,7 +47,7 @@ const PreviewProductModal = () => {
         Preview
       </button>
       <dialog ref={modalRef} id="EditProductModal" className="modal">
-        <div className="modal-box max-w-screen-sm">
+        <div className="modal-box max-w-screen-sm bg-secondary">
           <form method="dialog">
             <button
               type="button"
@@ -46,8 +56,38 @@ const PreviewProductModal = () => {
             >
               ✕
             </button>
-            <h3 className="font-bold text-lg">Preview product</h3>
+            <h3 className="font-bold text-lg text-custom">Preview product</h3>
             <hr className="mt-5 border-neutral-400" />
+            <div className="w-full mt-10 grid grid-cols-2 gap-5">
+              <figure>
+                <img
+                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+                  alt="Shoes"
+                  className="rounded-lg"
+                />
+              </figure>
+              <div>
+                <h1 className="text-2xl text-custom">Basic Tee </h1>
+                <p className="text-xl text-custom">$196</p>
+                <div className="flex items-center my-4">
+                  <div className="rating ">
+                    <RatingIcon />
+                    <RatingIcon />
+                    <RatingIcon />
+                    <RatingIcon />
+                    <RatingIcon />
+                  </div>
+                  <p className="text-neutral-400 ml-4">125 reviews</p>
+                </div>
+                <p className="bg-red-600 w-6 h-6 rounded-full mb-4"></p>
+                <p className="text-custom">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Dolore similique enim doloremque placeat fuga a quis incidunt?
+                  Adipisci aliquam eos fugit accusantium quos in, nemo et. Ipsum
+                  neque nesciunt amet.
+                </p>
+              </div>
+            </div>
           </form>
         </div>
       </dialog>
