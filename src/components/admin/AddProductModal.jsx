@@ -1,7 +1,47 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { FirebaseData } from "../../contexts/productData";
 
 const AddProductModal = () => {
+  const { productData } = useContext(FirebaseData);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  /* Add product states */
+  const [formData, setFormData] = useState({
+    category: "",
+    imgSrc: "",
+    name: "",
+    price: 0,
+    rating: 0,
+    reviewCount: 0,
+  });
+  const [testState, setTestState] = useState(null);
+  const [selectColor, setSelectColor] = useState();
+
+  const handleFormData = (e) => {
+    let inputName = e.target.name;
+    let inputValue = e.target.value;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [inputName]: inputValue,
+    }));
+  };
+
+  const handleCreateProductToDB = () => {
+    const allColors = productData.flatMap((product) => product.colors);
+    const chosenColor = allColors.find((color) => color.name === selectColor);
+
+    const updatedFormData = {
+      ...formData,
+      colors: chosenColor,
+    };
+
+    setFormData(updatedFormData);
+    setTestState(updatedFormData);
+  };
+  useEffect(() => {
+    console.log(testState);
+  }, [testState]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -10,6 +50,7 @@ const AddProductModal = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
   return (
     <>
       <button
@@ -40,8 +81,10 @@ const AddProductModal = () => {
                 <span className="label-text">Product Name</span>
               </div>
               <input
+                onChange={handleFormData}
                 type="text"
                 placeholder="Product Name"
+                name="name"
                 className="input input-bordered w-full max-w-72"
               />
             </label>
@@ -50,8 +93,10 @@ const AddProductModal = () => {
                 <span className="label-text">Price</span>
               </div>
               <input
+                onChange={handleFormData}
                 type="number"
                 placeholder="Price"
+                name="price"
                 className="input input-bordered w-full max-w-72"
               />
             </label>
@@ -61,7 +106,9 @@ const AddProductModal = () => {
               </div>
               <input
                 type="number"
-                placeholder="Product Name"
+                onChange={handleFormData}
+                name="rating"
+                placeholder="Rating"
                 className="input input-bordered w-full max-w-72"
               />
             </label>
@@ -71,6 +118,8 @@ const AddProductModal = () => {
               </div>
               <input
                 type="number"
+                onChange={handleFormData}
+                name="reviewCount"
                 placeholder="Reviews"
                 className="input input-bordered w-full max-w-72"
               />
@@ -81,74 +130,59 @@ const AddProductModal = () => {
               </div>
               <input
                 type="text"
+                onChange={handleFormData}
                 placeholder="Image url"
+                name="imgSrc"
                 className="input input-bordered w-full max-w-72"
               />
             </label>
-            <div className="flex gap-3">
-              <label className="form-control mt-5">
+            <div className="grid items-center grid-cols-2 gap-2 mt-5">
+              <div>
                 <div className="label">
-                  <span className="label-text">Category</span>
+                  <span className="label-text">category</span>
                 </div>
-                <div className="dropdown dropdown-top">
-                  <div tabIndex={0} role="button" className="btn w-36 text-xs">
-                    Select Category
-                  </div>
-                  <ul
-                    tabIndex={0}
-                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60 mt-2"
-                  >
-                    <li>
-                      <a>Stands</a>
-                    </li>
-                    <li>
-                      <a>Laptop bag</a>
-                    </li>
-                    <li>
-                      <a>Phone Case Holders</a>
-                    </li>
-                    <li>
-                      <a>Watch Straps</a>
-                    </li>
-                    <li>
-                      <a>Mouse pads</a>
-                    </li>
-                    <li>
-                      <a>Cases</a>
-                    </li>
-                  </ul>
-                </div>
-              </label>
-              <label className="form-control mt-5">
+                <select
+                  className="select w-full"
+                  onChange={handleFormData}
+                  name="category"
+                >
+                  <option value="Mouse Pads">Mouse Pads</option>
+                  <option value="Stands">Stands</option>
+                  <option value="Cases">Cases</option>
+                  <option value="Phone Card Holders">Phone Card Holders</option>
+                  <option value="Watch Straps">Watch Straps</option>
+                  <option value="Laptop bags">Laptop bags</option>
+                </select>
+              </div>
+              <div>
                 <div className="label">
                   <span className="label-text">Color</span>
                 </div>
-                <div className="dropdown dropdown-top">
-                  <div tabIndex={0} role="button" className="btn w-32 text-xs">
-                    Select Color
-                  </div>
-                  <ul
-                    tabIndex={0}
-                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-36 mt-2"
-                  >
-                    <li>
-                      <a>Black</a>
-                    </li>
-                    <li>
-                      <a>Yellow</a>
-                    </li>
-                    <li>
-                      <a>Gray</a>
-                    </li>
-                    <li>
-                      <a>Yellow</a>
-                    </li>
-                  </ul>
-                </div>
-              </label>
+                <select
+                  className="select w-full"
+                  onChange={(e) => setSelectColor(e.target.value)}
+                >
+                  <option disabled selected>
+                    color
+                  </option>
+                  <option value="Black">Black</option>
+                  <option value="White">White</option>
+                  <option value="Gray">Gray</option>
+                  <option value="Blue">Blue</option>
+                  <option value="Yellow">Yellow</option>
+                  <option value="Red">Red</option>
+                  <option value="Green">Green</option>
+                  <option value="Orange">Orange</option>
+                  <option value="Pink">Pink</option>
+                </select>
+              </div>
             </div>
           </div>
-          <button className="btn bg-blue-600 text-custom hover:bg-blue-800 hover:text-white mt-6">
+
+          <button
+            onClick={handleCreateProductToDB}
+            className="btn bg-blue-600 text-custom hover:bg-blue-800 hover:text-white mt-6"
+          >
             + Add Product
           </button>
         </div>

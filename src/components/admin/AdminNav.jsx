@@ -36,10 +36,6 @@ const AdminNav = () => {
     setIsOpen(true);
   };
 
-  useEffect(() => {
-    console.log(isOpen);
-  }, [isOpen]);
-
   return (
     <div className=" bg-custom border-neutral-600 border-b">
       <AdminModal />

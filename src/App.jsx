@@ -19,6 +19,7 @@ import ProductDashboard from "./pages/admin/ProductDashboard.jsx";
 import Dashboard from "./pages/admin/Dashboard.jsx";
 import ProtectedRoute from "./components/routes/ProtectedRoute.jsx";
 import AdminAccessContext from "./contexts/AdminAccessContext.jsx";
+import Testingpage from "./components/admin/testingpage.jsx";
 
 export const CartContext = createContext();
 export const ShopContext = createContext();
@@ -97,6 +98,7 @@ function App() {
                           </ProtectedRoute>
                         }
                       />
+                      <Route path="testingpage" element={<Testingpage />} />
                       <Route path="*" element={<NotFoundPage />} />
                     </Routes>
                   </AdminAccessContext>
