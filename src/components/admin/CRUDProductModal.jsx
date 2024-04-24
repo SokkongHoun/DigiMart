@@ -1,74 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { FirebaseData } from "../../contexts/productData";
 import ReactPaginate from "react-paginate";
+import AddProductModal from "./AddProductModal";
+import PreviewProductModal from "./PreviewProductModal";
+import EditProductModal from "./EditProductModal";
+import { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
 
-const EditProductModal = () => {
-  return (
-    <>
-      <button
-        className="w-full py-2 flex items-center pl-2"
-        onClick={() => document.getElementById("editProductModal").showModal()}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className="w-4 h-4 mr-2"
-        >
-          <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-          <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-        </svg>
-        Edit
-      </button>
-      <dialog id="editProductModal" className="modal">
-        <div className="modal-box">
-          <form method="dialog">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              ✕
-            </button>
-          </form>
-          <h3 className="font-bold text-lg">Product Editor Modal</h3>
-        </div>
-      </dialog>
-    </>
-  );
-};
-
-const PreviewProductModal = () => {
-  return (
-    <>
-      <button
-        className="w-full py-2 flex items-center pl-2"
-        onClick={() => document.getElementById("my_modal_3").showModal()}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className="w-4 h-4 mr-2"
-        >
-          <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-          <path
-            fillRule="evenodd"
-            d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z"
-            clipRule="evenodd"
-          />
-        </svg>
-        Preview
-      </button>
-      <dialog id="my_modal_3" className="modal">
-        <div className="modal-box">
-          <form method="dialog">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              ✕
-            </button>
-          </form>
-          <h3 className="font-bold text-lg">Update product information</h3>
-        </div>
-      </dialog>
-    </>
-  );
-};
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
 const SearchInput = () => {
   return (
@@ -87,159 +28,6 @@ const SearchInput = () => {
         />
       </svg>
     </label>
-  );
-};
-
-const AddProductModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-  return (
-    <>
-      <button
-        className="btn bg-blue-600 text-custom hover:bg-blue-800 hover:text-white"
-        onClick={openModal}
-      >
-        + Add Product
-      </button>
-      <dialog id="addProductModal" className="modal" open={isModalOpen}>
-        <div className="modal-box bg-secondary max-w-screen-sm">
-          <div>
-            <button
-              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-              onClick={closeModal}
-            >
-              ✕
-            </button>
-          </div>
-          <h3 className="font-bold text-lg">Add Product</h3>
-          <hr className="mt-5 border-neutral-400" />
-          <div className="grid grid-cols-2 gap-5">
-            <label className="form-control w-full max-w-xs mt-5">
-              <div className="label">
-                <span className="label-text">Product Name</span>
-              </div>
-              <input
-                type="text"
-                placeholder="Product Name"
-                className="input input-bordered w-full max-w-72"
-              />
-            </label>
-            <label className="form-control w-full max-w-xs mt-5">
-              <div className="label">
-                <span className="label-text">Price</span>
-              </div>
-              <input
-                type="number"
-                placeholder="Price"
-                className="input input-bordered w-full max-w-72"
-              />
-            </label>
-            <label className="form-control w-full max-w-xs mt-5">
-              <div className="label">
-                <span className="label-text">Rating</span>
-              </div>
-              <input
-                type="number"
-                placeholder="Product Name"
-                className="input input-bordered w-full max-w-72"
-              />
-            </label>
-            <label className="form-control w-full max-w-xs mt-5">
-              <div className="label">
-                <span className="label-text">Reviews</span>
-              </div>
-              <input
-                type="number"
-                placeholder="Reviews"
-                className="input input-bordered w-full max-w-72"
-              />
-            </label>
-            <label className="form-control w-full max-w-xs mt-5">
-              <div className="label">
-                <span className="label-text">Image URL</span>
-              </div>
-              <input
-                type="text"
-                placeholder="Image url"
-                className="input input-bordered w-full max-w-72"
-              />
-            </label>
-            <div className="flex gap-3">
-              <label className="form-control mt-5">
-                <div className="label">
-                  <span className="label-text">Category</span>
-                </div>
-                <div className="dropdown dropdown-top">
-                  <div tabIndex={0} role="button" className="btn w-36 text-xs">
-                    Select Category
-                  </div>
-                  <ul
-                    tabIndex={0}
-                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60 mt-2"
-                  >
-                    <li>
-                      <a>Stands</a>
-                    </li>
-                    <li>
-                      <a>Laptop bag</a>
-                    </li>
-                    <li>
-                      <a>Phone Case Holders</a>
-                    </li>
-                    <li>
-                      <a>Watch Straps</a>
-                    </li>
-                    <li>
-                      <a>Mouse pads</a>
-                    </li>
-                    <li>
-                      <a>Cases</a>
-                    </li>
-                  </ul>
-                </div>
-              </label>
-              <label className="form-control mt-5">
-                <div className="label">
-                  <span className="label-text">Color</span>
-                </div>
-                <div className="dropdown dropdown-top">
-                  <div tabIndex={0} role="button" className="btn w-32 text-xs">
-                    Select Color
-                  </div>
-                  <ul
-                    tabIndex={0}
-                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-36 mt-2"
-                  >
-                    <li>
-                      <a>Black</a>
-                    </li>
-                    <li>
-                      <a>Yellow</a>
-                    </li>
-                    <li>
-                      <a>Gray</a>
-                    </li>
-                    <li>
-                      <a>Yellow</a>
-                    </li>
-                  </ul>
-                </div>
-              </label>
-            </div>
-          </div>
-          <button className="btn bg-blue-600 text-custom hover:bg-blue-800 hover:text-white mt-6">
-            + Add Product
-          </button>
-        </div>
-      </dialog>
-    </>
   );
 };
 
@@ -324,51 +112,40 @@ const DisplayProductInfo = ({ currentItems }) => {
         <td className="px-4 py-3 text-custom">{value.rating.toFixed(1)}</td>
         <td className="px-4 py-3 text-custom">{value.reviewCount}</td>
         <td className="px-4 py-3 flex items-center justify-end">
-          <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="m-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                />
-              </svg>
+          <Menu as="div" className="relative inline-block text-left">
+            <div>
+              <Menu.Button>...</Menu.Button>
             </div>
-            <div className="dropdown-content z-[1] menu shadow bg-base-100 rounded-box w-32">
-              <div className="flex flex-col items-start">
-                <div className="w-full hover:bg-custom rounded-xl">
-                  <EditProductModal />
+
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-custom shadow-lg">
+                <div className="py-2 px-2 ">
+                  <Menu.Item>
+                    <PreviewProductModal />
+                  </Menu.Item>
+                  <Menu.Item>
+                    <EditProductModal />
+                  </Menu.Item>
+                  <Menu.Item className="flex items-center py-1 hover:bg-secondary">
+                    <div className="w-full cursor-pointer pl-2 rounded-md text-red-600 ">
+                      <span className="material-symbols-outlined text-base mr-2">
+                        delete
+                      </span>
+                      Delete
+                    </div>
+                  </Menu.Item>
                 </div>
-                <div className="w-full hover:bg-custom rounded-xl">
-                  <PreviewProductModal />
-                </div>
-                <div className="w-full hover:bg-custom rounded-xl">
-                  <button className="w-full py-2 flex items-center pl-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-4 h-4 mr-2"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+              </Menu.Items>
+            </Transition>
+          </Menu>
         </td>
       </tr>
     );
