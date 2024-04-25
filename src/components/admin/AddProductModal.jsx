@@ -1,9 +1,61 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FirebaseData } from "../../contexts/productData";
+import { getDatabase, set, push, ref } from "firebase/database";
+import { toast } from "react-toastify";
+import app from "../../firebaseConfig";
+
+const color = [
+  {
+    class: "bg-black",
+    name: "Black",
+    selectedClass: "ring-gray-900",
+  },
+  {
+    class: "bg-gray-100",
+    name: "White",
+    selectedClass: "ring-gray-400",
+  },
+  {
+    class: "bg-gray-400",
+    name: "Gray",
+    selectedClass: "ring-gray-400",
+  },
+  {
+    class: "bg-blue-600",
+    name: "Blue",
+    selectedClass: "ring-gray-900",
+  },
+  {
+    class: "bg-red-700",
+    name: "Red",
+    selectedClass: "ring-gray-900",
+  },
+  {
+    class: "bg-yellow-400",
+    name: "Yellow",
+    selectedClass: "ring-gray-400",
+  },
+  {
+    class: "bg-green-700",
+    name: "Green",
+    selectedClass: "ring-gray-900",
+  },
+  {
+    class: "bg-pink-600",
+    name: "Pink",
+    selectedClass: "ring-gray-900",
+  },
+  {
+    class: "bg-yellow-600",
+    name: "Orange",
+    selectedClass: "ring-gray-900",
+  },
+];
 
 const AddProductModal = () => {
   const { productData } = useContext(FirebaseData);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [colors, setColors] = useState("");
 
   /* Add product states */
   const [formData, setFormData] = useState({
@@ -14,34 +66,49 @@ const AddProductModal = () => {
     rating: 0,
     reviewCount: 0,
   });
-  const [testState, setTestState] = useState(null);
-  const [selectColor, setSelectColor] = useState();
 
   const handleFormData = (e) => {
-    let inputName = e.target.name;
-    let inputValue = e.target.value;
+    const { name, value } = e.target;
+    const numberFields = ["price", "rating", "reviewCount"];
+    const parsedValue = numberFields.includes(name) ? parseFloat(value) : value;
+    setFormData((prevData) => ({ ...prevData, [name]: parsedValue }));
+  };
 
-    setFormData((prevData) => ({
-      ...prevData,
-      [inputName]: inputValue,
-    }));
+  const handleColorMatcher = (e) => {
+    const selectedColor = e.target.value;
+    const allColors = productData.flatMap((product) => product.colors);
+    const chosenColors = allColors.find(
+      (color) => color.name === selectedColor
+    );
+
+    setColors(chosenColors);
+  };
+
+  const getFormDataWithColors = () => {
+    return {
+      ...formData,
+      colors: [colors],
+    };
   };
 
   const handleCreateProductToDB = () => {
-    const allColors = productData.flatMap((product) => product.colors);
-    const chosenColor = allColors.find((color) => color.name === selectColor);
+    const updatedFormData = getFormDataWithColors();
 
-    const updatedFormData = {
-      ...formData,
-      colors: chosenColor,
-    };
-
-    setFormData(updatedFormData);
-    setTestState(updatedFormData);
+    const db = getDatabase(app);
+    const newProductRef = push(ref(db, "products/data"));
+    set(newProductRef, updatedFormData)
+      .then(() => {
+        toast.success("Product created successfully");
+      })
+      .catch((error) => {
+        toast.error("Unable to create product");
+        console.log(error);
+      });
   };
+
   useEffect(() => {
-    console.log(testState);
-  }, [testState]);
+    console.log(formData);
+  }, [formData]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -158,10 +225,7 @@ const AddProductModal = () => {
                 <div className="label">
                   <span className="label-text">Color</span>
                 </div>
-                <select
-                  className="select w-full"
-                  onChange={(e) => setSelectColor(e.target.value)}
-                >
+                <select className="select w-full" onChange={handleColorMatcher}>
                   <option disabled selected>
                     color
                   </option>

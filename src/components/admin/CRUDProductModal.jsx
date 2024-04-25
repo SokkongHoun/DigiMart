@@ -96,7 +96,6 @@ const DisplayProductInfo = ({ currentItems }) => {
   return currentItems.map((value, index) => {
     return (
       <tr key={index} className="border-b dark:border-gray-700">
-        <th className="px-4">{value.id}</th>
         <th
           scope="row"
           className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -184,9 +183,6 @@ const CRUDProductModal = () => {
               <table className="w-full text-sm text-left text-custom dark:text-first">
                 <thead className="text-xs text-neutral-400 uppercase bg-third">
                   <tr>
-                    <th scope="col" className="px-4 py-4">
-                      ID
-                    </th>
                     <th scope="col" className="px-4 py-4">
                       Product name
                     </th>
