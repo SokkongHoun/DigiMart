@@ -4,54 +4,6 @@ import { getDatabase, set, push, ref } from "firebase/database";
 import { toast } from "react-toastify";
 import app from "../../firebaseConfig";
 
-const color = [
-  {
-    class: "bg-black",
-    name: "Black",
-    selectedClass: "ring-gray-900",
-  },
-  {
-    class: "bg-gray-100",
-    name: "White",
-    selectedClass: "ring-gray-400",
-  },
-  {
-    class: "bg-gray-400",
-    name: "Gray",
-    selectedClass: "ring-gray-400",
-  },
-  {
-    class: "bg-blue-600",
-    name: "Blue",
-    selectedClass: "ring-gray-900",
-  },
-  {
-    class: "bg-red-700",
-    name: "Red",
-    selectedClass: "ring-gray-900",
-  },
-  {
-    class: "bg-yellow-400",
-    name: "Yellow",
-    selectedClass: "ring-gray-400",
-  },
-  {
-    class: "bg-green-700",
-    name: "Green",
-    selectedClass: "ring-gray-900",
-  },
-  {
-    class: "bg-pink-600",
-    name: "Pink",
-    selectedClass: "ring-gray-900",
-  },
-  {
-    class: "bg-yellow-600",
-    name: "Orange",
-    selectedClass: "ring-gray-900",
-  },
-];
-
 const AddProductModal = () => {
   const { productData } = useContext(FirebaseData);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -105,10 +57,6 @@ const AddProductModal = () => {
         console.log(error);
       });
   };
-
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
 
   const openModal = () => {
     setIsModalOpen(true);

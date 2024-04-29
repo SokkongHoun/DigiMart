@@ -93,9 +93,9 @@ const FilterDropdown = () => {
 };
 
 const DisplayProductInfo = ({ currentItems }) => {
-  return currentItems.map((value, index) => {
+  return currentItems.map((value) => {
     return (
-      <tr key={index} className="border-b dark:border-gray-700">
+      <tr key={value.id} className="border-b dark:border-gray-700">
         <th
           scope="row"
           className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"

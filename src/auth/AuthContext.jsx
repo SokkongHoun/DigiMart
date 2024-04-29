@@ -14,7 +14,7 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [userUI, setUserUI] = useState(null);
   const [adminStatus, setAdminStatus] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const [isLoading, setIsLoading] = useState(true);
 
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -57,8 +57,7 @@ export const AuthContextProvider = ({ children }) => {
     <UserContext.Provider
       value={{ createUser, user, logout, signIn, userUI, adminStatus }}
     >
-      {isLoading ? <LoadingAnimation /> : children}{" "}
-      {/* Conditionally render LoadingAnimation or children */}
+      {isLoading ? <LoadingAnimation /> : children}
     </UserContext.Provider>
   );
 };
