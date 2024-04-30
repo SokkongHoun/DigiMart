@@ -91,7 +91,7 @@ const colors = [
   },
 ];
 
-const EditProductModal = () => {
+const EditProductModal = ({ productId }) => {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [writeData, setWriteData] = useState({
     name: "",
@@ -102,7 +102,6 @@ const EditProductModal = () => {
     category: "",
   });
   const [selectedValues, setSelectedValues] = useState([]);
-  const [productId, setProductId] = useState(6);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

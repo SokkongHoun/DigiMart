@@ -7,10 +7,6 @@ import EditProductModal from "./EditProductModal";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 const SearchInput = () => {
   return (
     <label className="input input-bordered flex items-center gap-2">
@@ -93,6 +89,12 @@ const FilterDropdown = () => {
 };
 
 const DisplayProductInfo = ({ currentItems }) => {
+  const [productId, setProductId] = useState(null);
+
+  const getProductId = (id) => {
+    setProductId(id);
+  };
+
   return currentItems.map((value) => {
     return (
       <tr key={value.id} className="border-b dark:border-gray-700">
@@ -113,7 +115,12 @@ const DisplayProductInfo = ({ currentItems }) => {
         <td className="px-4 py-3 flex items-center justify-end">
           <Menu as="div" className="relative inline-block text-left">
             <div>
-              <Menu.Button>...</Menu.Button>
+              <Menu.Button
+                className="text-lg font-semibold"
+                onClick={() => getProductId(value.id)}
+              >
+                ...
+              </Menu.Button>
             </div>
 
             <Transition
@@ -131,7 +138,10 @@ const DisplayProductInfo = ({ currentItems }) => {
                     <PreviewProductModal />
                   </Menu.Item>
                   <Menu.Item>
-                    <EditProductModal />
+                    <EditProductModal
+                      productId={productId}
+                      setProductId={setProductId}
+                    />
                   </Menu.Item>
                   <Menu.Item className="flex items-center py-1 hover:bg-secondary">
                     <div className="w-full cursor-pointer pl-2 rounded-md text-red-600 ">
