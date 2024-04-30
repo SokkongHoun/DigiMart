@@ -1,6 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { onValue, ref, getDatabase } from "firebase/database";
+import app from "../../firebaseConfig";
 
-const PreviewProductModal = () => {
+const PreviewProductModal = ({ productId }) => {
+  const [productData, setProductData] = useState();
   const modalRef = useRef(null);
 
   const handleOpenModal = () => {
@@ -24,6 +27,32 @@ const PreviewProductModal = () => {
       />
     );
   };
+
+  const db = getDatabase(app);
+  const productRef = ref(db, "products/data/" + productId);
+
+  useEffect(() => {
+    const unsubscribe = onValue(
+      productRef,
+      (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          const productDataKey = {
+            ...data,
+            id: crypto.randomUUID(),
+          };
+          setProductData([productDataKey]);
+        }
+      },
+      {
+        onlyOnce: true,
+      }
+    );
+
+    return () => {
+      unsubscribe();
+    };
+  }, [productId]);
 
   return (
     <>
@@ -59,34 +88,46 @@ const PreviewProductModal = () => {
             <h3 className="font-bold text-lg text-custom">Preview product</h3>
             <hr className="mt-5 border-neutral-400" />
             <div className="w-full mt-10 grid grid-cols-2 gap-5">
-              <figure>
-                <img
-                  src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                  className="rounded-lg"
-                />
-              </figure>
-              <div>
-                <h1 className="text-2xl text-custom">Basic Tee </h1>
-                <p className="text-xl text-custom">$196</p>
-                <div className="flex items-center my-4">
-                  <div className="rating ">
-                    <RatingIcon />
-                    <RatingIcon />
-                    <RatingIcon />
-                    <RatingIcon />
-                    <RatingIcon />
-                  </div>
-                  <p className="text-neutral-400 ml-4">125 reviews</p>
-                </div>
-                <p className="bg-red-600 w-6 h-6 rounded-full mb-4"></p>
-                <p className="text-custom">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Dolore similique enim doloremque placeat fuga a quis incidunt?
-                  Adipisci aliquam eos fugit accusantium quos in, nemo et. Ipsum
-                  neque nesciunt amet.
-                </p>
-              </div>
+              {productData?.length > 0 &&
+                productData.map((val) => {
+                  return (
+                    <>
+                      <figure key={val.id}>
+                        <img src={val.imgSrc} className="rounded-lg" />
+                      </figure>
+                      <div>
+                        <h1 className="text-2xl text-custom">{val.name}</h1>
+                        <p className="text-xl text-custom">{val.price}</p>
+                        <div className="flex items-center my-4">
+                          <div className="rating ">
+                            <RatingIcon />
+                            <RatingIcon />
+                            <RatingIcon />
+                            <RatingIcon />
+                            <RatingIcon />
+                          </div>
+                          <p className="text-neutral-400 ml-4">
+                            {val.reviewCount} review
+                          </p>
+                        </div>
+                        {val.colors.map((value, index) => {
+                          return (
+                            <p
+                              key={index}
+                              className={`${value.class} w-6 h-6 rounded-full mb-2 inline-block mr-2 border`}
+                            ></p>
+                          );
+                        })}
+                        <p className="text-custom">
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Dolore similique enim doloremque placeat fuga a
+                          quis incidunt? Adipisci aliquam eos fugit accusantium
+                          quos in, nemo et. Ipsum neque nesciunt amet.
+                        </p>
+                      </div>
+                    </>
+                  );
+                })}
             </div>
           </form>
         </div>
