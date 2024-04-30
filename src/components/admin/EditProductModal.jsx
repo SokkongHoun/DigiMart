@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
-import { FirebaseData } from "../../contexts/productData";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { toast } from "react-toastify";
@@ -101,13 +100,15 @@ const EditProductModal = ({ productId }) => {
     imgSrc: "",
     category: "",
   });
+
+  // for syncing the Select-React data structures with the data structure of the colors object property.
   const [selectedValues, setSelectedValues] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [deployUpdatedProductData, setDeployUpdatedProductData] = useState();
+  const db = getDatabase(app);
+  const productRef = ref(db, "products/data/" + productId);
 
   useEffect(() => {
-    const db = getDatabase(app);
-    const productRef = ref(db, "products/data/" + productId);
-
     onValue(
       productRef,
       (snapshot) => {
@@ -140,8 +141,44 @@ const EditProductModal = ({ productId }) => {
     return { value: list.name, label: list.name, id: crypto.randomUUID() };
   });
 
-  const handleChange = (selectedOptions) => {
+  const handleColorChange = (selectedOptions) => {
+    const newSelectedOptions = selectedOptions.map((option) => {
+      const matchingColorObject = colors.find(
+        (color) => color.name === option.value
+      );
+      return matchingColorObject ? matchingColorObject : option;
+    });
     setSelectedValues(selectedOptions);
+    const newWriteData = { ...writeData };
+    newWriteData.colors = newSelectedOptions;
+    setDeployUpdatedProductData(newWriteData);
+  };
+
+  let finalProductData;
+  const handleUpdateProduct = async () => {
+    if (deployUpdatedProductData == null) {
+      finalProductData = writeData;
+    } else {
+      finalProductData = deployUpdatedProductData;
+    }
+
+    if (!productId) {
+      console.error("Product ID is missing. Cannot update product.");
+      return;
+    }
+    const productPath = `products/data/${productId}`;
+
+    try {
+      setIsLoading(true);
+      await update(ref(db, productPath), finalProductData);
+      toast.success("Updated product successfully");
+      setIsModalOpen(false);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error updating product:", error);
+      toast.error("Unable to update the product");
+      setIsLoading(false);
+    }
   };
 
   const openModal = () => {
@@ -278,14 +315,17 @@ const EditProductModal = ({ productId }) => {
                   value={selectedValues}
                   isMulti
                   options={colorList}
-                  onChange={handleChange}
+                  onChange={handleColorChange}
                   styles={customStyles}
                 />
               )}
             </div>
           </div>
           <div className="flex justify-end">
-            <button className="btn bg-yellow-600 text-custom hover:bg-yellow-700 hover:text-white mt-6">
+            <button
+              className="btn bg-yellow-600 text-custom hover:bg-yellow-700 hover:text-white mt-6"
+              onClick={handleUpdateProduct}
+            >
               Update Product
             </button>
           </div>
