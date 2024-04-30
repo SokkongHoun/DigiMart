@@ -28,7 +28,7 @@ const PreviewProductModal = () => {
   return (
     <>
       <button
-        className="w-full py-2 flex items-center pl-2"
+        className="w-full py-2 flex items-center pl-2 hover:bg-secondary rounded-md"
         onClick={handleOpenModal}
       >
         <svg

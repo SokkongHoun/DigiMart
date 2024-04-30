@@ -91,7 +91,7 @@ const colors = [
 ];
 
 const EditProductModal = ({ productId }) => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [writeData, setWriteData] = useState({
     name: "",
     price: 0,
@@ -109,7 +109,7 @@ const EditProductModal = ({ productId }) => {
   const productRef = ref(db, "products/data/" + productId);
 
   useEffect(() => {
-    onValue(
+    const unsubscribe = onValue(
       productRef,
       (snapshot) => {
         const data = snapshot.val();
@@ -128,6 +128,10 @@ const EditProductModal = ({ productId }) => {
         onlyOnce: true,
       }
     );
+
+    return () => {
+      unsubscribe();
+    };
   }, [productId]);
 
   const handleWriteData = (e) => {

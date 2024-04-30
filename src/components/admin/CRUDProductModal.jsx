@@ -1,11 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, Fragment } from "react";
 import { FirebaseData } from "../../contexts/productData";
 import ReactPaginate from "react-paginate";
 import AddProductModal from "./AddProductModal";
 import PreviewProductModal from "./PreviewProductModal";
 import EditProductModal from "./EditProductModal";
-import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import { getDatabase, ref, remove } from "firebase/database";
+import { toast } from "react-toastify";
 
 const SearchInput = () => {
   return (
@@ -88,6 +89,69 @@ const FilterDropdown = () => {
   );
 };
 
+const DeleteProductModal = ({ productId }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const deleteProduct = async () => {
+    const db = getDatabase();
+    const productRef = ref(db, `products/data/${productId}`);
+
+    try {
+      await remove(productRef);
+      toast.success("Product delete successfully");
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      toast.error("Unable to delete the product");
+      setIsModalOpen(true);
+    }
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  return (
+    <>
+      <div
+        className="w-full cursor-pointer pl-2 rounded-md text-red-600 flex items-center hover:bg-secondary py-2"
+        onClick={openModal}
+      >
+        <span className="material-symbols-outlined text-base mr-2">delete</span>
+        Delete
+      </div>
+      {isModalOpen && (
+        <dialog open={isModalOpen} className="modal bg-black bg-opacity-50">
+          <div className="modal-box flex justify-center flex-col items-center w-96">
+            <h3 className="font-bold text-lg">Are you sure?</h3>
+            <p className="py-4 text-center">
+              This action cannot be undone. All product data will be remove from
+              the database.
+            </p>
+            <div className="modal-action">
+              <button
+                className="btn bg-red-700 text-custom hover:bg-red-800"
+                onClick={deleteProduct}
+              >
+                Commit
+              </button>
+              <form method="dialog">
+                <button className="btn " onClick={closeModal}>
+                  Close
+                </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
+      )}
+    </>
+  );
+};
+
 const DisplayProductInfo = ({ currentItems }) => {
   const [productId, setProductId] = useState(null);
 
@@ -135,7 +199,7 @@ const DisplayProductInfo = ({ currentItems }) => {
               <Menu.Items className="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-custom shadow-lg">
                 <div className="py-2 px-2 ">
                   <Menu.Item>
-                    <PreviewProductModal />
+                    <PreviewProductModal productId={productId} />
                   </Menu.Item>
                   <Menu.Item>
                     <EditProductModal
@@ -143,13 +207,8 @@ const DisplayProductInfo = ({ currentItems }) => {
                       setProductId={setProductId}
                     />
                   </Menu.Item>
-                  <Menu.Item className="flex items-center py-1 hover:bg-secondary">
-                    <div className="w-full cursor-pointer pl-2 rounded-md text-red-600 ">
-                      <span className="material-symbols-outlined text-base mr-2">
-                        delete
-                      </span>
-                      Delete
-                    </div>
+                  <Menu.Item>
+                    <DeleteProductModal productId={productId} />
                   </Menu.Item>
                 </div>
               </Menu.Items>
