@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../auth/AuthContext";
 import { toast } from "react-toastify";
+import { UsersDataContext } from "../contexts/FirestoreData";
 
 const SignUpForm = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -11,7 +12,10 @@ const SignUpForm = () => {
   const [errorMsg, setErrorMsg] = useState("");
 
   const { createUser } = UserAuth();
+  const { userData, setUserData } = useContext(UsersDataContext);
   const navigate = useNavigate();
+
+  console.log(userData);
 
   useEffect(() => {
     if (password && confirmPassword) {
@@ -29,7 +33,9 @@ const SignUpForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createUser(email, password);
+      const userCredential = await createUser(email, password);
+      const user = userCredential.user;
+      setUserData((prevUser) => ({ ...prevUser, uid: user.uid }));
       navigate("/");
       toast.success("Account created successfully");
     } catch (error) {
@@ -38,6 +44,7 @@ const SignUpForm = () => {
     }
   };
 
+  console.log(userData);
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">

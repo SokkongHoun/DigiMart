@@ -14,8 +14,7 @@ const SignInForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const uid = await signIn(email, password);
-      console.log("User UID:", uid);
+      await signIn(email, password);
       toast.success("Sign in successfully");
       navigate("/");
     } catch (error) {

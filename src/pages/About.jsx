@@ -128,9 +128,7 @@ const About = () => {
     return (
       <>
         <div className="carousel-container md:h-96 ">
-          <Carousel
-            onSlideChange={(index) => console.log("onSlideChange()", index)}
-          >
+          <Carousel>
             {
               (mapCarouselDetails = carouselDetails.map((val, index) => {
                 return (

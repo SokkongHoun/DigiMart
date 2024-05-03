@@ -45,7 +45,7 @@ export const AuthContextProvider = ({ children }) => {
           }
         });
       }
-      setIsLoading(false); // Set loading to false after the callback is executed
+      setIsLoading(false);
     });
 
     return () => {
