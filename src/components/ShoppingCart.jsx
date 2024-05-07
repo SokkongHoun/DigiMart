@@ -1,9 +1,82 @@
 import { Modal } from "flowbite-react";
 import { CartContext } from "../App";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { UserAuth } from "../auth/AuthContext";
+import app from "../firebaseConfig";
+import { getFirestore, doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 function ShoppingCart({ openModal, setOpenModal }) {
   const { cart, setCart } = useContext(CartContext);
+  let [userData, setUserData] = useState();
+  const { user } = UserAuth();
+
+  console.log(user.uid);
+
+  function numberConvert(val) {
+    return Number(val).toFixed(2);
+  }
+
+  useEffect(() => {
+    if (cart) {
+      let uniqueProductIds = [...new Set(cart.map((item) => item.id))];
+
+      let orderNumber = crypto.randomUUID();
+
+      let packages = uniqueProductIds.map((productId) => {
+        let matchingCartItems = cart.filter((item) => item.id === productId);
+
+        let totalQuantity = matchingCartItems.reduce((total, item) =>
+          numberConvert(total + item.qty, 0)
+        );
+        let totalAmount = matchingCartItems.reduce((total, item) =>
+          numberConvert(total + item.price * item.qty, 0)
+        );
+
+        let color = [{ color: matchingCartItems[0].color, qty: totalQuantity }];
+
+        const today = new Date();
+        const deliveryDate = new Date();
+        deliveryDate.setDate(deliveryDate.getDate() + 7);
+
+        const formattedDate = today.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        });
+        const formattedDeliveryDate = deliveryDate.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        });
+
+        return {
+          datePlace: formattedDate,
+          productId: productId,
+          name: matchingCartItems[0].name,
+          price: matchingCartItems[0].price,
+          color: color,
+          totalQuantity: totalQuantity,
+          imgSrc: matchingCartItems[0].imgSrc,
+          totalAmount: totalAmount,
+          delivery: formattedDeliveryDate,
+        };
+      });
+
+      let totalPackagePrice = cart.reduce((total, val) => {
+        let itemTotalPrice = val.qty * val.price;
+        let finalPrice = total + itemTotalPrice;
+        return finalPrice;
+      }, 0);
+
+      let orderData = {
+        orderNumber: orderNumber,
+        packages: packages,
+        totalPackagePrice: totalPackagePrice,
+      };
+
+      setUserData(orderData);
+    }
+  }, [cart]);
 
   const productInCartCard = () => {
     const handleSelectQty = (event, index) => {
@@ -141,6 +214,25 @@ function ShoppingCart({ openModal, setOpenModal }) {
     );
   };
 
+  console.log(userData);
+
+  const handlePayment = (userData) => {
+    const db = getFirestore(app);
+    const docRef = doc(db, "users", user.uid);
+
+    const dataToUpdate = {
+      payments: arrayUnion(userData),
+    };
+
+    return updateDoc(docRef, dataToUpdate)
+      .then(() => {
+        console.log("Data submitted successfully");
+      })
+      .catch((error) => {
+        console.error("Error submitting data: ", error);
+      });
+  };
+
   return (
     <>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
@@ -157,7 +249,12 @@ function ShoppingCart({ openModal, setOpenModal }) {
           {cart.length === 0 ? (
             <Button child="Continue shopping" />
           ) : (
-            <Button child="Continue to payment" />
+            <button
+              onClick={handlePayment}
+              className="bg-black w-full py-3 rounded-md mt-5 hover:bg-slate-900"
+            >
+              Continue to payment
+            </button>
           )}
         </Modal.Footer>
       </Modal>

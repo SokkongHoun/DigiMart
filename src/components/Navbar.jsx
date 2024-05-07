@@ -20,7 +20,7 @@ function NavbarSection() {
   const [openModal, setOpenModal] = useState(false);
   const { cart } = useContext(CartContext);
   const { handleFilterSubCategory } = useContext(ShopContext);
-  const { userUI, logout } = UserAuth();
+  const { userUI, logout, user } = UserAuth();
   const navigate = useNavigate();
 
   // copy the "get this" object to have another category
@@ -175,13 +175,14 @@ function NavbarSection() {
         </div>
         <ul
           tabIndex={0}
-          className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-secondary"
+          className="dropdown-content z-[1] menu p-2 shadow rounded-box w-56 bg-secondary"
         >
+          <p className="text-left ml-4">
+            <p className="my-2">{user.email}</p>
+          </p>
+          <hr className="mt-2 border-first" />
           <li>
-            <a>Account</a>
-          </li>
-          <li>
-            <a>Order History</a>
+            <Link to="/orderhistory">Order History</Link>
           </li>
           <li>
             <Link onClick={handleLogOut}>Sign out</Link>
