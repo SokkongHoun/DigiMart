@@ -8,8 +8,7 @@ import { toast } from "react-toastify";
 
 function ShoppingCart({ openModal, setOpenModal }) {
   const { cart, setCart } = useContext(CartContext);
-  let [userData, setUserData] = useState();
-  const { user } = UserAuth();
+  const { user, userData, setUserData } = UserAuth();
 
   let subtotal = 0;
   cart.forEach((item) => {
