@@ -12,3 +12,12 @@ const ProtectedRoute = ({ children }) => {
 };
 
 export default ProtectedRoute;
+
+export const UserCartRoute = ({ children }) => {
+  const { userUI } = UserAuth();
+
+  if (!userUI) {
+    return <Navigate to="/" />;
+  }
+  return children;
+};

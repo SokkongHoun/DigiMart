@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../auth/AuthContext";
 import { toast } from "react-toastify";
-import { UsersDataContext } from "../contexts/FirestoreData";
 
 const SignUpForm = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -10,9 +9,9 @@ const SignUpForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [userData, setUserData] = useState();
 
   const { createUser } = UserAuth();
-  const { userData, setUserData } = useContext(UsersDataContext);
   const navigate = useNavigate();
 
   console.log(userData);

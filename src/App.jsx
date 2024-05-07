@@ -19,8 +19,8 @@ import ProductDashboard from "./pages/admin/ProductDashboard.jsx";
 import Dashboard from "./pages/admin/Dashboard.jsx";
 import ProtectedRoute from "./components/routes/ProtectedRoute.jsx";
 import AdminAccessContext from "./contexts/AdminAccessContext.jsx";
-import FirestoreData from "./contexts/FirestoreData.jsx";
 import OrderHistory from "./pages/OrderHistory.jsx";
+import { UserCartRoute } from "./contexts/ProtectedRoute.jsx";
 
 export const CartContext = createContext();
 export const ShopContext = createContext();
@@ -75,112 +75,112 @@ function App() {
   return (
     <>
       <FirebaseDataProvider>
-        <FirestoreData>
-          <CartProvider>
-            <ShopProvider>
-              <BrowserRouter>
-                {adminStatus ? (
-                  <>
-                    <AdminAccessContext>
-                      <AdminNav />
-                      <Routes>
-                        <Route
-                          index
-                          element={
-                            <ProtectedRoute>
-                              <Dashboard />
-                            </ProtectedRoute>
-                          }
-                        />
-                        <Route
-                          path="/productdashboard"
-                          element={
-                            <ProtectedRoute>
-                              <ProductDashboard />
-                            </ProtectedRoute>
-                          }
-                        />
-                        <Route path="*" element={<NotFoundPage />} />
-                      </Routes>
-                    </AdminAccessContext>
-                  </>
-                ) : (
-                  <>
-                    <NavbarSection />
+        <CartProvider>
+          <ShopProvider>
+            <BrowserRouter>
+              {adminStatus ? (
+                <>
+                  <AdminAccessContext>
+                    <AdminNav />
                     <Routes>
                       <Route
                         index
                         element={
-                          <LayoutFooter includeFooter={true}>
-                            <Homepage />
-                          </LayoutFooter>
+                          <ProtectedRoute>
+                            <Dashboard />
+                          </ProtectedRoute>
                         }
                       />
+                      <Route
+                        path="/productdashboard"
+                        element={
+                          <ProtectedRoute>
+                            <ProductDashboard />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                  </AdminAccessContext>
+                </>
+              ) : (
+                <>
+                  <NavbarSection />
+                  <Routes>
+                    <Route
+                      index
+                      element={
+                        <LayoutFooter includeFooter={true}>
+                          <Homepage />
+                        </LayoutFooter>
+                      }
+                    />
 
-                      <Route
-                        path="/about"
-                        element={
-                          <LayoutFooter includeFooter={true}>
-                            <About />
-                          </LayoutFooter>
-                        }
-                      />
-                      <Route
-                        path="/orderhistory"
-                        element={
+                    <Route
+                      path="/about"
+                      element={
+                        <LayoutFooter includeFooter={true}>
+                          <About />
+                        </LayoutFooter>
+                      }
+                    />
+                    <Route
+                      path="/orderhistory"
+                      element={
+                        <UserCartRoute>
                           <LayoutFooter includeFooter={true}>
                             <OrderHistory />
                           </LayoutFooter>
-                        }
-                      />
-                      <Route
-                        path="/shop"
-                        element={
-                          <LayoutFooter includeFooter={true}>
-                            <Shops />
-                          </LayoutFooter>
-                        }
-                      />
-                      <Route
-                        path="/signIn"
-                        element={
-                          <LayoutFooter includeFooter={true}>
-                            <SignInForm />
-                          </LayoutFooter>
-                        }
-                      />
-                      <Route
-                        path="/signUp"
-                        element={
-                          <LayoutFooter includeFooter={true}>
-                            <SignUpForm />
-                          </LayoutFooter>
-                        }
-                      />
-                      <Route
-                        path="*"
-                        element={
-                          <LayoutFooter includeFooter={true}>
-                            <NotFoundPage />
-                          </LayoutFooter>
-                        }
-                      />
-                      <Route
-                        path="/resetpassword"
-                        element={
-                          <LayoutFooter includeFooter={true}>
-                            <ResetPasswordForm />
-                          </LayoutFooter>
-                        }
-                      />
-                    </Routes>
-                  </>
-                )}
-                <ToastContainer />
-              </BrowserRouter>
-            </ShopProvider>
-          </CartProvider>
-        </FirestoreData>
+                        </UserCartRoute>
+                      }
+                    />
+                    <Route
+                      path="/shop"
+                      element={
+                        <LayoutFooter includeFooter={true}>
+                          <Shops />
+                        </LayoutFooter>
+                      }
+                    />
+                    <Route
+                      path="/signIn"
+                      element={
+                        <LayoutFooter includeFooter={true}>
+                          <SignInForm />
+                        </LayoutFooter>
+                      }
+                    />
+                    <Route
+                      path="/signUp"
+                      element={
+                        <LayoutFooter includeFooter={true}>
+                          <SignUpForm />
+                        </LayoutFooter>
+                      }
+                    />
+                    <Route
+                      path="*"
+                      element={
+                        <LayoutFooter includeFooter={true}>
+                          <NotFoundPage />
+                        </LayoutFooter>
+                      }
+                    />
+                    <Route
+                      path="/resetpassword"
+                      element={
+                        <LayoutFooter includeFooter={true}>
+                          <ResetPasswordForm />
+                        </LayoutFooter>
+                      }
+                    />
+                  </Routes>
+                </>
+              )}
+              <ToastContainer />
+            </BrowserRouter>
+          </ShopProvider>
+        </CartProvider>
       </FirebaseDataProvider>
     </>
   );
