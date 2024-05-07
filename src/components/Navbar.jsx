@@ -23,7 +23,6 @@ function NavbarSection() {
   const { userUI, logout, user } = UserAuth();
   const navigate = useNavigate();
 
-  // copy the "get this" object to have another category
   const navigation = {
     categories: [
       // get this

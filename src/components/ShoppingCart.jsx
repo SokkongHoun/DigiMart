@@ -5,10 +5,13 @@ import { UserAuth } from "../auth/AuthContext";
 import { UserDataApp } from "../userDataConfig";
 import { getDatabase, ref, set } from "firebase/database";
 import { toast } from "react-toastify";
+import { useUserCart } from "../contexts/UserCartData";
+import { loadStripe } from "@stripe/stripe-js";
 
 function ShoppingCart({ openModal, setOpenModal }) {
   const { cart, setCart } = useContext(CartContext);
-  const { user, userData, setUserData } = UserAuth();
+  const { user } = UserAuth();
+  const { userCartData, updateCartData } = useUserCart();
 
   let subtotal = 0;
   cart.forEach((item) => {
@@ -53,7 +56,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
       day: "2-digit",
     });
 
-    setUserData({
+    updateCartData({
       packages: [
         {
           orderNumber: orderNumber,
@@ -199,7 +202,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
 
     const paymentRef = ref(db, `${user.uid}/${paymentId}`);
 
-    set(paymentRef, { ...userData, paymentId: paymentId })
+    set(paymentRef, { ...userCartData, paymentId: paymentId })
       .then(() => {
         toast.success("Payment submitted successfully");
         setCart([]);
@@ -208,6 +211,10 @@ function ShoppingCart({ openModal, setOpenModal }) {
       .catch((error) => {
         toast.error("Error submitting payment: ", error);
       });
+  };
+
+  const makePayment = async () => {
+    const stripe = await loadStripe("");
   };
 
   return (
@@ -226,10 +233,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
           {cart.length === 0 ? (
             <Button child="Continue shopping" />
           ) : (
-            <button
-              onClick={handlePayment}
-              className="bg-black w-full py-3 rounded-md mt-5 hover:bg-slate-900"
-            >
+            <button className="bg-black w-full py-3 rounded-md mt-5 hover:bg-slate-900">
               Continue to payment
             </button>
           )}

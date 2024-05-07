@@ -15,7 +15,6 @@ export const AuthContextProvider = ({ children }) => {
   const [userUI, setUserUI] = useState(null);
   const [adminStatus, setAdminStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [userData, setUserData] = useState();
 
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -63,8 +62,6 @@ export const AuthContextProvider = ({ children }) => {
         signIn,
         userUI,
         adminStatus,
-        userData,
-        setUserData,
       }}
     >
       {isLoading ? <LoadingAnimation /> : children}
