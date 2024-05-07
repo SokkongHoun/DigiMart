@@ -6,7 +6,6 @@ import { UserDataApp } from "../userDataConfig";
 import { getDatabase, ref, set } from "firebase/database";
 import { toast } from "react-toastify";
 import { useUserCart } from "../contexts/UserCartData";
-import { loadStripe } from "@stripe/stripe-js";
 
 function ShoppingCart({ openModal, setOpenModal }) {
   const { cart, setCart } = useContext(CartContext);
@@ -211,10 +210,6 @@ function ShoppingCart({ openModal, setOpenModal }) {
       .catch((error) => {
         toast.error("Error submitting payment: ", error);
       });
-  };
-
-  const makePayment = async () => {
-    const stripe = await loadStripe("");
   };
 
   return (
