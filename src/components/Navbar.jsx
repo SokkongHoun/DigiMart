@@ -177,9 +177,9 @@ function NavbarSection() {
           tabIndex={0}
           className="dropdown-content z-[1] menu p-2 shadow rounded-box w-56 bg-secondary"
         >
-          <p className="text-left ml-4">
+          <div className="text-left ml-4">
             <p className="my-2">{user.email}</p>
-          </p>
+          </div>
           <hr className="mt-2 border-first" />
           <li>
             <Link to="/orderhistory">Order History</Link>

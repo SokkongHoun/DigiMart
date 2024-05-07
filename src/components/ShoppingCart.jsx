@@ -2,80 +2,69 @@ import { Modal } from "flowbite-react";
 import { CartContext } from "../App";
 import React, { useContext, useState, useEffect } from "react";
 import { UserAuth } from "../auth/AuthContext";
-import app from "../firebaseConfig";
-import { getFirestore, doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { UserDataApp } from "../userDataConfig";
+import { getDatabase, ref, set } from "firebase/database";
+import { toast } from "react-toastify";
 
 function ShoppingCart({ openModal, setOpenModal }) {
   const { cart, setCart } = useContext(CartContext);
   let [userData, setUserData] = useState();
   const { user } = UserAuth();
 
-  console.log(user.uid);
+  let subtotal = 0;
+  cart.forEach((item) => {
+    let itemCost = item.price * item.qty;
+    subtotal += itemCost;
+  });
+  let shipping = 5;
+  let taxEstaimted = subtotal * 0.05;
+  const orderTotal = taxEstaimted + subtotal + shipping;
+  let combinedCart = cart.reduce((acc, item) => {
+    if (acc[item.id]) {
+      acc[item.id].price += item.price;
+      acc[item.id].qty += item.qty;
+    } else {
+      acc[item.id] = { ...item, price: item.price, qty: item.qty };
+    }
+    return acc;
+  }, {});
+  let formattedTotalCost = parseFloat(orderTotal.toFixed(2));
 
-  function numberConvert(val) {
-    return Number(val).toFixed(2);
-  }
+  let combinedItems = Object.values(combinedCart).map((item) => ({
+    id: item.id,
+    imgSrc: item.imgSrc,
+    name: item.name,
+    totalPrices: item.price,
+    totalQuantities: item.qty,
+  }));
 
   useEffect(() => {
-    if (cart) {
-      let uniqueProductIds = [...new Set(cart.map((item) => item.id))];
+    let orderNumber = crypto.randomUUID();
+    let currentDate = new Date();
+    let formattedDate = currentDate.toLocaleString("default", {
+      month: "short",
+      year: "numeric",
+      day: "2-digit",
+    });
+    let deliveryDate = new Date();
+    deliveryDate.setDate(deliveryDate.getDate() + 7);
+    let formatDeliveryDate = deliveryDate.toLocaleString("default", {
+      month: "short",
+      year: "numeric",
+      day: "2-digit",
+    });
 
-      let orderNumber = crypto.randomUUID();
-
-      let packages = uniqueProductIds.map((productId) => {
-        let matchingCartItems = cart.filter((item) => item.id === productId);
-
-        let totalQuantity = matchingCartItems.reduce((total, item) =>
-          numberConvert(total + item.qty, 0)
-        );
-        let totalAmount = matchingCartItems.reduce((total, item) =>
-          numberConvert(total + item.price * item.qty, 0)
-        );
-
-        let color = [{ color: matchingCartItems[0].color, qty: totalQuantity }];
-
-        const today = new Date();
-        const deliveryDate = new Date();
-        deliveryDate.setDate(deliveryDate.getDate() + 7);
-
-        const formattedDate = today.toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        });
-        const formattedDeliveryDate = deliveryDate.toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        });
-
-        return {
-          datePlace: formattedDate,
-          productId: productId,
-          name: matchingCartItems[0].name,
-          price: matchingCartItems[0].price,
-          color: color,
-          totalQuantity: totalQuantity,
-          imgSrc: matchingCartItems[0].imgSrc,
-          totalAmount: totalAmount,
-          delivery: formattedDeliveryDate,
-        };
-      });
-
-      let totalPackagePrice = cart.reduce((total, val) => {
-        let itemTotalPrice = val.qty * val.price;
-        let finalPrice = total + itemTotalPrice;
-        return finalPrice;
-      }, 0);
-
-      let orderData = {
-        orderNumber: orderNumber,
-        packages: packages,
-        totalPackagePrice: totalPackagePrice,
-      };
-
-      setUserData(orderData);
-    }
+    setUserData({
+      packages: [
+        {
+          orderNumber: orderNumber,
+          totalPackagePrice: formattedTotalCost,
+          delivery: formatDeliveryDate,
+          datePlaced: formattedDate,
+          products: combinedItems,
+        },
+      ],
+    });
   }, [cart]);
 
   const productInCartCard = () => {
@@ -178,16 +167,6 @@ function ShoppingCart({ openModal, setOpenModal }) {
   };
 
   const OrderSummary = () => {
-    let subtotal = 0;
-    cart.forEach((item) => {
-      let itemCost = item.price * item.qty;
-      subtotal += itemCost;
-    });
-    let shipping = 5;
-    let taxEstaimted = subtotal * 0.05;
-
-    const orderTotal = taxEstaimted + subtotal + shipping;
-
     return (
       <div className="w-full text-black bg-gray-100 p-5">
         <h1 className="text-lg mb-4 font-bold">Order summary</h1>
@@ -208,28 +187,27 @@ function ShoppingCart({ openModal, setOpenModal }) {
         <hr className="border border-third" />
         <div className="flex justify-between mt-4">
           <h3 className="text-base font-bold">Order total</h3>
-          <h3 className="text-base font-bold">${orderTotal.toFixed(2)}</h3>
+          <h3 className="text-base font-bold">${formattedTotalCost}</h3>
         </div>
       </div>
     );
   };
 
-  console.log(userData);
+  const handlePayment = () => {
+    const db = getDatabase(UserDataApp);
 
-  const handlePayment = (userData) => {
-    const db = getFirestore(app);
-    const docRef = doc(db, "users", user.uid);
+    const paymentId = Math.random().toString(36).substring(2, 15);
 
-    const dataToUpdate = {
-      payments: arrayUnion(userData),
-    };
+    const paymentRef = ref(db, `${user.uid}/${paymentId}`);
 
-    return updateDoc(docRef, dataToUpdate)
+    set(paymentRef, { ...userData, paymentId: paymentId })
       .then(() => {
-        console.log("Data submitted successfully");
+        toast.success("Payment submitted successfully");
+        setCart([]);
+        setOpenModal(false);
       })
       .catch((error) => {
-        console.error("Error submitting data: ", error);
+        toast.error("Error submitting payment: ", error);
       });
   };
 
