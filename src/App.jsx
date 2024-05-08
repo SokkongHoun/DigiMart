@@ -22,6 +22,8 @@ import AdminAccessContext from "./contexts/AdminAccessContext.jsx";
 import OrderHistory from "./pages/OrderHistory.jsx";
 import { UserCartRoute } from "./contexts/ProtectedRoute.jsx";
 import { UserCartProvider } from "./contexts/UserCartData.jsx";
+import PaymentSuccess from "./pages/PaymentSuccess.jsx";
+import CancelPayment from "./pages/CancelPayment.jsx";
 
 export const CartContext = createContext();
 export const ShopContext = createContext();
@@ -149,6 +151,22 @@ function App() {
                         element={
                           <LayoutFooter includeFooter={true}>
                             <SignInForm />
+                          </LayoutFooter>
+                        }
+                      />
+                      <Route
+                        path="/paymentsuccessful"
+                        element={
+                          <LayoutFooter includeFooter={true}>
+                            <PaymentSuccess />
+                          </LayoutFooter>
+                        }
+                      />
+                      <Route
+                        path="/cancelpayment"
+                        element={
+                          <LayoutFooter includeFooter={true}>
+                            <CancelPayment />
                           </LayoutFooter>
                         }
                       />

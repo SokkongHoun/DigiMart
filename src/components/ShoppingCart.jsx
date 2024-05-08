@@ -4,10 +4,11 @@ import React, { useContext, useState, useEffect } from "react";
 import { UserAuth } from "../auth/AuthContext";
 import { UserDataApp } from "../userDataConfig";
 import { getDatabase, ref, set } from "firebase/database";
+import { getFirestore, collection, onSnapshot, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { useUserCart } from "../contexts/UserCartData";
-import { httpsCallable } from "firebase/functions";
-import { functions } from "../firebaseConfig";
+import app from "../firebaseConfig";
+import { loadStripe } from "@stripe/stripe-js";
 
 function ShoppingCart({ openModal, setOpenModal }) {
   const { cart, setCart } = useContext(CartContext);
@@ -227,8 +228,10 @@ function ShoppingCart({ openModal, setOpenModal }) {
       });
   };
   */
-
-  const handleLoadStripeCheckout = async () => {
+  const stripe = loadStripe(
+    "pk_test_51LifmhKUkvs7s7hTlXVLVMfuYc5pzg5aMOXnryCzZYJxSZAAYbBf3iDVNSrNeaG3j9364GwqToU9dvqvnKfSJO0j00hTJyO72T"
+  );
+  const handleLoadStripeCheckout = () => {
     console.log("hello");
   };
 
@@ -249,7 +252,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
             <Button child="Continue shopping" />
           ) : (
             <button
-              className="bg-black w-full py-3 rounded-md mt-5 hover:bg-slate-900"
+              className="bg-black w-full py-3 rounded-md mt-5 hover:bg-slate-900 paypal-button"
               onClick={handleLoadStripeCheckout}
             >
               Continue to payment

@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 import app from "../firebaseConfig";
 
-const getCheckoutUrl = async (app, priceId) => {
+export const getCheckoutUrl = async (app, priceId) => {
   const auth = getAuth(app);
   const userId = auth.currentUser && auth.currentUser.uid;
   if (!userId) throw new Error("User is not authenticated");
@@ -22,7 +22,10 @@ const getCheckoutUrl = async (app, priceId) => {
   );
 
   const docRef = await addDoc(checkoutSessionRef, {
-    price: priceId,
+    price: productData.priceId,
+    product_name: productData.name,
+    product_description: productData.description,
+    product_quantity: productData.quantity,
     success_url: window.location.origin,
     cancel_url: window.location.origin,
   });
