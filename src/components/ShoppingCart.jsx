@@ -6,6 +6,8 @@ import { UserDataApp } from "../userDataConfig";
 import { getDatabase, ref, set } from "firebase/database";
 import { toast } from "react-toastify";
 import { useUserCart } from "../contexts/UserCartData";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "../firebaseConfig";
 
 function ShoppingCart({ openModal, setOpenModal }) {
   const { cart, setCart } = useContext(CartContext);
@@ -194,22 +196,40 @@ function ShoppingCart({ openModal, setOpenModal }) {
     );
   };
 
+  /*
+  let stripeData = userCartData.packages[0].products.map((product) => {
+    let stripePrice = product.totalPrices * 100;
+    return {
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: product.name,
+          image_url: product.imgSrc,
+        },
+        unit_amount: stripePrice,
+      },
+      quantity: product.totalQuantities,
+    };
+  });
+  */
+  /*
   const handlePayment = () => {
     const db = getDatabase(UserDataApp);
-
     const paymentId = Math.random().toString(36).substring(2, 15);
-
     const paymentRef = ref(db, `${user.uid}/${paymentId}`);
-
     set(paymentRef, { ...userCartData, paymentId: paymentId })
       .then(() => {
-        toast.success("Payment submitted successfully");
         setCart([]);
         setOpenModal(false);
       })
       .catch((error) => {
-        toast.error("Error submitting payment: ", error);
+        console.log("Error submitting payment: ", error);
       });
+  };
+  */
+
+  const handleLoadStripeCheckout = async () => {
+    console.log("hello");
   };
 
   return (
@@ -228,7 +248,10 @@ function ShoppingCart({ openModal, setOpenModal }) {
           {cart.length === 0 ? (
             <Button child="Continue shopping" />
           ) : (
-            <button className="bg-black w-full py-3 rounded-md mt-5 hover:bg-slate-900">
+            <button
+              className="bg-black w-full py-3 rounded-md mt-5 hover:bg-slate-900"
+              onClick={handleLoadStripeCheckout}
+            >
               Continue to payment
             </button>
           )}
