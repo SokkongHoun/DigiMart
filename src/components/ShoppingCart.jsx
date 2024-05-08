@@ -4,16 +4,17 @@ import React, { useContext, useState, useEffect } from "react";
 import { UserAuth } from "../auth/AuthContext";
 import { UserDataApp } from "../userDataConfig";
 import { getDatabase, ref, set } from "firebase/database";
-import { getFirestore, collection, onSnapshot, doc } from "firebase/firestore";
-import { toast } from "react-toastify";
 import { useUserCart } from "../contexts/UserCartData";
-import app from "../firebaseConfig";
 import { loadStripe } from "@stripe/stripe-js";
+import { functions } from "../firebaseConfig";
+import { httpsCallable } from "firebase/functions";
+import { BtnLoadingAnimation } from "./LoadingAnimation";
 
 function ShoppingCart({ openModal, setOpenModal }) {
   const { cart, setCart } = useContext(CartContext);
   const { user } = UserAuth();
   const { userCartData, updateCartData } = useUserCart();
+  const [isloading, setIsloading] = useState(false);
 
   let subtotal = 0;
   cart.forEach((item) => {
@@ -213,26 +214,39 @@ function ShoppingCart({ openModal, setOpenModal }) {
     };
   });
   */
-  /*
-  const handlePayment = () => {
-    const db = getDatabase(UserDataApp);
-    const paymentId = Math.random().toString(36).substring(2, 15);
-    const paymentRef = ref(db, `${user.uid}/${paymentId}`);
-    set(paymentRef, { ...userCartData, paymentId: paymentId })
-      .then(() => {
-        setCart([]);
-        setOpenModal(false);
-      })
-      .catch((error) => {
-        console.log("Error submitting payment: ", error);
-      });
-  };
-  */
-  const stripe = loadStripe(
+
+  const createStripeCheckout = httpsCallable(functions, "createStripeCheckout");
+  const stripePromise = loadStripe(
     "pk_test_51LifmhKUkvs7s7hTlXVLVMfuYc5pzg5aMOXnryCzZYJxSZAAYbBf3iDVNSrNeaG3j9364GwqToU9dvqvnKfSJO0j00hTJyO72T"
   );
-  const handleLoadStripeCheckout = () => {
-    console.log("hello");
+
+  const handleLoadStripeCheckout = async () => {
+    setIsloading(true);
+    try {
+      const response = await createStripeCheckout();
+      const sessionId = response.data.id;
+
+      const stripe = await stripePromise;
+      setIsloading(false);
+      stripe.redirectToCheckout({ sessionId: sessionId }).then((result) => {
+        if (result.error) {
+          console.error(result.error.message);
+        } else {
+          const db = getDatabase(UserDataApp);
+          const paymentId = Math.random().toString(36).substring(2, 15);
+          const paymentRef = ref(db, `${user.uid}/${paymentId}`);
+          set(paymentRef, { ...userCartData, paymentId: paymentId })
+            .then(() => {
+              setCart([]);
+            })
+            .catch((error) => {
+              console.log("Error submitting payment: ", error);
+            });
+        }
+      });
+    } catch (error) {
+      console.error("Error creating Stripe Checkout session:", error);
+    }
   };
 
   return (
@@ -255,7 +269,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
               className="bg-black w-full py-3 rounded-md mt-5 hover:bg-slate-900 paypal-button"
               onClick={handleLoadStripeCheckout}
             >
-              Continue to payment
+              {isloading ? <BtnLoadingAnimation /> : "Continue to payment"}
             </button>
           )}
         </Modal.Footer>
