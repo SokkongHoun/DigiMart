@@ -231,7 +231,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
   const handleLoadStripeCheckout = async () => {
     setIsloading(true);
     try {
-      const response = await createStripeCheckout({});
+      const response = await createStripeCheckout();
       const sessionId = response.data.id;
 
       const stripe = await stripePromise;
