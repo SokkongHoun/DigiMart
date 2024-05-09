@@ -220,10 +220,18 @@ function ShoppingCart({ openModal, setOpenModal }) {
     "pk_test_51LifmhKUkvs7s7hTlXVLVMfuYc5pzg5aMOXnryCzZYJxSZAAYbBf3iDVNSrNeaG3j9364GwqToU9dvqvnKfSJO0j00hTJyO72T"
   );
 
+  const submitDataToDB = async () => {
+    try {
+      console.log("is submitting");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleLoadStripeCheckout = async () => {
     setIsloading(true);
     try {
-      const response = await createStripeCheckout();
+      const response = await createStripeCheckout({});
       const sessionId = response.data.id;
 
       const stripe = await stripePromise;
@@ -232,7 +240,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
         if (result.error) {
           console.error(result.error.message);
         } else {
-          submitDataToDB();
+          console.log("hello");
         }
       });
     } catch (error) {
@@ -240,9 +248,8 @@ function ShoppingCart({ openModal, setOpenModal }) {
     }
   };
 
-  const submitDataToDB = async () => {
-    try {
-      const db = getDatabase(UserDataApp);
+  /*
+    const db = getDatabase(UserDataApp);
       const paymentId = Math.random().toString(36).substring(2, 15);
       const paymentRef = ref(db, `${user.uid}/${paymentId}`);
       set(paymentRef, { ...userCartData, paymentId: paymentId })
@@ -252,10 +259,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
         .catch((error) => {
           console.log("Error submitting payment: ", error);
         });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  */
 
   return (
     <>
