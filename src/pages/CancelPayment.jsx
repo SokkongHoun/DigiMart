@@ -7,7 +7,7 @@ const CancelPayment = () => {
     <>
       <div className="flex justify-center items-center mt-32">
         <div className="text-center px-10">
-          <span class="material-symbols-outlined text-8xl text-error">
+          <span className="material-symbols-outlined text-8xl text-error">
             error
           </span>
           <h1 className="text-3xl font-semibold text-error">Payment Failed</h1>

@@ -232,20 +232,28 @@ function ShoppingCart({ openModal, setOpenModal }) {
         if (result.error) {
           console.error(result.error.message);
         } else {
-          const db = getDatabase(UserDataApp);
-          const paymentId = Math.random().toString(36).substring(2, 15);
-          const paymentRef = ref(db, `${user.uid}/${paymentId}`);
-          set(paymentRef, { ...userCartData, paymentId: paymentId })
-            .then(() => {
-              setCart([]);
-            })
-            .catch((error) => {
-              console.log("Error submitting payment: ", error);
-            });
+          submitDataToDB();
         }
       });
     } catch (error) {
       console.error("Error creating Stripe Checkout session:", error);
+    }
+  };
+
+  const submitDataToDB = async () => {
+    try {
+      const db = getDatabase(UserDataApp);
+      const paymentId = Math.random().toString(36).substring(2, 15);
+      const paymentRef = ref(db, `${user.uid}/${paymentId}`);
+      set(paymentRef, { ...userCartData, paymentId: paymentId })
+        .then(() => {
+          setCart([]);
+        })
+        .catch((error) => {
+          console.log("Error submitting payment: ", error);
+        });
+    } catch (error) {
+      console.log(error);
     }
   };
 
