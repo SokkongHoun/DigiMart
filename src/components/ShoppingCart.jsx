@@ -17,6 +17,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
   const { userCartData, setUserCartData } = useUserCart();
   const [isloading, setIsloading] = useState(false);
   const [verifyStatus, setVerifyStatus] = useState(null);
+  const sessionId = localStorage.getItem("currentSessionId");
   const createStripeCheckout = httpsCallable(functions, "createStripeCheckout");
   const stripePromise = loadStripe(
     "pk_test_51LifmhKUkvs7s7hTlXVLVMfuYc5pzg5aMOXnryCzZYJxSZAAYbBf3iDVNSrNeaG3j9364GwqToU9dvqvnKfSJO0j00hTJyO72T"
@@ -228,13 +229,9 @@ function ShoppingCart({ openModal, setOpenModal }) {
       const sessionId = response.data.id;
       const status = response.data.status;
 
-      console.log(sessionId);
-      console.log(status);
-
       localStorage.setItem("currentSessionId", sessionId);
 
       const storedSessionId = localStorage.getItem("currentSessionId");
-      console.log("Stored sessionId:", storedSessionId);
 
       const stripe = await stripePromise;
       setIsloading(false);
@@ -247,10 +244,8 @@ function ShoppingCart({ openModal, setOpenModal }) {
     }
   };
 
-  const sessionId = localStorage.getItem("currentSessionId");
-  const db = getFirestore();
-  const colRef = collection(db, "orders");
-
+  const fireStoreDB = getFirestore();
+  const colRef = collection(fireStoreDB, "orders");
   useEffect(() => {
     const unsubscribe = getDocs(colRef).then((snapshot) => {
       snapshot.docs.forEach((doc) => {
@@ -268,24 +263,32 @@ function ShoppingCart({ openModal, setOpenModal }) {
     };
   }, []);
 
-  const testinPayment = () => {
-    const db = getDatabase(UserDataApp);
+  /*
+    flag, to prevent the data from submitting twice. during the async task, the verifyStatus and localStorage that store the session doesnt get delete immediately, so the commitCartDataToDB() will get run because of the if-condition
+  */
+  const [dataCommitted, setDataCommitted] = useState(false);
+
+  const commitCartDataToDB = () => {
+    const realTimeDB = getDatabase(UserDataApp);
     const paymentId = Math.random().toString(36).substring(2, 15);
-    const paymentRef = ref(db, `${user.uid}/${paymentId}`);
+    const paymentRef = ref(realTimeDB, `${user.uid}/${paymentId}`);
     set(paymentRef, { ...userCartData })
       .then(() => {
         localStorage.removeItem("cart");
         localStorage.removeItem("currentSessionId");
         setVerifyStatus(false);
+        setDataCommitted(true);
       })
       .catch((error) => {
         console.log("Error submitting payment: ", error);
       });
   };
 
-  if (verifyStatus === true) {
-    testinPayment();
-  }
+  useEffect(() => {
+    if (verifyStatus && !dataCommitted) {
+      commitCartDataToDB();
+    }
+  }, [verifyStatus, dataCommitted]);
 
   return (
     <>
