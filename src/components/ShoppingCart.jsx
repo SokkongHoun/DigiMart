@@ -9,19 +9,25 @@ import { loadStripe } from "@stripe/stripe-js";
 import { functions } from "../firebaseConfig";
 import { httpsCallable } from "firebase/functions";
 import { BtnLoadingAnimation } from "./LoadingAnimation";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 function ShoppingCart({ openModal, setOpenModal }) {
   const { cart, setCart } = useContext(CartContext);
   const { user } = UserAuth();
-  const { userCartData, updateCartData } = useUserCart();
+  const { userCartData, setUserCartData } = useUserCart();
   const [isloading, setIsloading] = useState(false);
+  const [verifyStatus, setVerifyStatus] = useState(null);
+  const createStripeCheckout = httpsCallable(functions, "createStripeCheckout");
+  const stripePromise = loadStripe(
+    "pk_test_51LifmhKUkvs7s7hTlXVLVMfuYc5pzg5aMOXnryCzZYJxSZAAYbBf3iDVNSrNeaG3j9364GwqToU9dvqvnKfSJO0j00hTJyO72T"
+  );
 
   let subtotal = 0;
   cart.forEach((item) => {
     let itemCost = item.price * item.qty;
     subtotal += itemCost;
   });
-  let shipping = 5;
+  let shipping = cart.length === 0 ? 0 : 10;
   let taxEstaimted = subtotal * 0.05;
   const orderTotal = taxEstaimted + subtotal + shipping;
   let combinedCart = cart.reduce((acc, item) => {
@@ -59,7 +65,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
       day: "2-digit",
     });
 
-    updateCartData({
+    setUserCartData({
       packages: [
         {
           orderNumber: orderNumber,
@@ -215,51 +221,71 @@ function ShoppingCart({ openModal, setOpenModal }) {
   });
   */
 
-  const createStripeCheckout = httpsCallable(functions, "createStripeCheckout");
-  const stripePromise = loadStripe(
-    "pk_test_51LifmhKUkvs7s7hTlXVLVMfuYc5pzg5aMOXnryCzZYJxSZAAYbBf3iDVNSrNeaG3j9364GwqToU9dvqvnKfSJO0j00hTJyO72T"
-  );
-
-  const submitDataToDB = async () => {
-    try {
-      console.log("is submitting");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleLoadStripeCheckout = async () => {
     setIsloading(true);
     try {
       const response = await createStripeCheckout();
       const sessionId = response.data.id;
+      const status = response.data.status;
+
+      console.log(sessionId);
+      console.log(status);
+
+      localStorage.setItem("currentSessionId", sessionId);
+
+      const storedSessionId = localStorage.getItem("currentSessionId");
+      console.log("Stored sessionId:", storedSessionId);
 
       const stripe = await stripePromise;
       setIsloading(false);
-      stripe.redirectToCheckout({ sessionId: sessionId }).then((result) => {
-        if (result.error) {
-          console.error(result.error.message);
-        } else {
-          console.log("hello");
-        }
+
+      stripe.redirectToCheckout({ sessionId: sessionId }).then((res) => {
+        console.log(res);
       });
     } catch (error) {
       console.error("Error creating Stripe Checkout session:", error);
     }
   };
 
-  /*
+  const sessionId = localStorage.getItem("currentSessionId");
+  const db = getFirestore();
+  const colRef = collection(db, "orders");
+
+  useEffect(() => {
+    const unsubscribe = getDocs(colRef).then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        if (
+          doc.data().checkoutSessionId === sessionId &&
+          doc.data().paymentStatus === "paid"
+        ) {
+          setVerifyStatus(true);
+        }
+      });
+    });
+
+    () => {
+      return unsubscribe;
+    };
+  }, []);
+
+  const testinPayment = () => {
     const db = getDatabase(UserDataApp);
-      const paymentId = Math.random().toString(36).substring(2, 15);
-      const paymentRef = ref(db, `${user.uid}/${paymentId}`);
-      set(paymentRef, { ...userCartData, paymentId: paymentId })
-        .then(() => {
-          setCart([]);
-        })
-        .catch((error) => {
-          console.log("Error submitting payment: ", error);
-        });
-  */
+    const paymentId = Math.random().toString(36).substring(2, 15);
+    const paymentRef = ref(db, `${user.uid}/${paymentId}`);
+    set(paymentRef, { ...userCartData })
+      .then(() => {
+        localStorage.removeItem("cart");
+        localStorage.removeItem("currentSessionId");
+        setVerifyStatus(false);
+      })
+      .catch((error) => {
+        console.log("Error submitting payment: ", error);
+      });
+  };
+
+  if (verifyStatus === true) {
+    testinPayment();
+  }
 
   return (
     <>

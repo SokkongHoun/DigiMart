@@ -4,14 +4,8 @@ const UserCartContext = createContext();
 export const UserCartProvider = ({ children }) => {
   const [userCartData, setUserCartData] = useState({});
 
-  const updateCartData = (newData) => {
-    setUserCartData(newData);
-  };
-
-  const value = { userCartData, updateCartData };
-
   return (
-    <UserCartContext.Provider value={value}>
+    <UserCartContext.Provider value={{ userCartData, setUserCartData }}>
       {children}
     </UserCartContext.Provider>
   );
