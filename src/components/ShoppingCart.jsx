@@ -227,7 +227,6 @@ function ShoppingCart({ openModal, setOpenModal }) {
     try {
       const response = await createStripeCheckout();
       const sessionId = response.data.id;
-      const status = response.data.status;
 
       localStorage.setItem("currentSessionId", sessionId);
 
@@ -274,8 +273,9 @@ function ShoppingCart({ openModal, setOpenModal }) {
     const paymentRef = ref(realTimeDB, `${user.uid}/${paymentId}`);
     set(paymentRef, { ...userCartData })
       .then(() => {
-        localStorage.removeItem("cart");
         localStorage.removeItem("currentSessionId");
+        setCart([]);
+        setUserCartData(null);
         setVerifyStatus(false);
         setDataCommitted(true);
       })
