@@ -19,9 +19,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
   const [verifyStatus, setVerifyStatus] = useState(null);
   const sessionId = localStorage.getItem("currentSessionId");
   const createStripeCheckout = httpsCallable(functions, "createStripeCheckout");
-  const stripePromise = loadStripe(
-    "pk_test_51LifmhKUkvs7s7hTlXVLVMfuYc5pzg5aMOXnryCzZYJxSZAAYbBf3iDVNSrNeaG3j9364GwqToU9dvqvnKfSJO0j00hTJyO72T"
-  );
+  const stripePromise = loadStripe(import.meta.env.REACT_APP_STRIPE_API_KEY);
 
   let subtotal = 0;
   cart.forEach((item) => {
