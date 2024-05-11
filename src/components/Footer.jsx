@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer footer-center p-10 text-base-content rounded bg-black">
+    <footer className="footer footer-center p-10 text-base-content rounded bg-black mt-20">
       <form>
         <h6 className="text-lg text-custom">Newsletter</h6>
         <fieldset className="form-control w-80">

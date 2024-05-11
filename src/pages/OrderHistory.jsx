@@ -4,110 +4,6 @@ import { getDatabase, ref, get } from "firebase/database";
 import { UserAuth } from "../auth/AuthContext";
 
 const OrderHistory = () => {
-  let [userData, setUserData] = useState([
-    {
-      packages: [
-        {
-          orderNumber: "f8af646f-f668-418d-b806-565ce561fbc3",
-          datePlaced: "Jul 6, 2021",
-          totalPackagePrice: 202,
-          products: [
-            {
-              productInfo: [
-                {
-                  productId: 1,
-                  name: "A High-End Mouse Pad",
-                  price: 45.99,
-                  colors: [
-                    {
-                      class: "bg-blue-600",
-                      name: "Blue",
-                      selectedClass: "ring-gray-900",
-                      quantity: 3,
-                    },
-                    {
-                      class: "bg-green-700",
-                      name: "Green",
-                      selectedClass: "ring-gray-900",
-                      quantity: 5,
-                    },
-                  ],
-                  totalQuantity: 8,
-                  imgSrc:
-                    "https://cdn.shopify.com/s/files/1/0845/0257/7474/files/06-pad.jpg?v=1699505807&width=940",
-                },
-              ],
-              totalAmount: 280,
-              delivery: "Jul 12, 2024",
-            },
-            {
-              productInfo: [
-                {
-                  productId: 3,
-                  name: "Cardholder Snap Case",
-                  price: 50,
-                  colors: [
-                    {
-                      class: "bg-blue-600",
-                      name: "Blue",
-                      selectedClass: "ring-gray-900",
-                      quantity: 3,
-                    },
-                    {
-                      class: "bg-green-700",
-                      name: "Green",
-                      selectedClass: "ring-gray-900",
-                      quantity: 5,
-                    },
-                  ],
-                  totalQuantity: 8,
-                  imgSrc:
-                    "https://cdn.shopify.com/s/files/1/0845/0257/7474/files/03-card-color-02.jpg?v=1699361273&width=940",
-                },
-              ],
-              totalAmount: 280,
-              delivery: "Jul 12, 2024",
-            },
-          ],
-        },
-        {
-          orderNumber: "f8af646f-f668-418d-b806-565ce561fbc3",
-          datePlaced: "Jul 12, 2021",
-          totalPackagePrice: 12332,
-          products: [
-            {
-              productInfo: [
-                {
-                  productId: 5,
-                  name: "Casual Business Tote",
-                  price: 65.99,
-                  colors: [
-                    {
-                      class: "bg-blue-600",
-                      name: "Blue",
-                      selectedClass: "ring-gray-900",
-                      quantity: 3,
-                    },
-                    {
-                      class: "bg-green-700",
-                      name: "Green",
-                      selectedClass: "ring-gray-900",
-                      quantity: 5,
-                    },
-                  ],
-                  totalQuantity: 8,
-                  imgSrc:
-                    "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/02-bags-color-01.jpg?v=1699507659&width=535",
-                },
-              ],
-              totalAmount: 2310,
-              delivery: "Jul 12, 2024",
-            },
-          ],
-        },
-      ],
-    },
-  ]);
   const [userOrderHistory, setUserOrderHistory] = useState([]);
 
   const { user } = UserAuth();
@@ -140,10 +36,6 @@ const OrderHistory = () => {
 
   console.log(userOrderHistory);
 
-  const keyingUserPackages = userData[0].packages.map((val) => {
-    return { ...val, id: crypto.randomUUID() };
-  });
-
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-14">
       <div className="mt-16">
@@ -155,7 +47,7 @@ const OrderHistory = () => {
             Preview
           </span>
         </p>
-        {keyingUserPackages.map((val) => {
+        {userOrderHistory.map((val) => {
           return (
             <div
               className="border px-5 py-5 rounded-lg border-first mt-20"
@@ -167,63 +59,84 @@ const OrderHistory = () => {
                     <p>Order number</p>
                     <p>{val.id}</p>
                   </div>
-                  <div className="text-center">
-                    <p>Date placed</p>
-                    <p>{val.datePlaced}</p>
-                  </div>
-                  <div className="text-right">
-                    <p>Total amount</p>
-                    <p>${val.totalPackagePrice}</p>
-                  </div>
+                  {val.packages.map((itemInfo) => {
+                    return (
+                      <>
+                        <div className="text-center">
+                          <p>Date placed</p>
+                          <p>{itemInfo.datePlaced}</p>
+                        </div>
+                        <div className="text-right">
+                          <p>Total amount</p>
+                          <p>${itemInfo.totalPackagePrice}</p>
+                        </div>
+                      </>
+                    );
+                  })}
                 </div>
               </div>
-              {val.products.map((pro) => {
-                return pro.productInfo.map((item) => {
-                  return (
-                    <div
-                      className="flex gap-5 border-b border-first mb-5 pb-5"
-                      key={item.productId}
-                    >
-                      <img src={item.imgSrc} className="w-48 rounded-lg h-48" />
-                      <div>
-                        <div className="flex justify-between">
-                          <h6 className="text-base">{item.name}</h6>
-                          <h6 className="text-base">${item.price}/pc</h6>
-                        </div>
-                        <p className="text-base text-first mt-2">
-                          Lorem ipsum dolor sit, amet consectetur adipisicing
-                          elit. Est dolorem animi quos accusamus iste aspernatur
-                          hic reprehenderit soluta maxime ipsam dolor delectus,
-                          vel dignissimos sint! Voluptates illo quo nulla
-                          nesciunt?
-                        </p>
-                        <p className="mt-2">Total: ${pro.totalAmount}</p>
-                        <div className="flex justify-between items-end mt-9">
-                          <div>
-                            <p className="flex gap-2">
-                              <span className="material-symbols-outlined text-green-500 inline-block">
-                                local_shipping
-                              </span>
-                              Delivered on {pro.delivery}
-                            </p>
-                          </div>
-                          <div className="flex gap-5">
-                            <button className="text-blue-400 hover:text-blue-500">
-                              View product
-                            </button>
-                            <span
-                              className="h-6 w-px bg-gray-600 block lg:mr-0"
-                              aria-hidden="true"
+              {val.packages.map((itemInfo) => {
+                return (
+                  <>
+                    <div className="flex flex-col" key={itemInfo.productId}>
+                      {itemInfo.products.map((itemDetails) => {
+                        return (
+                          <div className="flex gap-5 border-b border-first mb-5 pb-5">
+                            <img
+                              src={itemDetails.imgSrc}
+                              className="w-48 rounded-lg h-48"
                             />
-                            <button className="text-blue-400 hover:text-blue-500">
-                              Buy again
-                            </button>
+                            <div>
+                              <div className="flex justify-between">
+                                <h6 className="text-base">
+                                  {itemDetails.name}
+                                </h6>
+                                <h6 className="text-base">
+                                  ${itemDetails.totalPrices}/pc
+                                </h6>
+                              </div>
+                              <p className="text-base text-first mt-2">
+                                Lorem ipsum dolor sit, amet consectetur
+                                adipisicing elit. Est dolorem animi quos
+                                accusamus iste aspernatur hic reprehenderit
+                                soluta maxime ipsam dolor delectus, vel
+                                dignissimos sint! Voluptates illo quo nulla
+                                nesciunt?
+                              </p>
+                              <p className="mt-2">
+                                Total: $
+                                {itemDetails.totalPrices *
+                                  itemDetails.totalQuantities}
+                              </p>
+                              <div className="flex justify-between items-end mt-9">
+                                <div>
+                                  <p className="flex gap-2">
+                                    <span className="material-symbols-outlined text-green-500 inline-block">
+                                      local_shipping
+                                    </span>
+                                    Delivered on {itemInfo.delivery}
+                                  </p>
+                                </div>
+                                <div className="flex gap-5">
+                                  <button className="text-blue-400 hover:text-blue-500">
+                                    View product
+                                  </button>
+                                  <span
+                                    className="h-6 w-px bg-gray-600 block lg:mr-0"
+                                    aria-hidden="true"
+                                  />
+                                  <button className="text-blue-400 hover:text-blue-500">
+                                    Buy again
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
+                        );
+                      })}
                     </div>
-                  );
-                });
+                  </>
+                );
               })}
             </div>
           );
@@ -234,3 +147,8 @@ const OrderHistory = () => {
 };
 
 export default OrderHistory;
+{
+  /* 
+  
+*/
+}
