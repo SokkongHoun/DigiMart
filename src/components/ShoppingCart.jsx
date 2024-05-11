@@ -9,7 +9,12 @@ import { loadStripe } from "@stripe/stripe-js";
 import { functions } from "../firebaseConfig";
 import { httpsCallable } from "firebase/functions";
 import { BtnLoadingAnimation } from "./LoadingAnimation";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
 
 function ShoppingCart({ openModal, setOpenModal }) {
   const { cart, setCart } = useContext(CartContext);
@@ -244,8 +249,9 @@ function ShoppingCart({ openModal, setOpenModal }) {
   const fireStoreDB = getFirestore();
   const colRef = collection(fireStoreDB, "orders");
   useEffect(() => {
-    const unsubscribe = getDocs(colRef).then((snapshot) => {
-      snapshot.docs.forEach((doc) => {
+    const unsubscribe = onSnapshot(colRef, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        const doc = change.doc;
         if (
           doc.data().checkoutSessionId === sessionId &&
           doc.data().paymentStatus === "paid"
@@ -255,8 +261,8 @@ function ShoppingCart({ openModal, setOpenModal }) {
       });
     });
 
-    () => {
-      return unsubscribe;
+    return () => {
+      unsubscribe();
     };
   }, []);
 

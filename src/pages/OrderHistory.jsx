@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { UserDataApp } from "../userDataConfig";
+import { getDatabase, ref, get } from "firebase/database";
+import { UserAuth } from "../auth/AuthContext";
 
 const OrderHistory = () => {
   let [userData, setUserData] = useState([
@@ -105,6 +108,37 @@ const OrderHistory = () => {
       ],
     },
   ]);
+  const [userOrderHistory, setUserOrderHistory] = useState([]);
+
+  const { user } = UserAuth();
+  const db = getDatabase(UserDataApp);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userRef = ref(db, `${user.uid}/`);
+        const snapshot = await get(userRef);
+        const data = snapshot.val();
+        const userOrderHistory = [];
+        for (const key in data) {
+          if (Object.hasOwnProperty.call(data, key)) {
+            const { packages: userPackages } = data[key];
+            userOrderHistory.push({
+              packages: userPackages,
+              id: crypto.randomUUID(),
+            });
+          }
+        }
+        setUserOrderHistory(userOrderHistory);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  console.log(userOrderHistory);
 
   const keyingUserPackages = userData[0].packages.map((val) => {
     return { ...val, id: crypto.randomUUID() };
