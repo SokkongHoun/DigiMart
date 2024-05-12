@@ -25,6 +25,11 @@ function classNames(...classes) {
 function Shops() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [selectedListOfColors, setSelectedListOfColors] = useState([]);
+  const [toggleGrid, setToggleGrid] = useState("3");
+
+  const handleToggleGrid = () => {
+    setToggleGrid((prevState) => (prevState === "2" ? "3" : "2"));
+  };
 
   /* for highlight the selected sort option */
   const [selectedSort, setSelectedSort] = useState(null);
@@ -271,8 +276,14 @@ function Shops() {
                 type="button"
                 className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7"
               >
-                <span className="sr-only">View grid</span>
-                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
+                <div className="hidden lg:block">
+                  <span className="sr-only">View grid</span>
+                  <Squares2X2Icon
+                    className="h-5 w-5"
+                    aria-hidden="true"
+                    onClick={handleToggleGrid}
+                  />
+                </div>
               </button>
               <button
                 type="button"
@@ -375,7 +386,10 @@ function Shops() {
 
               {/* Product grid */}
               <div className="lg:col-span-3">
-                <Products finalProductData={finalProductData} />
+                <Products
+                  finalProductData={finalProductData}
+                  toggleGrid={toggleGrid}
+                />
               </div>
             </div>
           </section>

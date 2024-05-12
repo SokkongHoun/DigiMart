@@ -5,18 +5,13 @@ const TypewriterEffect = () => {
   return (
     <Typewriter
       onInit={(typewriter) => {
-        typewriter
-          .pauseFor(100)
-          .deleteAll()
-          .callFunction(() => {
-            console.log("All strings were deleted");
-          })
-          .start();
+        typewriter.pauseFor(100);
       }}
       options={{
         strings: ["Realities", "Future", "Living"],
         autoStart: true,
         loop: true,
+        devMode: false,
       }}
     />
   );

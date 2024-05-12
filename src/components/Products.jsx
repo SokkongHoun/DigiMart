@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ProductQuickViews from "./ProductQuickViews";
 
-const Products = ({ finalProductData }) => {
+const Products = ({ finalProductData, toggleGrid }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -23,7 +23,9 @@ const Products = ({ finalProductData }) => {
         <h2 className="text-2xl font-bold tracking-tight text-custom">
           Our Products
         </h2>
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+        <div
+          className={`mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-${toggleGrid} xl:gap-x-8`}
+        >
           {finalProductData.map((product) => (
             <div
               key={product.id}
