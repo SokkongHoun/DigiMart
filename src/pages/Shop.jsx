@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -26,23 +26,26 @@ function Shops() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [selectedListOfColors, setSelectedListOfColors] = useState([]);
   const [toggleGrid, setToggleGrid] = useState("3");
-
-  const handleToggleGrid = () => {
-    setToggleGrid((prevState) => (prevState === "2" ? "3" : "2"));
-  };
-
-  /* for highlight the selected sort option */
   const [selectedSort, setSelectedSort] = useState(null);
-
+  const [filterColor, setFilterColor] = useState(filters);
+  const [toggleCheckboxValue, setToggleCheckboxValue] = useState([]);
+  let [finalProductData, setFinalProductData] = useState(null);
   const {
     filteredSubCategory,
     handleFilterSubCategory,
     setFilteredSubCategory,
     underline,
+    setUnderline,
   } = useContext(ShopContext);
   const { productData } = useContext(FirebaseData);
 
-  let finalProductData = filteredSubCategory || productData;
+  useEffect(() => {
+    setFinalProductData(filteredSubCategory || productData);
+  }, [filteredSubCategory, productData]);
+
+  const handleToggleGrid = () => {
+    setToggleGrid((prevState) => (prevState === "2" ? "3" : "2"));
+  };
 
   const handleColorOptions = (value) => {
     setSelectedListOfColors((prevState) => {
@@ -50,6 +53,12 @@ function Shops() {
         return prevState.filter((option) => option !== value);
       } else {
         return [...prevState, value];
+      }
+    });
+
+    filterColor[0].options.forEach((check) => {
+      if (check.value === value) {
+        check.checked = !check.checked;
       }
     });
   };
@@ -82,6 +91,74 @@ function Shops() {
       )
     );
   }
+
+  const handleClearFiltering = () => {
+    setUnderline(null);
+
+    setFinalProductData(productData);
+    const updatedOptions = filterColor[0].options.map((value) => {
+      return { ...value, checked: false };
+    });
+
+    setFilterColor((prevState) => {
+      const updatedFilterColor = [...prevState];
+      updatedFilterColor[0] = {
+        ...updatedFilterColor[0],
+        options: updatedOptions,
+      };
+      return updatedFilterColor;
+    });
+    setSelectedListOfColors([]);
+  };
+
+  const colorFiltering = () => {
+    return filterColor.map((section) => (
+      <Disclosure
+        as="div"
+        key={section.id}
+        className="border-b border-gray-200 py-6"
+      >
+        {({ open }) => (
+          <>
+            <h3 className="-my-3 flow-root">
+              <Disclosure.Button className="flex w-full items-center justify-between bg-custom py-3 text-sm text-custom hover:text-gray-300">
+                <span className="font-medium text-custom">{section.name}</span>
+                <span className="ml-6 flex items-center">
+                  {open ? (
+                    <MinusIcon className="h-5 w-5" aria-hidden="true" />
+                  ) : (
+                    <PlusIcon className="h-5 w-5" aria-hidden="true" />
+                  )}
+                </span>
+              </Disclosure.Button>
+            </h3>
+            <Disclosure.Panel className="pt-6">
+              <div className="space-y-4">
+                {section.options.map((option, optionIdx) => (
+                  <div key={option.value} className="flex items-center">
+                    <input
+                      id={`filter-${section.id}-${optionIdx}`}
+                      name={`${section.id}[]`}
+                      type="checkbox"
+                      checked={option.checked}
+                      className={`cursor-pointer h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500`}
+                      onChange={() => handleColorOptions(option.value)}
+                    />
+                    <label
+                      htmlFor={`filter-${section.id}-${optionIdx}`}
+                      className="ml-3 text-sm text-custom"
+                    >
+                      {option.label}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
+    ));
+  };
 
   return (
     <div className="bg-custom">
@@ -153,7 +230,7 @@ function Shops() {
                       ))}
                     </ul>
 
-                    {filters.map((section) => (
+                    {filterColor.map((section) => (
                       <Disclosure
                         as="div"
                         key={section.id}
@@ -224,7 +301,6 @@ function Shops() {
             <h1 className="text-4xl font-bold tracking-tight text-custom">
               New Arrivals
             </h1>
-
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
                 <div>
@@ -297,10 +373,6 @@ function Shops() {
           </div>
 
           <section aria-labelledby="products-heading" className="pb-24 pt-6">
-            <h2 id="products-heading" className="sr-only">
-              Products
-            </h2>
-
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
               <form className="hidden lg:block">
@@ -323,65 +395,7 @@ function Shops() {
                   ))}
                 </ul>
 
-                {filters.map((section) => (
-                  <Disclosure
-                    as="div"
-                    key={section.id}
-                    className="border-b border-gray-200 py-6"
-                  >
-                    {({ open }) => (
-                      <>
-                        <h3 className="-my-3 flow-root">
-                          <Disclosure.Button className="flex w-full items-center justify-between bg-custom py-3 text-sm text-custom hover:text-gray-300">
-                            <span className="font-medium text-custom">
-                              {section.name}
-                            </span>
-                            <span className="ml-6 flex items-center">
-                              {open ? (
-                                <MinusIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              ) : (
-                                <PlusIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              )}
-                            </span>
-                          </Disclosure.Button>
-                        </h3>
-                        <Disclosure.Panel className="pt-6">
-                          <div className="space-y-4">
-                            {section.options.map((option, optionIdx) => (
-                              <div
-                                key={option.value}
-                                className="flex items-center"
-                              >
-                                <input
-                                  id={`filter-${section.id}-${optionIdx}`}
-                                  name={`${section.id}[]`}
-                                  defaultValue={option.value}
-                                  type="checkbox"
-                                  className={`cursor-pointer h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500`}
-                                  onChange={() =>
-                                    handleColorOptions(option.value)
-                                  }
-                                />
-                                <label
-                                  htmlFor={`filter-${section.id}-${optionIdx}`}
-                                  className="ml-3 text-sm text-custom"
-                                >
-                                  {option.label}
-                                </label>
-                              </div>
-                            ))}
-                          </div>
-                        </Disclosure.Panel>
-                      </>
-                    )}
-                  </Disclosure>
-                ))}
+                {colorFiltering()}
               </form>
 
               {/* Product grid */}
@@ -389,6 +403,7 @@ function Shops() {
                 <Products
                   finalProductData={finalProductData}
                   toggleGrid={toggleGrid}
+                  handleClearFiltering={handleClearFiltering}
                 />
               </div>
             </div>

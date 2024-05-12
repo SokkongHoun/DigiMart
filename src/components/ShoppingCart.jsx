@@ -9,12 +9,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { functions } from "../firebaseConfig";
 import { httpsCallable } from "firebase/functions";
 import { BtnLoadingAnimation } from "./LoadingAnimation";
-import {
-  getFirestore,
-  collection,
-  getDocs,
-  onSnapshot,
-} from "firebase/firestore";
+import { getFirestore, collection, onSnapshot } from "firebase/firestore";
 
 function ShoppingCart({ openModal, setOpenModal }) {
   const { cart, setCart } = useContext(CartContext);

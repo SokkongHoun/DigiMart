@@ -13,7 +13,7 @@ export const subCategories = [
 ];
 export const filters = [
   {
-    id: "color",
+    id: crypto.randomUUID(),
     name: "Color",
     options: [
       { value: "black", label: "Black", checked: false },

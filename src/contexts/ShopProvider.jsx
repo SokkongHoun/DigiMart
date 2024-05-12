@@ -30,6 +30,7 @@ export const ShopProvider = ({ children }) => {
         filteredSubCategory,
         handleFilterSubCategory,
         setFilteredSubCategory,
+        setUnderline,
       }}
     >
       {children}

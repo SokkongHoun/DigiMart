@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ProductQuickViews from "./ProductQuickViews";
 
-const Products = ({ finalProductData, toggleGrid }) => {
+const Products = ({ finalProductData, toggleGrid, handleClearFiltering }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -20,13 +20,24 @@ const Products = ({ finalProductData, toggleGrid }) => {
             productData={selectedProduct}
           />
         )}
-        <h2 className="text-2xl font-bold tracking-tight text-custom">
-          Our Products
-        </h2>
+        <div className="flex justify-between">
+          <h2 className="text-2xl font-bold tracking-tight text-custom">
+            Our Products
+          </h2>
+          <button
+            className=" text-sm px-2 rounded-3xl flex items-center gap-2 text-neutral-400"
+            onClick={handleClearFiltering}
+          >
+            Clear Filters
+            <span class="material-symbols-outlined text-base text-first">
+              cancel
+            </span>
+          </button>
+        </div>
         <div
           className={`mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-${toggleGrid} xl:gap-x-8`}
         >
-          {finalProductData.map((product) => (
+          {finalProductData?.map((product) => (
             <div
               key={product.id}
               className="group relative"
