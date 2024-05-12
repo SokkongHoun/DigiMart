@@ -1,21 +1,40 @@
 import React, { Fragment, useContext, useState } from "react";
 import "../styles/Navbar.css";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
-import {
-  Bars3Icon,
-  MagnifyingGlassIcon,
-  ShoppingBagIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Link, useNavigate } from "react-router-dom";
 import ShoppingCart from "./ShoppingCart";
 import { SearchProduct } from "./SearchProduct.jsx";
 import { CartContext } from "../contexts/CartProvider.jsx";
 import { UserAuth } from "../auth/AuthContext.jsx";
 import { ShopContext } from "../contexts/ShopProvider.jsx";
 import { toast } from "react-toastify";
+import { FirebaseData } from "../contexts/productData.jsx";
+import ProductQuickViews from "./ProductQuickViews.jsx";
 
 function NavbarSection() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const { productData } = useContext(FirebaseData);
+
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  const data = productData;
+  const shuffledData = shuffle(data);
+
+  const selectedObjects = shuffledData.slice(0, 2);
+
+  const handleProductView = (viewData) => {
+    setSelectedProduct(viewData);
+    setIsOpen(true);
+  };
+
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const { cart } = useContext(CartContext);
@@ -23,28 +42,27 @@ function NavbarSection() {
   const { userUI, logout, user } = UserAuth();
   const navigate = useNavigate();
 
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
+
+  async function handleLogOut() {
+    try {
+      await logout();
+      navigate("/");
+      toast.info("log out successfully");
+    } catch (error) {
+      toast.error("unable to log out");
+    }
+  }
+
   const navigation = {
     categories: [
       // get this
       {
         id: "View Collections",
         name: "View Collections",
-        featured: [
-          {
-            name: "New Arrivals",
-            href: "#",
-            imageSrc:
-              "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/04-bags-color-01.jpg?v=1699508089&width=535",
-            imageAlt: "Comfortable bag good for office and school",
-          },
-          {
-            name: "Denim Comfort Fit",
-            href: "#",
-            imageSrc:
-              "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/07-straps.jpg?v=1699354960&width=535",
-            imageAlt: "Comfortable, and stylish apple Iwatch Strap",
-          },
-        ],
+        featured: selectedObjects,
         sections: [
           {
             id: "watch straps",
@@ -94,22 +112,10 @@ function NavbarSection() {
           },
         ],
       },
-    ],
+    ].map((value) => {
+      return { ...value, keyId: crypto.randomUUID() };
+    }),
   };
-
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
-
-  async function handleLogOut() {
-    try {
-      await logout();
-      navigate("/");
-      toast.info("log out successfully");
-    } catch (error) {
-      toast.error("unable to log out");
-    }
-  }
 
   const HandleViewCart = () => {
     return (
@@ -241,7 +247,7 @@ function NavbarSection() {
                       <Tab.List className="-mb-px flex space-x-8 px-4">
                         {navigation.categories.map((category) => (
                           <Tab
-                            key={category.name}
+                            key={category.keyId}
                             className={({ selected }) =>
                               classNames(
                                 selected
@@ -257,21 +263,20 @@ function NavbarSection() {
                       </Tab.List>
                     </div>
                     <Tab.Panels as={Fragment}>
-                      {navigation.categories.map((category) => (
+                      {navigation.categories.map((category, index) => (
                         <Tab.Panel
-                          key={category.name}
+                          key={index}
                           className="space-y-10 px-4 pb-8 pt-10"
                         >
                           <div className="grid grid-cols-2 gap-x-4">
-                            {category.featured.map((item) => (
+                            {category.featured.map((item, index) => (
                               <div
-                                key={item.name}
+                                key={index}
                                 className="group relative text-sm"
                               >
                                 <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                                   <img
-                                    src={item.imageSrc}
-                                    alt={item.imageAlt}
+                                    src={item.imgSrc}
                                     className="object-cover object-center"
                                   />
                                 </div>
@@ -403,7 +408,7 @@ function NavbarSection() {
         <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
           <div className="flex h-full space-x-8">
             {navigation.categories.map((category) => (
-              <Popover key={category.name} className="flex">
+              <Popover key={category.keyId} className="flex">
                 {({ open }) => (
                   <>
                     <div className="relative flex">
@@ -411,8 +416,8 @@ function NavbarSection() {
                         className={classNames(
                           open
                             ? "border-blue-800 text-blue-500"
-                            : "border-transparent text-custom hover:text-gray-300",
-                          "relative z-10 -mb-px flex items-center border-b-2 pt-px text-base font-medium transition-colors duration-200 ease-out"
+                            : " text-custom hover:text-gray-300",
+                          "relative z-10 -mb-px flex items-center pt-px text-base font-medium transition-colors duration-200 ease-out"
                         )}
                       >
                         {category.name}
@@ -429,7 +434,6 @@ function NavbarSection() {
                       leaveTo="opacity-0"
                     >
                       <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500">
-                        {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                         <div
                           className="absolute inset-0 top-1/2 bg-white shadow"
                           aria-hidden="true"
@@ -439,22 +443,19 @@ function NavbarSection() {
                           <div className="mx-auto max-w-7xl px-8">
                             <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
                               <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                {category.featured.map((item) => (
+                                {category.featured.map((item, index) => (
                                   <div
-                                    key={item.name}
+                                    key={index}
                                     className="group relative text-base sm:text-sm"
+                                    onClick={() => handleProductView(item)}
                                   >
                                     <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                                       <img
-                                        src={item.imageSrc}
-                                        alt={item.imageAlt}
+                                        src={item.imgSrc}
                                         className="object-cover object-center"
                                       />
                                     </div>
-                                    <Link
-                                      href={item.href}
-                                      className="mt-6 block font-medium text-custom"
-                                    >
+                                    <Link className="mt-6 block font-medium text-custom">
                                       <span
                                         className="absolute inset-0 z-10"
                                         aria-hidden="true"
@@ -471,8 +472,8 @@ function NavbarSection() {
                                 ))}
                               </div>
                               <div className="row-start-1 grid grid-cols-2 gap-x-8 gap-y-10 text-sm">
-                                {category.sections.map((section) => (
-                                  <div key={section.name}>
+                                {category.sections.map((section, index) => (
+                                  <div key={index}>
                                     <div className="w-12">
                                       <p
                                         id={`${section.name}-heading`}
@@ -487,8 +488,8 @@ function NavbarSection() {
                                       aria-labelledby={`${section.name}-heading`}
                                       className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                     >
-                                      {section.items.map((item) => (
-                                        <li key={item.name} className="flex">
+                                      {section.items.map((item, index) => (
+                                        <li key={index} className="flex">
                                           <Link
                                             to="/shop"
                                             onClick={() => {
@@ -577,6 +578,13 @@ function NavbarSection() {
 
   return (
     <div className="bg-white sticky top-0 z-40">
+      {selectedProduct && (
+        <ProductQuickViews
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          productData={selectedProduct}
+        />
+      )}
       {/* Mobile menu */}
       <MobileMenu />
       <header className="relative bg-custom z-40">

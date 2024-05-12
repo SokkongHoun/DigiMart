@@ -29,7 +29,7 @@ const Products = ({ finalProductData, toggleGrid, handleClearFiltering }) => {
             onClick={handleClearFiltering}
           >
             Clear Filters
-            <span class="material-symbols-outlined text-base text-first">
+            <span className="material-symbols-outlined text-base text-first">
               cancel
             </span>
           </button>

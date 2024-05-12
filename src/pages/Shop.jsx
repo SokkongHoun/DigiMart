@@ -28,7 +28,6 @@ function Shops() {
   const [toggleGrid, setToggleGrid] = useState("3");
   const [selectedSort, setSelectedSort] = useState(null);
   const [filterColor, setFilterColor] = useState(filters);
-  const [toggleCheckboxValue, setToggleCheckboxValue] = useState([]);
   let [finalProductData, setFinalProductData] = useState(null);
   const {
     filteredSubCategory,
