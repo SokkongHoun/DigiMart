@@ -16,7 +16,7 @@ import {
   subCategories,
   filters,
 } from "../filtering/shopPageFilter.js";
-import { ShopContext } from "../App.jsx";
+import { ShopContext } from "../contexts/ShopProvider.jsx";
 import { FirebaseData } from "../contexts/productData.jsx";
 
 function classNames(...classes) {

@@ -12,7 +12,7 @@ import ShoppingCart from "./ShoppingCart";
 import { SearchProduct } from "./SearchProduct.jsx";
 import { CartContext } from "../App.jsx";
 import { UserAuth } from "../auth/AuthContext.jsx";
-import { ShopContext } from "../App.jsx";
+import { ShopContext } from "../contexts/ShopProvider.jsx";
 import { toast } from "react-toastify";
 
 function NavbarSection() {

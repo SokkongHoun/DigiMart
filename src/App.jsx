@@ -4,10 +4,9 @@ import NotFoundPage from "./pages/NotFoundPage.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from "./pages/About.jsx";
 import Shops from "./pages/Shop.jsx";
-import React, { useState, createContext, useContext, useEffect } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import LayoutFooter from "./contexts/LayoutFooter.jsx";
 import FirebaseDataProvider from "./contexts/productData.jsx";
-import { FirebaseData } from "./contexts/productData.jsx";
 import SignInForm from "./pages/SignInForm.jsx";
 import SignUpForm from "./pages/SignUpForm.jsx";
 import ResetPasswordForm from "./pages/ResetPasswordForm.jsx";
@@ -24,9 +23,9 @@ import { UserCartRoute } from "./contexts/ProtectedRoute.jsx";
 import { UserCartProvider } from "./contexts/UserCartData.jsx";
 import PaymentSuccess from "./pages/PaymentSuccess.jsx";
 import CancelPayment from "./pages/CancelPayment.jsx";
+import { ShopProvider } from "./contexts/ShopProvider.jsx";
 
 export const CartContext = createContext();
-export const ShopContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(() => {
@@ -42,40 +41,6 @@ export const CartProvider = ({ children }) => {
     <CartContext.Provider value={{ cart, setCart }}>
       {children}
     </CartContext.Provider>
-  );
-};
-
-export const ShopProvider = ({ children }) => {
-  const { productData, loading } = useContext(FirebaseData);
-  const [filteredSubCategory, setFilteredSubCategory] = useState([]);
-  /* for underline the selected category */
-  const [underline, setUnderline] = useState(null);
-
-  useEffect(() => {
-    if (!loading) {
-      setFilteredSubCategory(productData);
-    }
-  }, [productData, loading]);
-
-  const handleFilterSubCategory = (subCategoryName) => {
-    setUnderline(subCategoryName);
-    const filteredProducts = productData.filter(
-      (product) => product.category === subCategoryName
-    );
-    setFilteredSubCategory(filteredProducts);
-  };
-
-  return (
-    <ShopContext.Provider
-      value={{
-        underline,
-        filteredSubCategory,
-        handleFilterSubCategory,
-        setFilteredSubCategory,
-      }}
-    >
-      {children}
-    </ShopContext.Provider>
   );
 };
 
