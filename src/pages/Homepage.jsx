@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Marquee from "react-fast-marquee";
 import { useNavigate } from "react-router-dom";
+import ProductQuickViews from "../components/ProductQuickViews";
+import { FirebaseData } from "../contexts/productData";
 
 const BannerSection = () => {
   const navigate = useNavigate();
@@ -235,136 +237,6 @@ const ProductSection = () => {
   return mapProductCategory;
 };
 
-const HomepageProductSection = () => {
-  const navigate = useNavigate();
-
-  const products = [
-    {
-      id: 1,
-      name: "Leather Card Sleeve",
-      href: "#",
-      imageSrc:
-        "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/04-card-color-02.jpg?v=1699444561&width=800",
-      imageAlt: "Card sleeve",
-      price: "$25",
-      color: "Green",
-    },
-    {
-      id: 2,
-      name: "Classic Tan Leather Band",
-      href: "#",
-      imageSrc:
-        "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/05-straps.jpg?v=1699354373&width=800",
-      imageAlt: "watch leather strap.",
-      price: "$49",
-      color: "",
-    },
-    {
-      id: 3,
-      name: "Classic Leather Phone Case",
-      href: "#",
-      imageSrc:
-        "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/01-cases-color-01.jpg?v=1700652387&width=800",
-      imageAlt: "leather phone case.",
-      price: "$45",
-      color: "Yellow",
-    },
-    {
-      id: 4,
-      name: "Casual Business Tote",
-      href: "#",
-      imageSrc:
-        "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/02-bags-color-02.jpg?v=1699507659&width=1100",
-      imageAlt: "Tech bagpack.",
-      price: "$65.99",
-      color: "",
-    },
-    {
-      id: 5,
-      name: "Tech Mat",
-      href: "#",
-      imageSrc:
-        "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/01-pad-color-01.jpg?v=1699447481&width=800",
-      imageAlt: "keyboard mat.",
-      price: "$14.99",
-      color: "Blue",
-    },
-    {
-      id: 6,
-      name: "Leather Pod Case",
-      href: "#",
-      imageSrc:
-        "https://digital-theme-minimalist.myshopify.com/cdn/shop/files/03-cases-color-01.jpg?v=1699437527&width=800",
-      imageAlt: "Airpod case.",
-      price: "$29.99",
-      color: "Dark Blue",
-    },
-  ];
-
-  function handleNavigate() {
-    navigate("/shop");
-  }
-
-  const ProductLists = () => {
-    return (
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:max-w-screen-2xl">
-        <div className="flex justify-between items-end">
-          <div>
-            <p className="text-xs text-first">PRODUCTS</p>
-            <h1 className="text-2xl md:text-3xl font-semibold py-5">
-              Personalized Paths for Each Purpose
-            </h1>
-            <h3 className="font-semibold">
-              Ensuring your distinct needs are met with precision and care.
-            </h3>
-          </div>
-          <div>
-            <button
-              className="bg-black hidden min-[750px]:inline-block px-6 py-4 rounded-md text-sm cursor-pointer"
-              onClick={handleNavigate}
-            >
-              Shop All
-            </button>
-          </div>
-        </div>
-        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-          {products.map((product) => (
-            <div key={product.id} className="group relative">
-              <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-90">
-                <img src={product.imageSrc} alt={product.imageAlt} />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-lg text-custom font-semibold">
-                    <a href={product.href}>
-                      <span aria-hidden="true" className="absolute inset-0" />
-                      {product.name}
-                    </a>
-                  </h3>
-                  <p className="mt-1 font-semibold text-sm text-custom">
-                    {product.color}
-                  </p>
-                </div>
-                <p className="text-lg font-semibold text-custom">
-                  {product.price}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
-  return (
-    <>
-      <div className="mt-20">
-        <ProductLists />
-      </div>
-    </>
-  );
-};
-
 const FeaturesSection = () => {
   const featureDetails = [
     {
@@ -459,6 +331,87 @@ const HomepageStorySection = () => {
 };
 
 const Homepage = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const navigate = useNavigate();
+  const { productData } = useContext(FirebaseData);
+
+  const HomepageProductSection = () => {
+    const selectedItems = productData.slice(20, 26);
+
+    const keyingSelectedItems = selectedItems.map((value) => {
+      return { ...value, keyId: crypto.randomUUID() };
+    });
+
+    function handleNavigate() {
+      navigate("/shop");
+    }
+
+    const handleProductViews = (product) => {
+      setSelectedProduct(product);
+      setIsOpen(true);
+
+      console.log(isOpen);
+      console.log(selectedProduct);
+    };
+
+    return (
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:max-w-screen-2xl mt-20">
+        {selectedProduct && (
+          <ProductQuickViews
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            productData={selectedProduct}
+          />
+        )}
+        <div className="flex justify-between items-end">
+          <div>
+            <p className="text-xs text-first">PRODUCTS</p>
+            <h1 className="text-2xl md:text-3xl font-semibold py-5">
+              Personalized Paths for Each Purpose
+            </h1>
+            <h3 className="font-semibold">
+              Ensuring your distinct needs are met with precision and care.
+            </h3>
+          </div>
+          <div>
+            <button
+              className="bg-black hidden min-[750px]:inline-block px-6 py-4 rounded-md text-sm cursor-pointer"
+              onClick={handleNavigate}
+            >
+              Shop All
+            </button>
+          </div>
+        </div>
+        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+          {keyingSelectedItems.map((product) => (
+            <div
+              key={product.keyId}
+              className="group relative cursor-pointer"
+              onClick={() => handleProductViews(product)}
+            >
+              <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-90">
+                <img src={product.imgSrc} />
+              </div>
+              <div className="mt-4 flex justify-between">
+                <div>
+                  <h3 className="text-lg text-custom font-semibold">
+                    <a>
+                      <span aria-hidden="true" className="absolute inset-0" />
+                      {product.name}
+                    </a>
+                  </h3>
+                </div>
+                <p className="text-lg font-semibold text-custom">
+                  {product.price}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
   return (
     <main>
       <BannerSection />
