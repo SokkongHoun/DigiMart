@@ -10,7 +10,7 @@ import {
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import ShoppingCart from "./ShoppingCart";
 import { SearchProduct } from "./SearchProduct.jsx";
-import { CartContext } from "../App.jsx";
+import { CartContext } from "../contexts/CartProvider.jsx";
 import { UserAuth } from "../auth/AuthContext.jsx";
 import { ShopContext } from "../contexts/ShopProvider.jsx";
 import { toast } from "react-toastify";

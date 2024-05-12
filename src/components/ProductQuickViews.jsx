@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect, useContext } from "react";
 import { Dialog, RadioGroup, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/20/solid";
-import { CartContext } from "../App";
+import { CartContext } from "../contexts/CartProvider";
 import { UserAuth } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 

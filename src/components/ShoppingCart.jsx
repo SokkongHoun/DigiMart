@@ -1,5 +1,5 @@
 import { Modal } from "flowbite-react";
-import { CartContext } from "../App";
+import { CartContext } from "../contexts/CartProvider";
 import React, { useContext, useState, useEffect } from "react";
 import { UserAuth } from "../auth/AuthContext";
 import { UserDataApp } from "../userDataConfig";
