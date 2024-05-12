@@ -263,9 +263,9 @@ function NavbarSection() {
                       </Tab.List>
                     </div>
                     <Tab.Panels as={Fragment}>
-                      {navigation.categories.map((category, index) => (
+                      {navigation.categories.map((category) => (
                         <Tab.Panel
-                          key={index}
+                          key={category.keyId}
                           className="space-y-10 px-4 pb-8 pt-10"
                         >
                           <div className="grid grid-cols-2 gap-x-4">
@@ -273,6 +273,7 @@ function NavbarSection() {
                               <div
                                 key={index}
                                 className="group relative text-sm"
+                                onClick={() => handleProductView(item)}
                               >
                                 <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
                                   <img
@@ -280,24 +281,24 @@ function NavbarSection() {
                                     className="object-cover object-center"
                                   />
                                 </div>
-                                <Link
-                                  href={item.href}
-                                  className="mt-6 block font-medium text-first"
-                                >
+                                <Link className="mt-6 block font-medium text-first text-sm truncate">
                                   <span
                                     className="absolute inset-0 z-10"
                                     aria-hidden="true"
                                   />
                                   {item.name}
                                 </Link>
-                                <p aria-hidden="true" className="mt-1">
+                                <p aria-hidden="true" className="mt-1 text-sm">
                                   Shop now
                                 </p>
                               </div>
                             ))}
                           </div>
-                          {category.sections.map((section) => (
-                            <div key={section.name}>
+                          {category.sections.map((section, index) => (
+                            <div
+                              className="flex items-center gap-5"
+                              key={index}
+                            >
                               <p
                                 id={`${category.id}-${section.id}-heading-mobile`}
                                 className="font-medium text-custom "
@@ -307,13 +308,16 @@ function NavbarSection() {
                               <ul
                                 role="list"
                                 aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
-                                className="mt-3 flex flex-col space-y-6"
+                                className="flex flex-col space-y-6"
                               >
-                                {section.items.map((item) => (
-                                  <li key={item.name} className="flow-root">
+                                {section.items.map((item, index) => (
+                                  <li key={index} className="flow-root">
                                     <Link
-                                      href={item.href}
-                                      className="-m-2 block p-2 text-gray-300 hover:underline"
+                                      to="/shop"
+                                      onClick={() =>
+                                        handleFilterSubCategory(item.name)
+                                      }
+                                      className="block p-2 text-gray-300 hover:underline"
                                     >
                                       {item.name}
                                     </Link>
@@ -492,11 +496,6 @@ function NavbarSection() {
                                         <li key={index} className="flex">
                                           <Link
                                             to="/shop"
-                                            onClick={() => {
-                                              handleFilterSubCategory(
-                                                item.name
-                                              );
-                                            }}
                                             className="text-custom hover:text-gray-300"
                                           >
                                             {item.name}
