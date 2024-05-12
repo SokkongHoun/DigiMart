@@ -117,6 +117,23 @@ function NavbarSection() {
     }),
   };
 
+  const calculateCartQuantities = () => {
+    let cartQuantities = 0;
+    cart.forEach((item) => {
+      cartQuantities += item.qty;
+    });
+    return cartQuantities;
+  };
+
+  const calculateCartSubtotal = () => {
+    let cartSubtotal = 0;
+    cart.forEach((item) => {
+      cartSubtotal += item.price * item.qty;
+    });
+
+    return cartSubtotal.toFixed(2);
+  };
+
   const HandleViewCart = () => {
     return (
       <>
@@ -155,7 +172,9 @@ function NavbarSection() {
                 <span className="font-bold text-lg">
                   {calculateCartQuantities()} Items
                 </span>
-                <span className="text-info">Subtotal: $XXX</span>
+                <span className="text-info">
+                  Subtotal: ${calculateCartSubtotal()}
+                </span>
                 <div className="card-actions">
                   <button
                     onClick={() => setOpenModal(true)}
@@ -397,14 +416,6 @@ function NavbarSection() {
     );
   };
 
-  const calculateCartQuantities = () => {
-    let cartQuantities = 0;
-    cart.forEach((item) => {
-      cartQuantities += item.qty;
-    });
-    return cartQuantities;
-  };
-
   const FlyOutMenu = () => {
     return (
       <>
@@ -557,7 +568,7 @@ function NavbarSection() {
             )}
           </div>
 
-          <div className="flex lg:ml-6">
+          <div className="flex mr-4 lg:ml-6 mt-2">
             <SearchProduct />
           </div>
           {userUI && (

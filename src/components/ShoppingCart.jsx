@@ -26,9 +26,17 @@ function ShoppingCart({ openModal, setOpenModal }) {
     let itemCost = item.price * item.qty;
     subtotal += itemCost;
   });
-  let shipping = cart.length === 0 ? 0 : 10;
+  let shipping = 0;
+
   let taxEstaimted = subtotal * 0.05;
   const orderTotal = taxEstaimted + subtotal + shipping;
+  if (cart.length === 0) {
+    shipping = 0;
+  } else if (orderTotal > 100) {
+    shipping = 0;
+  } else {
+    shipping = 20;
+  }
   let combinedCart = cart.reduce((acc, item) => {
     if (acc[item.id]) {
       acc[item.id].price += item.price;
@@ -187,7 +195,9 @@ function ShoppingCart({ openModal, setOpenModal }) {
         <hr className="border border-third" />
         <div className="flex justify-between mt-4 mb-3">
           <p className="text-sm sm:text-base">Shipping estimated</p>
-          <p className="text-sm sm:text-base">${shipping.toFixed(2)}</p>
+          <p className="text-sm sm:text-base">
+            {orderTotal > 100 ? "Free" : `$${shipping.toFixed(2)}`}
+          </p>
         </div>
         <hr className="border border-third" />
         <div className="flex justify-between mt-4 mb-3">
