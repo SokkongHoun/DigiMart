@@ -79,9 +79,12 @@ const OrderHistory = () => {
                 return (
                   <>
                     <div className="flex flex-col" key={itemInfo.productId}>
-                      {itemInfo.products.map((itemDetails) => {
+                      {itemInfo.products.map((itemDetails, index) => {
                         return (
-                          <div className="flex gap-5 border-b border-first mb-5 pb-5">
+                          <div
+                            key={index}
+                            className="flex gap-5 border-b border-first mb-5 pb-5"
+                          >
                             <img
                               src={itemDetails.imgSrc}
                               className="w-48 rounded-lg h-48"

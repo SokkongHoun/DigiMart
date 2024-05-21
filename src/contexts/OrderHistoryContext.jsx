@@ -16,7 +16,31 @@ export const UserOrderHistory = ({ children }) => {
         const snapshot = await get(userRef);
         const data = snapshot.val();
 
-        setUserOrderHistory(data);
+        const allUserPackages = [];
+
+        for (const userUID in data) {
+          if (Object.hasOwnProperty.call(data, userUID)) {
+            const userData = data[userUID];
+
+            for (const packageID in userData) {
+              if (Object.hasOwnProperty.call(userData, packageID)) {
+                const { packages } = userData[packageID];
+
+                if (packages && Array.isArray(packages)) {
+                  packages.forEach((pkg) => {
+                    allUserPackages.push({
+                      ...pkg,
+                      packageID,
+                      userUID,
+                    });
+                  });
+                }
+              }
+            }
+          }
+        }
+
+        setUserOrderHistory(allUserPackages);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
