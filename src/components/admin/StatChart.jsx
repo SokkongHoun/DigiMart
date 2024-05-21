@@ -28,9 +28,9 @@ const StatChart = () => {
   return (
     <div className="stats stats-vertical lg:stats-horizontal shadow w-full h-full bg-secondary">
       <div className="stat">
-        <div className="stat-figure bg-green-500 bg-opacity-50 p-3 rounded-lg border border-green-500">
-          <span className="material-symbols-outlined text-green-500">
-            arrow_upward
+        <div className="stat-figure bg-green-500 bg-opacity-50 p-3 rounded-lg border border-green-300">
+          <span className="material-symbols-outlined text-green-200">
+            attach_money
           </span>
         </div>
         <div className="stat-title ">Total Sales</div>
