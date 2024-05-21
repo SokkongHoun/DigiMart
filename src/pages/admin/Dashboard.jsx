@@ -21,11 +21,7 @@ const Dashboard = () => {
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col gap-5 m-8 ">
           <div>
-            <h1 className="text-3xl font-semibold">Report</h1>
-            <div className="flex gap-5 items-center text-first my-3">
-              <p>Date :</p>
-              <Datepicker />
-            </div>
+            <h1 className="text-3xl font-semibold">All Time Sales</h1>
           </div>
           {/* Page content here */}
 
@@ -38,7 +34,7 @@ const Dashboard = () => {
                 <div className="h-full">
                   <StatChart />
                 </div>
-                <div className="flex-grow flex-shrink-0 flex items-center justify-center rounded-2xl bg-secondary h-full">
+                <div className="flex-grow flex-shrink-0 flex items-center justify-center rounded-2xl bg-secondary h-full px-5">
                   <PieActiveArc />
                 </div>
               </div>
