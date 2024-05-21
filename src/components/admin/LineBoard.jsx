@@ -1,6 +1,11 @@
 import { LineChart } from "@mui/x-charts/LineChart";
+import { OrderHistoryContext } from "../../contexts/OrderHistoryContext";
+import { useContext } from "react";
 
 const LineBoard = () => {
+  const { userOrderHistory } = useContext(OrderHistoryContext);
+
+  console.log(userOrderHistory);
   return (
     <>
       <LineChart

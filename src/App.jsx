@@ -25,6 +25,7 @@ import PaymentSuccess from "./pages/PaymentSuccess.jsx";
 import CancelPayment from "./pages/CancelPayment.jsx";
 import { ShopProvider } from "./contexts/ShopProvider.jsx";
 import { CartProvider } from "./contexts/CartProvider.jsx";
+import { UserOrderHistory } from "./contexts/OrderHistoryContext.jsx";
 
 function App() {
   const { adminStatus } = UserAuth();
@@ -39,26 +40,28 @@ function App() {
                 {adminStatus ? (
                   <>
                     <AdminAccessContext>
-                      <AdminNav />
-                      <Routes>
-                        <Route
-                          index
-                          element={
-                            <ProtectedRoute>
-                              <Dashboard />
-                            </ProtectedRoute>
-                          }
-                        />
-                        <Route
-                          path="/productdashboard"
-                          element={
-                            <ProtectedRoute>
-                              <ProductDashboard />
-                            </ProtectedRoute>
-                          }
-                        />
-                        <Route path="*" element={<NotFoundPage />} />
-                      </Routes>
+                      <UserOrderHistory>
+                        <AdminNav />
+                        <Routes>
+                          <Route
+                            index
+                            element={
+                              <ProtectedRoute>
+                                <Dashboard />
+                              </ProtectedRoute>
+                            }
+                          />
+                          <Route
+                            path="/productdashboard"
+                            element={
+                              <ProtectedRoute>
+                                <ProductDashboard />
+                              </ProtectedRoute>
+                            }
+                          />
+                          <Route path="*" element={<NotFoundPage />} />
+                        </Routes>
+                      </UserOrderHistory>
                     </AdminAccessContext>
                   </>
                 ) : (
