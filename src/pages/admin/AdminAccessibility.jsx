@@ -1,30 +1,8 @@
-import React, { useState } from "react";
-import { UserAuth } from "../../auth/AuthContext";
-import { functions } from "../../firebaseConfig";
-import { httpsCallable } from "firebase/functions";
-import { toast } from "react-toastify";
+import React from "react";
 
-const AdminAccessibility = () => {
-  const [adminEmail, setAdminEmail] = useState("");
-  const addAdminRole = httpsCallable(functions, "addAdminRole");
-
-  const { adminStatus } = UserAuth();
-
-  console.log(adminStatus);
-
+const AdminAccessibility = ({ setAdminEmail }) => {
   const handleEmailsubmitForAdmin = (e) => {
     setAdminEmail(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    addAdminRole({ email: adminEmail })
-      .then((result) => {
-        toast.success(result.data.message);
-      })
-      .catch((error) => {
-        console.error("Error adding admin role:", error);
-      });
   };
 
   return (
@@ -32,6 +10,7 @@ const AdminAccessibility = () => {
       <h1 className="text-2xl font-semibold">
         Granting User Admin Accessibility
       </h1>
+
       <div className="w-96 my-5">
         <label className="input input-bordered flex items-center gap-2">
           <svg
@@ -50,7 +29,9 @@ const AdminAccessibility = () => {
           />
         </label>
       </div>
-      {/* <button onClick={handleSubmit}>Commit</button> */}
+      <p className="text-xs text-first">
+        Note : This function is currently inactivate
+      </p>
     </>
   );
 };
