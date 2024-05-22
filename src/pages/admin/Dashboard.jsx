@@ -36,7 +36,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-between gap-5">
+          <div className="flex flex-col xl:flex-row justify-between gap-5">
             <div className="w-full">
               <LatestOrderTable />
             </div>
