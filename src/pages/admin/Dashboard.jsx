@@ -17,11 +17,11 @@ const Dashboard = () => {
           </div>
           {/* Page content here */}
 
-          <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-5">
+          <div className="grid grid-cols-1 xl:grid-cols-[2fr,1fr] lg:grid-cols-[1fr,1fr] gap-5">
             <div className="col-span-1 bg-secondary rounded-2xl">
               <LineBoard />
             </div>
-            <div className="col-span-1 flex flex-col justify-between h-full">
+            <div className="col-span-1 flex flex-col justify-between h-full w-full">
               <div className="grid grid-cols-[1fr,2fr] lg:grid-cols-1 gap-6 h-full">
                 <div className="h-full">
                   <StatChart />
