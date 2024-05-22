@@ -25,6 +25,13 @@ const OrderHistory = () => {
             });
           }
         }
+
+        userOrderHistory.sort((a, b) => {
+          const dateA = new Date(a.packages[0].datePlaced);
+          const dateB = new Date(b.packages[0].datePlaced);
+          return dateB - dateA;
+        });
+
         setUserOrderHistory(userOrderHistory);
       } catch (error) {
         console.error("Error fetching user data:", error);

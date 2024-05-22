@@ -1,4 +1,10 @@
+import { OrderHistoryContext } from "../../contexts/OrderHistoryContext";
+import { useContext } from "react";
+
 const RankingTable = () => {
+  const { userOrderHistory } = useContext(OrderHistoryContext);
+  console.log(userOrderHistory);
+
   return (
     <div className="overflow-x-auto p-8 rounded-2xl bg-secondary">
       Latest Ordered

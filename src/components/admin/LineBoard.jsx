@@ -8,12 +8,16 @@ const LineBoard = () => {
 
   useEffect(() => {
     const groupedData = userOrderHistory.reduce((acc, val) => {
-      if (!acc[val.datePlaced]) {
-        acc[val.datePlaced] = 0;
+      const dateWithoutTime = val.datePlaced.split(",")[0].trim();
+
+      if (!acc[dateWithoutTime]) {
+        acc[dateWithoutTime] = 0;
       }
+
       val.products.forEach((product) => {
-        acc[val.datePlaced] += product.totalQuantities;
+        acc[dateWithoutTime] += product.totalQuantities;
       });
+
       return acc;
     }, {});
 
@@ -23,13 +27,13 @@ const LineBoard = () => {
   const dates = Object.keys(dateProductCount).sort(
     (a, b) => new Date(a) - new Date(b)
   );
+
   const productCounts = dates.map((date) => dateProductCount[date]);
 
   const formattedDates = dates.map((date) => {
     const options = { day: "2-digit", month: "short" };
     return new Date(date).toLocaleDateString("en-US", options);
   });
-
   return (
     <>
       <LineChart

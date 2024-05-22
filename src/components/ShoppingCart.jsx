@@ -61,8 +61,11 @@ function ShoppingCart({ openModal, setOpenModal }) {
     let currentDate = new Date();
     let formattedDate = currentDate.toLocaleString("default", {
       month: "short",
-      year: "numeric",
       day: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
     });
     let deliveryDate = new Date();
     deliveryDate.setDate(deliveryDate.getDate() + 7);
