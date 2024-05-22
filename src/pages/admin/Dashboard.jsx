@@ -56,7 +56,9 @@ const Dashboard = () => {
             <li>
               <Link to="/" className="justify-between text-custom">
                 Dashboard
-                <span className="badge">New</span>
+                <span className="badge bg-[#00a9a5] text-custom border-[#00a9a5]">
+                  New
+                </span>
               </Link>
             </li>
             <li>
