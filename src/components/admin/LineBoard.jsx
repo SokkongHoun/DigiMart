@@ -20,17 +20,20 @@ const LineBoard = () => {
     setDateProductCount(groupedData);
   }, [userOrderHistory]);
 
-  const dates = Object.keys(dateProductCount);
-  const productCounts = Object.values(dateProductCount);
-  const xAxisData = Array.from(
-    { length: productCounts.length },
-    (_, i) => i + 1
+  const dates = Object.keys(dateProductCount).sort(
+    (a, b) => new Date(a) - new Date(b)
   );
+  const productCounts = dates.map((date) => dateProductCount[date]);
+
+  const formattedDates = dates.map((date) => {
+    const options = { day: "2-digit", month: "short" };
+    return new Date(date).toLocaleDateString("en-US", options);
+  });
 
   return (
     <>
       <LineChart
-        xAxis={[{ data: xAxisData }]}
+        xAxis={[{ data: formattedDates, scaleType: "band" }]}
         series={[
           {
             data: productCounts,

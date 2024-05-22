@@ -1,24 +1,76 @@
 import { PieChart } from "@mui/x-charts/PieChart";
-
-const data = [
-  {
-    id: 0,
-    value: 10,
-    color: "#00a9a5",
-  },
-  {
-    id: 1,
-    value: 15,
-    color: "#5aaa95",
-  },
-  {
-    id: 2,
-    value: 20,
-    color: "#00916e",
-  },
-];
+import { OrderHistoryContext } from "../../contexts/OrderHistoryContext";
+import { useContext } from "react";
 
 function PieActiveArc() {
+  const { userOrderHistory } = useContext(OrderHistoryContext);
+  const productCountMap = new Map();
+
+  userOrderHistory.forEach((value) => {
+    value.products.forEach((product) => {
+      const productId = product.id;
+      const productQuantity = product.totalQuantities;
+
+      if (productCountMap.has(productId)) {
+        const productInfo = productCountMap.get(productId);
+        productInfo.count += 1;
+        productInfo.totalQuantities += productQuantity;
+        productCountMap.set(productId, productInfo);
+      } else {
+        productCountMap.set(productId, {
+          product: product,
+          count: 1,
+          totalQuantities: productQuantity,
+        });
+      }
+    });
+  });
+  let firstMax = { count: 0, product: null, totalQuantities: 0 };
+  let secondMax = { count: 0, product: null, totalQuantities: 0 };
+  let thirdMax = { count: 0, product: null, totalQuantities: 0 };
+
+  productCountMap.forEach((productInfo) => {
+    if (productInfo.count > firstMax.count) {
+      thirdMax = secondMax;
+      secondMax = firstMax;
+      firstMax = {
+        count: productInfo.count,
+        product: productInfo.product,
+        totalQuantities: productInfo.totalQuantities,
+      };
+    } else if (productInfo.count > secondMax.count) {
+      thirdMax = secondMax;
+      secondMax = {
+        count: productInfo.count,
+        product: productInfo.product,
+        totalQuantities: productInfo.totalQuantities,
+      };
+    } else if (productInfo.count > thirdMax.count) {
+      thirdMax = {
+        count: productInfo.count,
+        product: productInfo.product,
+        totalQuantities: productInfo.totalQuantities,
+      };
+    }
+  });
+
+  const data = [
+    {
+      id: 0,
+      value: firstMax.totalQuantities,
+      color: "#00a9a5",
+    },
+    {
+      id: 1,
+      value: secondMax.totalQuantities,
+      color: "#5aaa95",
+    },
+    {
+      id: 2,
+      value: thirdMax.totalQuantities,
+      color: "#00916e",
+    },
+  ];
   return (
     <>
       <PieChart

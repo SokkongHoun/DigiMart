@@ -21,7 +21,7 @@ const Dashboard = () => {
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col gap-5 m-8 ">
           <div>
-            <h1 className="text-3xl font-semibold">All Time Sales</h1>
+            <h1 className="text-3xl font-semibold">2024 All Time Sales</h1>
           </div>
           {/* Page content here */}
 

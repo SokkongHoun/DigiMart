@@ -13,15 +13,14 @@ const StatChart = () => {
     day: "2-digit",
   });
 
-  let newOrdered;
+  let newOrdered = 0;
 
   userOrderHistory.forEach((value) => {
     totalSales += value.totalPackagePrice;
-
     totalOrdered += value.products.length;
 
     if (value.datePlaced === formattedDate) {
-      newOrdered = value.products.length;
+      newOrdered += value.products.length;
     }
   });
 
@@ -46,7 +45,9 @@ const StatChart = () => {
         <div className="stat-title">Total Ordered</div>
         <div className="stat-value text-custom">{totalOrdered}</div>
         <div className="stat-desc text-custom">
-          {newOrdered ? `${newOrdered} news ordered today` : "No order today"}
+          {newOrdered === 0
+            ? "No order today"
+            : `${newOrdered} news ordered today`}
         </div>
       </div>
     </div>
