@@ -83,6 +83,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
           delivery: formatDeliveryDate,
           datePlaced: formattedDate,
           products: combinedItems,
+          email: user?.email,
         },
       ],
     });

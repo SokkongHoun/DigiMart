@@ -34,7 +34,7 @@ const StatChart = () => {
         </div>
         <div className="stat-title">Total Sales</div>
         <div className="stat-value text-custom lg:text-3xl">
-          ${Math.ceil(totalSales)}
+          ${Math.ceil(totalSales).toLocaleString()}
         </div>
       </div>
 
