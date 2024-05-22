@@ -44,6 +44,11 @@ export default function ProductQuickViews({ isOpen, setIsOpen, productData }) {
     });
   };
 
+  const handleSignInToContinue = () => {
+    navigate("/signIn");
+    setIsOpen(false);
+  };
+
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={setIsOpen}>
@@ -210,7 +215,7 @@ export default function ProductQuickViews({ isOpen, setIsOpen, productData }) {
                             </button>
                           ) : (
                             <button
-                              onClick={() => navigate("/signIn")}
+                              onClick={handleSignInToContinue}
                               className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-black px-8 py-3 text-base font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
                             >
                               sign in to continue
