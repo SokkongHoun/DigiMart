@@ -3,11 +3,12 @@ import { useLogout } from "./UseLogout";
 import { ModalContext } from "../../contexts/AdminAccessContext";
 import AdminModal from "../../pages/admin/AdminModal";
 import { useNavigate } from "react-router-dom";
+
 export const MenuButton = () => {
   return (
     <label
       htmlFor="my-drawer-2"
-      className="btn bg-secondary hover:bg-third drawer-button lg:hidden"
+      className="btn bg-secondary hover:bg-third drawer-button 2xl:hidden"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +47,7 @@ const AdminNav = () => {
             onClick={() => navigate("/")}
             className="flex justify-center items-center cursor-pointer"
           >
-            <img src="../../logo.png" className="w-11 ml-7 lg:ml-0" />{" "}
+            <img src="../../logo.png" className="w-11 ml-7 2xl:ml-0" />{" "}
             <span>
               <h1 className="text-secondCustom text-xl font-semibold ml-5">
                 DigiMart

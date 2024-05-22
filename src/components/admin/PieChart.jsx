@@ -1,136 +1,90 @@
 import { PieChart } from "@mui/x-charts/PieChart";
 import { OrderHistoryContext } from "../../contexts/OrderHistoryContext";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
+import { BtnLoadingAnimation } from "../LoadingAnimation";
 
 function PieActiveArc() {
   const { userOrderHistory } = useContext(OrderHistoryContext);
-  const productCountMap = new Map();
+  const [isLoading, setIsLoading] = useState(true);
+  const [productQuantitiesArray, setProductQuantitiesArray] = useState([]);
 
-  userOrderHistory.forEach((value) => {
-    value.products.forEach((product) => {
-      const productId = product.id;
-      const productQuantity = product.totalQuantities;
+  useEffect(() => {
+    const processData = () => {
+      const productQuantities = {};
 
-      if (productCountMap.has(productId)) {
-        const productInfo = productCountMap.get(productId);
-        productInfo.count += 1;
-        productInfo.totalQuantities += productQuantity;
-        productCountMap.set(productId, productInfo);
-      } else {
-        productCountMap.set(productId, {
-          product: product,
-          count: 1,
-          totalQuantities: productQuantity,
+      userOrderHistory.forEach((order) => {
+        order.products.forEach((product) => {
+          const { id, name, totalQuantities } = product;
+          if (productQuantities[id]) {
+            productQuantities[id].totalQuantities += totalQuantities;
+          } else {
+            productQuantities[id] = { id, name, totalQuantities };
+          }
         });
-      }
-    });
-  });
-  let firstMax = { count: 0, product: null, totalQuantities: 0 };
-  let secondMax = { count: 0, product: null, totalQuantities: 0 };
-  let thirdMax = { count: 0, product: null, totalQuantities: 0 };
+      });
 
-  productCountMap.forEach((productInfo) => {
-    if (productInfo.count > firstMax.count) {
-      thirdMax = secondMax;
-      secondMax = firstMax;
-      firstMax = {
-        count: productInfo.count,
-        product: productInfo.product,
-        totalQuantities: productInfo.totalQuantities,
-      };
-    } else if (productInfo.count > secondMax.count) {
-      thirdMax = secondMax;
-      secondMax = {
-        count: productInfo.count,
-        product: productInfo.product,
-        totalQuantities: productInfo.totalQuantities,
-      };
-    } else if (productInfo.count > thirdMax.count) {
-      thirdMax = {
-        count: productInfo.count,
-        product: productInfo.product,
-        totalQuantities: productInfo.totalQuantities,
-      };
+      const sortedProducts = Object.values(productQuantities).sort(
+        (a, b) => b.totalQuantities - a.totalQuantities
+      );
+      setProductQuantitiesArray(sortedProducts);
+    };
+
+    if (userOrderHistory && userOrderHistory.length > 0) {
+      processData();
     }
-  });
+    setIsLoading(false);
+  }, [userOrderHistory]);
 
-  const data = [
-    {
-      id: 0,
-      value: firstMax.totalQuantities,
-      color: "#00a9a5",
-    },
-    {
-      id: 1,
-      value: secondMax.totalQuantities,
-      color: "#5aaa95",
-    },
-    {
-      id: 2,
-      value: thirdMax.totalQuantities,
-      color: "#00916e",
-    },
-  ];
+  const pieData = productQuantitiesArray.slice(0, 3).map((product, index) => ({
+    id: index,
+    value: product.totalQuantities,
+    color: index === 0 ? "#00a9a5" : index === 1 ? "#5aaa95" : "#00916e",
+    name: product.name,
+  }));
   return (
     <>
-      <PieChart
-        series={[
-          {
-            data,
-            highlightScope: { faded: "global", highlighted: "item" },
-            faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
-          },
-        ]}
-        height={200}
-        labelStyle={{
-          fill: "white",
-          fontSize: "10px",
-        }}
-      />
-      <div className="w-52">
-        <div className="flex mb-2">
-          <span
-            style={{
-              backgroundColor: data[0].color,
-              color: data[0].color,
-              display: "inline-block",
-              marginRight: "10px",
-              height: "20px",
-              borderRadius: "10px",
-              width: "20px",
-            }}
-          ></span>
-          <p>Phone bag</p>
+      {isLoading ? (
+        <BtnLoadingAnimation />
+      ) : (
+        <div className="grid grid-cols-[1fr] items-center justify-center">
+          <div>
+            <h1 className="text-xl font-semibold">Top Products</h1>
+          </div>
+          <div className="flex ml-20">
+            <PieChart
+              series={[
+                {
+                  data: pieData, // Use pieData instead of data
+                  highlightScope: { faded: "global", highlighted: "item" },
+                  faded: {
+                    innerRadius: 30,
+                    additionalRadius: -30,
+                    color: "gray",
+                  },
+                },
+              ]}
+              height={200}
+              width={280}
+            />
+          </div>
+          <div className="grid grid-cols-2">
+            {pieData.map((value, index) => {
+              return (
+                <div key={index} className="flex items-center m-1">
+                  <span
+                    style={{
+                      backgroundColor: value.color,
+                      color: value.color,
+                    }}
+                    className="inline-block mr-2 h-4 w-4 rounded-full"
+                  ></span>
+                  <p className="text-sm text-nowrap">{value.name}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
-        <div className="flex mb-2">
-          <span
-            style={{
-              backgroundColor: data[1].color,
-              color: data[1].color,
-              display: "inline-block",
-              marginRight: "10px",
-              height: "20px",
-              borderRadius: "10px",
-              width: "20px",
-            }}
-          ></span>
-          <p>Laptop Case</p>
-        </div>
-        <div className="flex mb-2">
-          <span
-            style={{
-              backgroundColor: data[2].color,
-              color: data[2].color,
-              display: "inline-block",
-              marginRight: "10px",
-              height: "20px",
-              borderRadius: "10px",
-              width: "20px",
-            }}
-          ></span>
-          <p>Watch Strap</p>
-        </div>
-      </div>
+      )}
     </>
   );
 }

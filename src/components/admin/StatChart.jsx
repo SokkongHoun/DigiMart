@@ -25,25 +25,27 @@ const StatChart = () => {
   });
 
   return (
-    <div className="stats stats-vertical lg:stats-horizontal shadow w-full h-full bg-secondary">
+    <div className="stats stats-vertical lg:stats-horizontal shadow bg-secondary h-full w-full">
       <div className="stat">
-        <div className="stat-figure bg-green-500 bg-opacity-50 p-3 rounded-lg border border-green-300">
+        <div className="stat-figure bg-green-500 bg-opacity-50 p-2 rounded-lg border border-green-300">
           <span className="material-symbols-outlined text-green-200">
             attach_money
           </span>
         </div>
-        <div className="stat-title ">Total Sales</div>
-        <div className="stat-value text-custom">${Math.ceil(totalSales)}</div>
+        <div className="stat-title">Total Sales</div>
+        <div className="stat-value text-custom lg:text-3xl">
+          ${Math.ceil(totalSales)}
+        </div>
       </div>
 
       <div className="stat">
-        <div className="stat-figure bg-neutral-500 bg-opacity-50 p-3 rounded-lg border border-neutral-500">
+        <div className="stat-figure bg-neutral-500 bg-opacity-50 p-2 rounded-lg border border-neutral-500">
           <span className="material-symbols-outlined text-custom">
             package_2
           </span>
         </div>
         <div className="stat-title">Total Ordered</div>
-        <div className="stat-value text-custom">{totalOrdered}</div>
+        <div className="stat-value text-custom lg:text-3xl">{totalOrdered}</div>
         <div className="stat-desc text-custom">
           {newOrdered === 0
             ? "No order today"
