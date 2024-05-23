@@ -1,3 +1,4 @@
+import { CookieSharp } from "@mui/icons-material";
 import { OrderHistoryContext } from "../../contexts/OrderHistoryContext";
 import { useContext } from "react";
 
@@ -19,7 +20,15 @@ const StatChart = () => {
     totalSales += value.totalPackagePrice;
     totalOrdered += value.products.length;
 
-    if (value.datePlaced === formattedDate) {
+    let datePlaced = new Date(value.datePlaced);
+
+    let formattedDatePlaced = datePlaced.toLocaleString("default", {
+      month: "short",
+      year: "numeric",
+      day: "2-digit",
+    });
+
+    if (formattedDatePlaced === formattedDate) {
       newOrdered += value.products.length;
     }
   });
@@ -47,9 +56,7 @@ const StatChart = () => {
         <div className="stat-title">Total Ordered</div>
         <div className="stat-value text-custom lg:text-3xl">{totalOrdered}</div>
         <div className="stat-desc text-custom">
-          {newOrdered === 0
-            ? "No order today"
-            : `${newOrdered} news ordered today`}
+          {`${newOrdered} news ordered today`}
         </div>
       </div>
     </div>

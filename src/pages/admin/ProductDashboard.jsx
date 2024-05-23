@@ -5,7 +5,7 @@ import CRUDProductModal from "../../components/admin/CRUDProductModal";
 const ProductTable = () => {
   const Sidebar = () => {
     return (
-      <div className="drawer 2xl:drawer-open">
+      <div className="drawer 3xl:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content h-[1000px]">
           {/* pages contents */}

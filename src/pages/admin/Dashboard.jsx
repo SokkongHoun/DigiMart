@@ -10,7 +10,7 @@ const Dashboard = () => {
   // the button to collapse and open this sidebar is in adminNav
   return (
     <div>
-      <div className="drawer 2xl:drawer-open">
+      <div className="drawer 3xl:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col gap-5 m-8">
           <div>

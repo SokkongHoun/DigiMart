@@ -48,7 +48,7 @@ function PieActiveArc() {
       ) : (
         <div className="grid grid-cols-[1fr] items-center justify-center">
           <div>
-            <h1 className="text-xl font-semibold">Top Products</h1>
+            <h1 className="text-xl font-semibold ml-3">Top Products</h1>
           </div>
           <div className="flex ml-20">
             <PieChart
