@@ -174,7 +174,7 @@ const FilterDropdown = ({ setFilterValue }) => {
       <div
         tabIndex={0}
         role="button"
-        className="btn m-1 bg-transparent hover:bg-third hover:text-white"
+        className="btn m-1 bg-secondary border-none hover:bg-custom hover:text-white"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
