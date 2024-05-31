@@ -217,22 +217,20 @@ function ShoppingCart({ openModal, setOpenModal }) {
     );
   };
 
-  /*
-  let stripeData = userCartData.packages[0].products.map((product) => {
-    let stripePrice = product.totalPrices * 100;
-    return {
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: product.name,
-          image_url: product.imgSrc,
-        },
-        unit_amount: stripePrice,
-      },
-      quantity: product.totalQuantities,
-    };
-  });
-  */
+  // let stripeData = userCartData.packages[0].products.map((product) => {
+  //   let stripePrice = product.totalPrices * 100;
+  //   return {
+  //     price_data: {
+  //       currency: "usd",
+  //       product_data: {
+  //         name: product.name,
+  //         image_url: product.imgSrc,
+  //       },
+  //       unit_amount: stripePrice,
+  //     },
+  //     quantity: product.totalQuantities,
+  //   };
+  // });
 
   const handleLoadStripeCheckout = async () => {
     setIsloading(true);

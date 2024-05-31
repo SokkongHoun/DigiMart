@@ -47,7 +47,7 @@ const AdminNav = () => {
             onClick={() => navigate("/")}
             className="flex justify-center items-center cursor-pointer"
           >
-            <img src="../../logo.png" className="w-11 ml-7 3xl:ml-0" />{" "}
+            <img src="logo.png" className="w-11 ml-7 3xl:ml-0" />{" "}
             <span>
               <h1 className="text-secondCustom text-xl font-semibold ml-5">
                 DigiMart
