@@ -26,6 +26,22 @@ import CancelPayment from "./pages/CancelPayment.jsx";
 import { ShopProvider } from "./contexts/ShopProvider.jsx";
 import { CartProvider } from "./contexts/CartProvider.jsx";
 import { UserOrderHistory } from "./contexts/OrderHistoryContext.jsx";
+import * as Sentry from "@sentry/react";
+
+Sentry.init({
+  dsn: "https://93ac141d273b53306956414c466506b8@o4507346082332672.ingest.us.sentry.io/4507350914433024",
+  integrations: [
+    Sentry.browserTracingIntegration(),
+    Sentry.replayIntegration(),
+    Sentry.feedbackIntegration({
+      colorScheme: "dark",
+    }),
+  ],
+  tracesSampleRate: 1.0,
+  tracePropagationTargets: ["localhost", /^https:\/\/yourserver\.io\/api/],
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
+});
 
 function App() {
   const { adminStatus } = UserAuth();
