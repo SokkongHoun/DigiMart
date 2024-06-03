@@ -38,7 +38,7 @@ function NavbarSection() {
 
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const { cart, cartPrices } = useContext(CartContext);
+  const { cartPrices } = useContext(CartContext);
   const { handleFilterSubCategory } = useContext(ShopContext);
   const { userUI, logout, user } = UserAuth();
   const navigate = useNavigate();
@@ -119,26 +119,25 @@ function NavbarSection() {
   };
 
   let cartQuantities = 0;
-  let cartSubtotal = 0;
+  let cartSubtotal = cartPrices.orderTotal;
 
   const calculateCartTotals = async () => {
     try {
       if (cartPrices === null) {
         cartQuantities = 0;
-        cartSubtotal = 0;
       } else {
         cartPrices.items.forEach((item) => {
           cartQuantities += item.qty;
-          cartSubtotal += item.price * item.qty;
         });
       }
     } catch (error) {
       console.log(error);
     }
 
-    return { cartQuantities, cartSubtotal: cartSubtotal.toFixed(2) };
+    return cartQuantities;
   };
   calculateCartTotals();
+
   const HandleViewCart = () => {
     return (
       <>
@@ -175,7 +174,7 @@ function NavbarSection() {
             >
               <div className="card-body bg-secondary rounded-xl">
                 <span className="text-info">
-                  Subtotal: ${cartSubtotal.toFixed(2)}
+                  order Total: ${cartSubtotal.toFixed(2)}
                 </span>
                 <div className="card-actions">
                   <button

@@ -9,7 +9,14 @@ export const CartProvider = ({ children }) => {
     const savedCart = localStorage.getItem("cart");
     return savedCart ? JSON.parse(savedCart) : [];
   });
-  const [cartPrices, setCartPrices] = useState(null);
+
+  const [cartPrices, setCartPrices] = useState({
+    subTotal: 0,
+    shipping: 0,
+    tax: 0,
+    orderTotal: 0,
+    items: [],
+  });
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -30,9 +37,9 @@ export const CartProvider = ({ children }) => {
       cartPriceData.items.push(item);
     });
 
-    if (cart.length === 0 || cartPriceData.subTotal === 0) {
+    if (cartPriceData.subTotal >= 100) {
       cartPriceData.shipping = 0;
-    } else if (cartPriceData.subTotal >= 100) {
+    } else if (cartPriceData.subTotal === 0) {
       cartPriceData.shipping = 0;
     } else {
       cartPriceData.shipping = 20;
@@ -45,14 +52,21 @@ export const CartProvider = ({ children }) => {
     setCartPrices(cartPriceData);
   }, [cart]);
 
-  const realTimeDB = getDatabase(cartData);
+  console.log(cartPrices.shipping);
+
+  const realTimeDB = getDatabase();
+
   useEffect(() => {
     const cartPricesRef = ref(realTimeDB, "cartPrices");
 
     get(cartPricesRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
-          setCartPrices(snapshot.val());
+          const fetchedPrices = snapshot.val();
+          setCartPrices((prevPrices) => ({
+            ...prevPrices,
+            ...fetchedPrices,
+          }));
         } else {
           console.log("No data available");
         }
@@ -60,7 +74,9 @@ export const CartProvider = ({ children }) => {
       .catch((error) => {
         console.error("Error fetching cart prices:", error);
       });
-  }, []);
+  }, [realTimeDB]);
+
+  console.log(cartPrices);
 
   return (
     <CartContext.Provider value={{ cart, setCart, cartPrices }}>

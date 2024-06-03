@@ -93,7 +93,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
         {cart.length === 0 ? (
           <p className="text-black">Ooops! No product in cart...</p>
         ) : (
-          cart.map((val, index) => {
+          cartPrices?.items.map((val, index) => {
             return (
               <div key={index} className="flex justify-between">
                 <div className="flex gap-5">
