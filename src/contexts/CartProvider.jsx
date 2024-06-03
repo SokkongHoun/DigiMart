@@ -76,8 +76,6 @@ export const CartProvider = ({ children }) => {
       });
   }, [realTimeDB]);
 
-  console.log(cartPrices);
-
   return (
     <CartContext.Provider value={{ cart, setCart, cartPrices }}>
       {children}
