@@ -52,8 +52,6 @@ export const CartProvider = ({ children }) => {
     setCartPrices(cartPriceData);
   }, [cart]);
 
-  console.log(cartPrices.shipping);
-
   const realTimeDB = getDatabase();
 
   useEffect(() => {
