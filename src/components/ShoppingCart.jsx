@@ -186,7 +186,9 @@ function ShoppingCart({ openModal, setOpenModal }) {
         <div className="flex justify-between mt-4 mb-3">
           <p className="text-sm sm:text-base">Shipping estimated</p>
           <p className="text-sm sm:text-base">
-            ${(cartPrices?.shipping).toFixed(2)}
+            {cartPrices && cartPrices.shipping !== 0
+              ? `$${cartPrices.shipping.toFixed(2)}`
+              : "Free"}
           </p>
         </div>
         <hr className="border border-third" />
