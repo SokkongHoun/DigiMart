@@ -38,8 +38,6 @@ export const CartProvider = ({ children }) => {
       cartPriceData.shipping = 20;
     }
 
-    console.log(cartPriceData.shipping);
-
     cartPriceData.tax = cartPriceData.subTotal * 0.05;
     cartPriceData.orderTotal =
       cartPriceData.subTotal + cartPriceData.tax + cartPriceData.shipping;

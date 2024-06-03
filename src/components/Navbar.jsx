@@ -118,31 +118,27 @@ function NavbarSection() {
     }),
   };
 
-  // let cartQuantities = 0;
-  // const calculateCartQuantities = async () => {
-  //   await cartPrices.items.forEach((item) => {
-  //     cartQuantities += item.qty;
-  //   });
+  let cartQuantities = 0;
+  let cartSubtotal = 0;
 
-  //   return cartQuantities;
-  // };
-  // calculateCartQuantities().then((res) => {
-  //   cartQuantities = res;
-  // });
-  // console.log(cartQuantities);
+  const calculateCartTotals = async () => {
+    try {
+      if (cartPrices === null) {
+        cartQuantities = 0;
+        cartSubtotal = 0;
+      } else {
+        cartPrices.items.forEach((item) => {
+          cartQuantities += item.qty;
+          cartSubtotal += item.price * item.qty;
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
 
-  // let cartSubtotal = 0;
-  // const calculateCartSubtotal = async () => {
-  //   await cartPrices.items.forEach((item) => {
-  //     cartSubtotal += item.price * item.qty;
-  //   });
-
-  //   return cartSubtotal.toFixed(2);
-  // };
-  // calculateCartSubtotal().then((res) => {
-  //   cartSubtotal = res;
-  // });
-
+    return { cartQuantities, cartSubtotal: cartSubtotal.toFixed(2) };
+  };
+  calculateCartTotals();
   const HandleViewCart = () => {
     return (
       <>
@@ -169,7 +165,7 @@ function NavbarSection() {
                   />
                 </svg>
                 <span className="badge badge-sm indicator-item">
-                  {/* {cartQuantities} */}
+                  {cartQuantities}
                 </span>
               </div>
             </div>
@@ -179,7 +175,7 @@ function NavbarSection() {
             >
               <div className="card-body bg-secondary rounded-xl">
                 <span className="text-info">
-                  {/* Subtotal: ${cartSubtotal.toFixed(2)} */}
+                  Subtotal: ${cartSubtotal.toFixed(2)}
                 </span>
                 <div className="card-actions">
                   <button
