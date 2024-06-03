@@ -25,3 +25,4 @@ dist-ssr
 *.sw?
 userDataFirebaseConfig.js
 admin pw.txt
+cartDataConfig.js

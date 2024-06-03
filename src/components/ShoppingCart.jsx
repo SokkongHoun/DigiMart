@@ -12,7 +12,7 @@ import { BtnLoadingAnimation } from "./LoadingAnimation";
 import { getFirestore, collection, onSnapshot } from "firebase/firestore";
 
 function ShoppingCart({ openModal, setOpenModal }) {
-  const { cart, setCart } = useContext(CartContext);
+  const { cart, setCart, cartPrices } = useContext(CartContext);
   const { user } = UserAuth();
   const { userCartData, setUserCartData } = useUserCart();
   const [isloading, setIsloading] = useState(false);
@@ -27,16 +27,17 @@ function ShoppingCart({ openModal, setOpenModal }) {
     subtotal += itemCost;
   });
   let shipping = 0;
-
+  let orderTotal = 0;
   let taxEstaimted = subtotal * 0.05;
-  const orderTotal = taxEstaimted + subtotal + shipping;
-  if (cart.length === 0) {
-    shipping = 0;
-  } else if (orderTotal > 100) {
+
+  if (subtotal > 100 || cart.length === 0) {
     shipping = 0;
   } else {
     shipping = 20;
   }
+
+  orderTotal = taxEstaimted + subtotal + shipping;
+
   let combinedCart = cart.reduce((acc, item) => {
     if (acc[item.id]) {
       acc[item.id].price += item.price;
@@ -125,7 +126,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
                       </p>
                       <p
                         className={`w-5 h-5 object-contain ${val.color.class} rounded-full mt-3 border-2 border-blue-200 `}
-                      ></p>
+                      />
                     </div>
                     <div className="flex gap-5 items-center">
                       <div className="max-w-sm">

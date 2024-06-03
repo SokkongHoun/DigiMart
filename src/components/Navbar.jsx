@@ -37,7 +37,7 @@ function NavbarSection() {
 
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const { cart } = useContext(CartContext);
+  const { cart, cartPrices } = useContext(CartContext);
   const { handleFilterSubCategory } = useContext(ShopContext);
   const { userUI, logout, user } = UserAuth();
   const navigate = useNavigate();
@@ -119,7 +119,7 @@ function NavbarSection() {
 
   const calculateCartQuantities = () => {
     let cartQuantities = 0;
-    cart.forEach((item) => {
+    cartPrices.items.forEach((item) => {
       cartQuantities += item.qty;
     });
     return cartQuantities;
