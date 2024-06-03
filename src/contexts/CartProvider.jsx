@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { cartData } from "../cartDataConfig";
-import { getDatabase, ref, set, get } from "firebase/database";
+import { getDatabase, ref, get } from "firebase/database";
 
 export const CartContext = createContext();
 
@@ -30,28 +30,24 @@ export const CartProvider = ({ children }) => {
       cartPriceData.items.push(item);
     });
 
-    cartPriceData.shipping = cartPriceData.subTotal > 100 ? 0 : 20;
+    if (cart.length === 0 || cartPriceData.subTotal === 0) {
+      cartPriceData.shipping = 0;
+    } else if (cartPriceData.subTotal >= 100) {
+      cartPriceData.shipping = 0;
+    } else {
+      cartPriceData.shipping = 20;
+    }
+
+    console.log(cartPriceData.shipping);
+
     cartPriceData.tax = cartPriceData.subTotal * 0.05;
     cartPriceData.orderTotal =
-      cartPriceData.shipping + cartPriceData.tax + cartPriceData.subTotal;
+      cartPriceData.subTotal + cartPriceData.tax + cartPriceData.shipping;
 
     setCartPrices(cartPriceData);
   }, [cart]);
 
   const realTimeDB = getDatabase(cartData);
-  useEffect(() => {
-    if (cartPrices) {
-      const cartRef = ref(realTimeDB, "cartPrices");
-      set(cartRef, cartPrices)
-        .then(() => {
-          console.log("Cart prices saved to Firebase");
-        })
-        .catch((error) => {
-          console.error("Error saving cart prices:", error);
-        });
-    }
-  }, [cartPrices]);
-
   useEffect(() => {
     const cartPricesRef = ref(realTimeDB, "cartPrices");
 

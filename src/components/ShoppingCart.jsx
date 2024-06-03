@@ -21,23 +21,6 @@ function ShoppingCart({ openModal, setOpenModal }) {
   const createStripeCheckout = httpsCallable(functions, "createStripeCheckout");
   const stripePromise = loadStripe(import.meta.env.REACT_APP_STRIPE_API_KEY);
 
-  let subtotal = 0;
-  cart.forEach((item) => {
-    let itemCost = item.price * item.qty;
-    subtotal += itemCost;
-  });
-  let shipping = 0;
-  let orderTotal = 0;
-  let taxEstaimted = subtotal * 0.05;
-
-  if (subtotal > 100 || cart.length === 0) {
-    shipping = 0;
-  } else {
-    shipping = 20;
-  }
-
-  orderTotal = taxEstaimted + subtotal + shipping;
-
   let combinedCart = cart.reduce((acc, item) => {
     if (acc[item.id]) {
       acc[item.id].price += item.price;
@@ -47,7 +30,6 @@ function ShoppingCart({ openModal, setOpenModal }) {
     }
     return acc;
   }, {});
-  let formattedTotalCost = parseFloat(orderTotal.toFixed(2));
 
   let combinedItems = Object.values(combinedCart).map((item) => ({
     id: item.id,
@@ -80,7 +62,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
       packages: [
         {
           orderNumber: orderNumber,
-          totalPackagePrice: formattedTotalCost,
+          totalPackagePrice: null,
           delivery: formatDeliveryDate,
           datePlaced: formattedDate,
           products: combinedItems,
@@ -190,29 +172,36 @@ function ShoppingCart({ openModal, setOpenModal }) {
   };
 
   const OrderSummary = () => {
+    console.log(cartPrices);
     return (
       <div className="w-full text-black bg-gray-100 p-5">
         <h1 className="text-lg mb-4 font-bold">Order summary</h1>
         <div className="flex justify-between mb-3">
           <p className="text-sm sm:text-base">Subtotal</p>
-          <p className="text-sm sm:text-base">${subtotal.toFixed(2)}</p>
+          <p className="text-sm sm:text-base">
+            ${(cartPrices?.subTotal).toFixed(2)}
+          </p>
         </div>
         <hr className="border border-third" />
         <div className="flex justify-between mt-4 mb-3">
           <p className="text-sm sm:text-base">Shipping estimated</p>
           <p className="text-sm sm:text-base">
-            {orderTotal > 100 ? "Free" : `$${shipping.toFixed(2)}`}
+            ${(cartPrices?.shipping).toFixed(2)}
           </p>
         </div>
         <hr className="border border-third" />
         <div className="flex justify-between mt-4 mb-3">
           <p className="text-sm sm:text-base">Tax estimated</p>
-          <p className="text-sm sm:text-base">${taxEstaimted.toFixed(2)}</p>
+          <p className="text-sm sm:text-base">
+            ${(cartPrices?.tax).toFixed(2)}
+          </p>
         </div>
         <hr className="border border-third" />
         <div className="flex justify-between mt-4">
           <h3 className="text-base font-bold">Order total</h3>
-          <h3 className="text-base font-bold">${formattedTotalCost}</h3>
+          <h3 className="text-base font-bold">
+            ${(cartPrices?.orderTotal).toFixed(2)}
+          </h3>
         </div>
       </div>
     );

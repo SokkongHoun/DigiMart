@@ -15,6 +15,7 @@ import ProductQuickViews from "./ProductQuickViews.jsx";
 function NavbarSection() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { productData } = useContext(FirebaseData);
 
   function shuffle(array) {
@@ -117,22 +118,30 @@ function NavbarSection() {
     }),
   };
 
-  const calculateCartQuantities = () => {
-    let cartQuantities = 0;
-    cartPrices.items.forEach((item) => {
-      cartQuantities += item.qty;
-    });
-    return cartQuantities;
-  };
+  // let cartQuantities = 0;
+  // const calculateCartQuantities = async () => {
+  //   await cartPrices.items.forEach((item) => {
+  //     cartQuantities += item.qty;
+  //   });
 
-  const calculateCartSubtotal = () => {
-    let cartSubtotal = 0;
-    cart.forEach((item) => {
-      cartSubtotal += item.price * item.qty;
-    });
+  //   return cartQuantities;
+  // };
+  // calculateCartQuantities().then((res) => {
+  //   cartQuantities = res;
+  // });
+  // console.log(cartQuantities);
 
-    return cartSubtotal.toFixed(2);
-  };
+  // let cartSubtotal = 0;
+  // const calculateCartSubtotal = async () => {
+  //   await cartPrices.items.forEach((item) => {
+  //     cartSubtotal += item.price * item.qty;
+  //   });
+
+  //   return cartSubtotal.toFixed(2);
+  // };
+  // calculateCartSubtotal().then((res) => {
+  //   cartSubtotal = res;
+  // });
 
   const HandleViewCart = () => {
     return (
@@ -160,7 +169,7 @@ function NavbarSection() {
                   />
                 </svg>
                 <span className="badge badge-sm indicator-item">
-                  {calculateCartQuantities()}
+                  {/* {cartQuantities} */}
                 </span>
               </div>
             </div>
@@ -169,11 +178,8 @@ function NavbarSection() {
               className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
             >
               <div className="card-body bg-secondary rounded-xl">
-                <span className="font-bold text-lg">
-                  {calculateCartQuantities()} Items
-                </span>
                 <span className="text-info">
-                  Subtotal: ${calculateCartSubtotal()}
+                  {/* Subtotal: ${cartSubtotal.toFixed(2)} */}
                 </span>
                 <div className="card-actions">
                   <button
