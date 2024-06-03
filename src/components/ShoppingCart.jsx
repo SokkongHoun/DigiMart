@@ -172,7 +172,6 @@ function ShoppingCart({ openModal, setOpenModal }) {
   };
 
   const OrderSummary = () => {
-    console.log(cartPrices);
     return (
       <div className="w-full text-black bg-gray-100 p-5">
         <h1 className="text-lg mb-4 font-bold">Order summary</h1>
@@ -209,25 +208,24 @@ function ShoppingCart({ openModal, setOpenModal }) {
     );
   };
 
-  // let stripeData = userCartData.packages[0].products.map((product) => {
-  //   let stripePrice = product.totalPrices * 100;
-  //   return {
-  //     price_data: {
-  //       currency: "usd",
-  //       product_data: {
-  //         name: product.name,
-  //         image_url: product.imgSrc,
-  //       },
-  //       unit_amount: stripePrice,
-  //     },
-  //     quantity: product.totalQuantities,
-  //   };
-  // });
+  let stripeData = cartPrices.items.map((product) => {
+    return {
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: product.name,
+          images: [product.imgSrc],
+        },
+        unit_amount: product.price * 100,
+      },
+      quantity: product.qty,
+    };
+  });
 
   const handleLoadStripeCheckout = async () => {
     setIsloading(true);
     try {
-      const response = await createStripeCheckout();
+      const response = await createStripeCheckout({ stripeData });
       const sessionId = response.data.id;
 
       localStorage.setItem("currentSessionId", sessionId);
