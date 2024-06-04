@@ -60,6 +60,108 @@ const OrderHistory = () => {
               className="border px-5 py-5 rounded-lg border-first mt-20"
               key={val.id}
             >
+              {val.packages.map((info) => {
+                return (
+                  <>
+                    <div
+                      className="w-full border-b border-first mb-10"
+                      key={info.orderNumber}
+                    >
+                      <div className="grid grid-cols-3 mb-5 gap-10">
+                        <div>
+                          <p>Order number</p>
+                          <p>{info.orderNumber}</p>
+                        </div>
+                        <>
+                          <div className="text-center">
+                            <p>Date placed</p>
+                            <p>{info.datePlaced}</p>
+                          </div>
+                          <div className="text-right">
+                            <p>Total amount</p>
+                            <p>${info.totalPackagePrice}</p>
+                          </div>
+                        </>
+                      </div>
+                    </div>
+                    {/* product card */}
+                    {info.products.map((item) => {
+                      return (
+                        <div className="flex flex-col">
+                          <div className="flex gap-5 border-b border-first mb-5 pb-5">
+                            <img
+                              src={item.imgSrc}
+                              alt={item.name}
+                              className="w-48 rounded-lg h-48"
+                            />
+                            <div>
+                              <div className="flex justify-between">
+                                <h6 className="text-base">{item.name}</h6>
+                                <h6 className="text-base">
+                                  ${item.totalPrices}/pc
+                                </h6>
+                              </div>
+                              <p className="text-base text-first mt-2">
+                                Lorem ipsum dolor sit, amet consectetur
+                                adipisicing elit. Est dolorem animi quos
+                                accusamus iste aspernatur hic reprehenderit
+                                soluta maxime ipsam dolor delectus, vel
+                                dignissimos sint! Voluptates illo quo nulla
+                                nesciunt?
+                              </p>
+                              <p className="mt-2">
+                                Total: ${" "}
+                                {(
+                                  item.totalPrices * item.totalQuantities
+                                ).toFixed(2)}
+                              </p>
+                              <div className="flex justify-between items-end mt-9">
+                                <div>
+                                  <p className="flex gap-2">
+                                    <span className="material-symbols-outlined text-green-500 inline-block">
+                                      local_shipping
+                                    </span>
+                                    Delivered on {info.delivery}
+                                  </p>
+                                </div>
+                                <div className="flex gap-5">
+                                  <button className="text-blue-400 hover:text-blue-500">
+                                    View product
+                                  </button>
+                                  <span
+                                    className="h-6 w-px bg-gray-600 block lg:mr-0"
+                                    aria-hidden="true"
+                                  />
+                                  <button className="text-blue-400 hover:text-blue-500">
+                                    Buy again
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+    </main>
+  );
+};
+
+export default OrderHistory;
+
+/*
+  {userOrderHistory.map((val) => {
+          return (
+            <div
+              className="border px-5 py-5 rounded-lg border-first mt-20"
+              key={val.id}
+            >
               <div className="w-full border-b border-first mb-10">
                 <div className="grid grid-cols-3 mb-5 gap-10">
                   <div>
@@ -150,15 +252,5 @@ const OrderHistory = () => {
               })}
             </div>
           );
-        })}
-      </div>
-    </main>
-  );
-};
-
-export default OrderHistory;
-{
-  /* 
-  
+        })} 
 */
-}

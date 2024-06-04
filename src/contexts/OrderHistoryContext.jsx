@@ -1,23 +1,26 @@
 import React, { useEffect, useState, createContext } from "react";
 import { getDatabase, ref, get } from "firebase/database";
 import { UserDataApp } from "../userDataConfig";
+import { UserAuth } from "../auth/AuthContext";
 
 export const OrderHistoryContext = createContext();
 
 export const UserOrderHistory = ({ children }) => {
   const [userOrderHistory, setUserOrderHistory] = useState([]);
-
-  const db = getDatabase(UserDataApp);
+  const { user } = UserAuth();
 
   useEffect(() => {
+    const db = getDatabase(UserDataApp);
+    const userRef = ref(db, user.uid);
+
     const fetchUserData = async () => {
       try {
-        const userRef = ref(db, "/");
         const snapshot = await get(userRef);
         const data = snapshot.val();
 
         const allUserPackages = [];
 
+        // Process data
         for (const userUID in data) {
           if (Object.hasOwnProperty.call(data, userUID)) {
             const userData = data[userUID];
@@ -47,7 +50,12 @@ export const UserOrderHistory = ({ children }) => {
     };
 
     fetchUserData();
-  }, [db]);
+
+    return () => {
+      fetchUserData();
+    };
+  }, [user.uid]);
+
   return (
     <OrderHistoryContext.Provider value={{ userOrderHistory }}>
       {children}
