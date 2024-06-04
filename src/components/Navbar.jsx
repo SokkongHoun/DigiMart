@@ -1,8 +1,8 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useState, useEffect } from "react";
 import "../styles/Navbar.css";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ShoppingCart from "./ShoppingCart";
 import { SearchProduct } from "./SearchProduct.jsx";
 import { CartContext } from "../contexts/CartProvider.jsx";
@@ -15,7 +15,6 @@ import ProductQuickViews from "./ProductQuickViews.jsx";
 function NavbarSection() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
   const { productData } = useContext(FirebaseData);
 
   function shuffle(array) {
@@ -38,10 +37,11 @@ function NavbarSection() {
 
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const { cartPrices } = useContext(CartContext);
+  const { cartPrices, cart } = useContext(CartContext);
   const { handleFilterSubCategory } = useContext(ShopContext);
   const { userUI, logout, user } = UserAuth();
-  const navigate = useNavigate();
+  const [cartQuantities, setCartQuantities] = useState(0);
+  const [cartSubtotal, setCartSubtotal] = useState(0);
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -118,25 +118,24 @@ function NavbarSection() {
     }),
   };
 
-  let cartQuantities = 0;
-  let cartSubtotal = cartPrices.orderTotal;
+  useEffect(() => {
+    const fetchData = async () => {
+      const prices = await cartPrices;
+      setCartSubtotal(prices.orderTotal);
+    };
 
-  const calculateCartTotals = async () => {
-    try {
-      if (cartPrices === null) {
-        cartQuantities = 0;
-      } else {
-        cartPrices.items.forEach((item) => {
-          cartQuantities += item.qty;
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    return () => {
+      fetchData();
+    };
+  }, [cartPrices]);
 
-    return cartQuantities;
-  };
-  calculateCartTotals();
+  useEffect(() => {
+    let quan = 0;
+    cart.forEach((val) => {
+      quan += val.qty;
+    });
+    setCartQuantities(quan);
+  }, [cart]);
 
   const HandleViewCart = () => {
     return (
@@ -174,7 +173,7 @@ function NavbarSection() {
             >
               <div className="card-body bg-secondary rounded-xl">
                 <span className="text-info">
-                  order Total: ${cartSubtotal.toFixed(2)}
+                  SubTotal: ${cartSubtotal.toFixed(2)}
                 </span>
                 <div className="card-actions">
                   <button

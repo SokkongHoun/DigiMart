@@ -3,7 +3,7 @@ import { CartContext } from "../contexts/CartProvider";
 import React, { useContext, useState, useEffect } from "react";
 import { UserAuth } from "../auth/AuthContext";
 import { UserDataApp } from "../userDataConfig";
-import { getDatabase, ref, set, get } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 import { useUserCart } from "../contexts/UserCartData";
 import { loadStripe } from "@stripe/stripe-js";
 import { functions } from "../firebaseConfig";
@@ -93,7 +93,7 @@ function ShoppingCart({ openModal, setOpenModal }) {
         {cart.length === 0 ? (
           <p className="text-black">Ooops! No product in cart...</p>
         ) : (
-          cartPrices.items.map((val, index) => {
+          cart.map((val, index) => {
             return (
               <div key={index} className="flex justify-between">
                 <div className="flex gap-5">
@@ -208,22 +208,23 @@ function ShoppingCart({ openModal, setOpenModal }) {
     );
   };
 
-  let stripeData = cartPrices.items.map((product) => {
-    return {
-      price_data: {
-        currency: "usd",
-        product_data: {
-          name: product.name,
-          images: [product.imgSrc],
-        },
-        unit_amount: product.price * 100,
-      },
-      quantity: product.qty,
-    };
-  });
-
   const handleLoadStripeCheckout = async () => {
     setIsloading(true);
+    let stripeData = cartPrices.items.map((product) => {
+      const roundedUnitAmount = Math.round(product.price * 100);
+
+      return {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: product.name,
+            images: [product.imgSrc],
+          },
+          unit_amount: roundedUnitAmount,
+        },
+        quantity: product.qty,
+      };
+    });
     try {
       const response = await createStripeCheckout({ stripeData });
       const sessionId = response.data.id;
@@ -262,10 +263,6 @@ function ShoppingCart({ openModal, setOpenModal }) {
       unsubscribe();
     };
   }, []);
-
-  /*
-    flag, to prevent the data from submitting twice. during the async task, the verifyStatus and localStorage that store the session doesnt get delete immediately, so the commitCartDataToDB() will get run because of the if-condition
-  */
 
   const [dataCommitted, setDataCommitted] = useState(false);
   const realTimeDB = getDatabase(UserDataApp);
