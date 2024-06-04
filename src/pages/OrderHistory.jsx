@@ -41,8 +41,6 @@ const OrderHistory = () => {
     fetchUserData();
   }, []);
 
-  console.log(userOrderHistory);
-
   return (
     <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-14">
       <div className="mt-16">
@@ -79,7 +77,7 @@ const OrderHistory = () => {
                           </div>
                           <div className="text-right">
                             <p>Total amount</p>
-                            <p>${info.totalPackagePrice}</p>
+                            <p>${info.totalPackagePrice.toFixed(2)}</p>
                           </div>
                         </>
                       </div>
@@ -154,103 +152,3 @@ const OrderHistory = () => {
 };
 
 export default OrderHistory;
-
-/*
-  {userOrderHistory.map((val) => {
-          return (
-            <div
-              className="border px-5 py-5 rounded-lg border-first mt-20"
-              key={val.id}
-            >
-              <div className="w-full border-b border-first mb-10">
-                <div className="grid grid-cols-3 mb-5 gap-10">
-                  <div>
-                    <p>Order number</p>
-                    <p>{val.id}</p>
-                  </div>
-                  {val.packages.map((itemInfo) => {
-                    return (
-                      <>
-                        <div className="text-center">
-                          <p>Date placed</p>
-                          <p>{itemInfo.datePlaced}</p>
-                        </div>
-                        <div className="text-right">
-                          <p>Total amount</p>
-                          <p>${itemInfo.totalPackagePrice}</p>
-                        </div>
-                      </>
-                    );
-                  })}
-                </div>
-              </div>
-              {val.packages.map((itemInfo) => {
-                return (
-                  <>
-                    <div className="flex flex-col" key={itemInfo.productId}>
-                      {itemInfo.products.map((itemDetails, index) => {
-                        return (
-                          <div
-                            key={index}
-                            className="flex gap-5 border-b border-first mb-5 pb-5"
-                          >
-                            <img
-                              src={itemDetails.imgSrc}
-                              className="w-48 rounded-lg h-48"
-                            />
-                            <div>
-                              <div className="flex justify-between">
-                                <h6 className="text-base">
-                                  {itemDetails.name}
-                                </h6>
-                                <h6 className="text-base">
-                                  ${itemDetails.totalPrices}/pc
-                                </h6>
-                              </div>
-                              <p className="text-base text-first mt-2">
-                                Lorem ipsum dolor sit, amet consectetur
-                                adipisicing elit. Est dolorem animi quos
-                                accusamus iste aspernatur hic reprehenderit
-                                soluta maxime ipsam dolor delectus, vel
-                                dignissimos sint! Voluptates illo quo nulla
-                                nesciunt?
-                              </p>
-                              <p className="mt-2">
-                                Total: $
-                                {itemDetails.totalPrices *
-                                  itemDetails.totalQuantities}
-                              </p>
-                              <div className="flex justify-between items-end mt-9">
-                                <div>
-                                  <p className="flex gap-2">
-                                    <span className="material-symbols-outlined text-green-500 inline-block">
-                                      local_shipping
-                                    </span>
-                                    Delivered on {itemInfo.delivery}
-                                  </p>
-                                </div>
-                                <div className="flex gap-5">
-                                  <button className="text-blue-400 hover:text-blue-500">
-                                    View product
-                                  </button>
-                                  <span
-                                    className="h-6 w-px bg-gray-600 block lg:mr-0"
-                                    aria-hidden="true"
-                                  />
-                                  <button className="text-blue-400 hover:text-blue-500">
-                                    Buy again
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </>
-                );
-              })}
-            </div>
-          );
-        })} 
-*/

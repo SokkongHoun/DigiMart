@@ -11,13 +11,12 @@ export const UserOrderHistory = ({ children }) => {
 
   useEffect(() => {
     const db = getDatabase(UserDataApp);
-    const userRef = ref(db, user.uid);
+    const userRef = ref(db, "/");
 
     const fetchUserData = async () => {
       try {
         const snapshot = await get(userRef);
         const data = snapshot.val();
-
         const allUserPackages = [];
 
         // Process data

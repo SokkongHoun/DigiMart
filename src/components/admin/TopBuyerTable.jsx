@@ -59,7 +59,7 @@ const TopBuyerTable = () => {
                   className={index === 0 ? "bg-custom" : ""}
                 >
                   <th>{money.email}</th>
-                  <td>{money.totalPackagePrice}</td>
+                  <td>{money.totalPackagePrice.toFixed(2)}</td>
                 </tr>
               );
             })

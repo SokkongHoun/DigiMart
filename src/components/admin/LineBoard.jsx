@@ -37,10 +37,11 @@ const LineBoard = () => {
   const [totalSaleToday, setTotalSaleToday] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log(userOrderHistory);
+
   useEffect(() => {
     const groupedData = userOrderHistory.reduce((acc, val) => {
       const dateWithoutTime = val.datePlaced.split(",")[0].trim();
-
       if (!acc[dateWithoutTime]) {
         acc[dateWithoutTime] = 0;
       }
@@ -53,6 +54,8 @@ const LineBoard = () => {
     setTotalSaleToday(groupedData);
   }, [userOrderHistory]);
 
+  console.log(totalSaleToday);
+
   const dates = Object.keys(totalSaleToday).sort(
     (a, b) => new Date(a) - new Date(b)
   );
@@ -61,8 +64,6 @@ const LineBoard = () => {
   const totalPricesFormatted = totalPrices.map((price) =>
     Number(price.toFixed(2))
   );
-
-  console.log(totalPricesFormatted);
 
   const formattedDates = dates.map((date) => {
     const options = { day: "2-digit", month: "short" };

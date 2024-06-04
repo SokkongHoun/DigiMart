@@ -22,8 +22,6 @@ export const CartProvider = ({ children }) => {
     orderTotal: 0,
   });
 
-  console.log(cart);
-
   useEffect(() => {
     const calculateCartPrices = () => {
       let subTotal = 0;
@@ -51,8 +49,6 @@ export const CartProvider = ({ children }) => {
         const cartPricesRef = ref(realTimeDB, `cartPrices/${user.uid}`);
         set(cartPricesRef, prices)
           .then(() => {
-            console.log("Upload successful");
-
             get(cartPricesRef)
               .then((snapshot) => {
                 if (snapshot.exists()) {

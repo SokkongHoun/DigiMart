@@ -58,11 +58,13 @@ function ShoppingCart({ openModal, setOpenModal }) {
       day: "2-digit",
     });
 
+    let overallPackagePrice = cartPrices.orderTotal;
+
     setUserCartData({
       packages: [
         {
           orderNumber: orderNumber,
-          totalPackagePrice: null,
+          totalPackagePrice: overallPackagePrice,
           delivery: formatDeliveryDate,
           datePlaced: formattedDate,
           products: combinedItems,

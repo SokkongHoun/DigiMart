@@ -45,7 +45,7 @@ const LatestOrderTable = () => {
                 >
                   <th>{money.orderNumber}</th>
                   <td>{money.datePlaced}</td>
-                  <td>{money.totalPackagePrice}</td>
+                  <td>{money.totalPackagePrice.toFixed(2)}</td>
                 </tr>
               );
             })
