@@ -65,13 +65,13 @@ const OrderHistory = () => {
                       className="w-full border-b border-first mb-10"
                       key={info.orderNumber}
                     >
-                      <div className="grid grid-cols-3 mb-5 gap-10">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 mb-5 gap-10">
                         <div>
                           <p>Order number</p>
                           <p>{info.orderNumber}</p>
                         </div>
                         <>
-                          <div className="text-center">
+                          <div className="text-center hidden sm:inline">
                             <p>Date placed</p>
                             <p>{info.datePlaced}</p>
                           </div>
@@ -85,36 +85,41 @@ const OrderHistory = () => {
                     {/* product card */}
                     {info.products.map((item) => {
                       return (
-                        <div className="flex flex-col">
-                          <div className="flex gap-5 border-b border-first mb-5 pb-5">
-                            <img
-                              src={item.imgSrc}
-                              alt={item.name}
-                              className="w-48 rounded-lg h-48"
-                            />
-                            <div>
-                              <div className="flex justify-between">
-                                <h6 className="text-base">{item.name}</h6>
-                                <h6 className="text-base">
-                                  ${item.totalPrices}/pc
-                                </h6>
-                              </div>
-                              <p className="text-base text-first mt-2">
-                                Lorem ipsum dolor sit, amet consectetur
-                                adipisicing elit. Est dolorem animi quos
-                                accusamus iste aspernatur hic reprehenderit
-                                soluta maxime ipsam dolor delectus, vel
-                                dignissimos sint! Voluptates illo quo nulla
-                                nesciunt?
-                              </p>
-                              <p className="mt-2">
-                                Total: ${" "}
-                                {(
-                                  item.totalPrices * item.totalQuantities
-                                ).toFixed(2)}
-                              </p>
-                              <div className="flex justify-between items-end mt-9">
+                        <>
+                          <div className="flex flex-col mb-5">
+                            <div className="flex gap-5 border-first">
+                              <img
+                                src={item.imgSrc}
+                                alt={item.name}
+                                className="w-48 rounded-lg h-48"
+                              />
+                              <div className="flex flex-col">
                                 <div>
+                                  <h6 className="text-base">{item.name}</h6>
+                                  <div className="flex justify-between">
+                                    <h6 className="text-base hidden sm:inline">
+                                      {item.name}
+                                    </h6>
+                                    <h6 className="sm:text-base">
+                                      ${item.totalPrices}/pc
+                                    </h6>
+                                  </div>
+                                  <p className="text-base text-first mt-2 invisible sm:visible">
+                                    Lorem ipsum dolor sit, amet consectetur
+                                    adipisicing elit. Est dolorem animi quos
+                                    accusamus iste aspernatur hic reprehenderit
+                                    soluta maxime ipsam dolor delectus, vel
+                                    dignissimos sint! Voluptates illo quo nulla
+                                    nesciunt?
+                                  </p>
+                                  <p className="mt-2 hidden sm:inline">
+                                    Total: ${" "}
+                                    {(
+                                      item.totalPrices * item.totalQuantities
+                                    ).toFixed(2)}
+                                  </p>
+                                </div>
+                                <div className="inline sm:hidden">
                                   <p className="flex gap-2">
                                     <span className="material-symbols-outlined text-green-500 inline-block">
                                       local_shipping
@@ -122,22 +127,33 @@ const OrderHistory = () => {
                                     Delivered on {info.delivery}
                                   </p>
                                 </div>
-                                <div className="flex gap-5">
-                                  <button className="text-blue-400 hover:text-blue-500">
-                                    View product
-                                  </button>
-                                  <span
-                                    className="h-6 w-px bg-gray-600 block lg:mr-0"
-                                    aria-hidden="true"
-                                  />
-                                  <button className="text-blue-400 hover:text-blue-500">
-                                    Buy again
-                                  </button>
-                                </div>
+                              </div>
+                            </div>
+                            <div className="sm:flex sm:justify-between mt-9">
+                              <div className="hidden sm:inline">
+                                <p className="flex gap-2">
+                                  <span className="material-symbols-outlined text-green-500 inline-block">
+                                    local_shipping
+                                  </span>
+                                  Delivered on {info.delivery}
+                                </p>
+                              </div>
+                              <div className="flex gap-5 justify-around">
+                                <button className="text-blue-400 hover:text-blue-500">
+                                  View product
+                                </button>
+                                <span
+                                  className="h-6 w-px bg-gray-600 block lg:mr-0"
+                                  aria-hidden="true"
+                                />
+                                <button className="text-blue-400 hover:text-blue-500">
+                                  Buy again
+                                </button>
                               </div>
                             </div>
                           </div>
-                        </div>
+                          <hr className="pb-5" />
+                        </>
                       );
                     })}
                   </>
