@@ -57,8 +57,8 @@ exports.createStripeCheckout = functions.https.onCall(async (data, context) => {
     const sessionData = {
       payment_method_types: ["card"],
       mode: "payment",
-      success_url: "https://digi-mart.vercel.app/paymentsuccessful",
-      cancel_url: "https://digi-mart.vercel.app/cancelpayment",
+      success_url: "https://digi-mart.vercel.app/",
+      cancel_url: "https://digi-mart.vercel.app/",
       shipping_address_collection: {
         allowed_countries: ["US", "KH"],
       },
