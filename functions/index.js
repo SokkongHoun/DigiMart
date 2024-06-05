@@ -49,18 +49,6 @@ exports.removeAdminRole = functions.https.onCall(async (data, context) => {
     });
 });
 
-function getBaseUrl() {
-  if (process.env.NODE_ENV === "development") {
-    return process.env.REACT_APP_DEV_CLIENT_URL;
-  } else {
-    return process.env.REACT_APP_PRODUCTION_CLIENT_URL;
-  }
-}
-
-const baseUrl = getBaseUrl();
-const successUrl = `${baseUrl}/paymentsuccessful`;
-const cancelUrl = `${baseUrl}/cancelpayment`;
-
 exports.createStripeCheckout = functions.https.onCall(async (data, context) => {
   try {
     const stripe = require("stripe")(functions.config().stripe.secret_key);
@@ -69,8 +57,8 @@ exports.createStripeCheckout = functions.https.onCall(async (data, context) => {
     const sessionData = {
       payment_method_types: ["card"],
       mode: "payment",
-      success_url: successUrl,
-      cancel_url: cancelUrl,
+      success_url: "https://digi-mart.vercel.app/paymentsuccessful",
+      cancel_url: "https://digi-mart.vercel.app/cancelpayment",
       shipping_address_collection: {
         allowed_countries: ["US", "KH"],
       },
